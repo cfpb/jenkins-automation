@@ -26,6 +26,8 @@ def clone_repo(pinned_url, is_pinned, workspace_dir, path=None):
         cmd = 'git clone {0}'.format(url)
         subprocess.call(cmd.split(' '), cwd=repo_parent_dir)
     else:
+        cmd = 'git remote set-url origin {0}'.format(url)
+        subprocess.call(cmd.split(' '), cwd=repo_dir)
         cmd = 'git checkout master'
         subprocess.call(cmd.split(' '), cwd=repo_dir)
         cmd = 'git reset --hard'
