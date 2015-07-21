@@ -138,7 +138,7 @@ job('DSL Master') {
   multiscm {
     git {
       remote {
-        url('https://github.com/dgreisen-cfpb/jenkins-automation')
+        url('https://github.com/cfpb/jenkins-automation')
       }
       branch('*/master')
     }
