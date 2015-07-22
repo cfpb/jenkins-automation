@@ -74,7 +74,9 @@ Create a free-style job with the following configuration:
   - Source Control Management > Git > Repository Url: https://github.com/cfpb/jenkins-automation
   - Build Environment > Inject Environment Variables > Properties Content: 
 
-      JENKINS_AUTOMATION_PRIVATE_GIT_URL=https://github.com/<ORG>/jenkins-automation-private.git
+    ```
+    JENKINS_AUTOMATION_PRIVATE_GIT_URL=https://github.com/<ORG>/jenkins-automation-private.git
+    ```
 
   - Build > Process Job DSLs > Look on Filesystem > DSL Scripts: jenkins-bootstrap.groovy
 
