@@ -14,6 +14,10 @@ def get_proj_url(repo_url, workspace_dir):
 
 
 def get_project_repos(workspace_dir):
+    """ 
+    Loads all project repositories listed in jenkins-automation-private,
+    and any public project repositories specified in those repos
+    """
     repo_data = repos.load_repo_data('jenkins-automation-private', workspace_dir)
     repo_urls = repo_data['repositories']
     proj_urls = []

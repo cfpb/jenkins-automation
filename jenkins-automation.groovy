@@ -129,12 +129,13 @@ buildFlowJob('template-base-trigger') {
 }
 
 
-// ** DSL Master Job **
+// ** DSL Project Builder **
 // ********************
 projectRepos = readFileFromWorkspace("project_repos.txt").split('\n')
 
-job('DSL Master') {
+job('dsl-project-builder') {
   using 'template-base'
+  description('This job rebuilds all jobs defined in all jenkins.groovy files whenever any project repository changes.')
   multiscm {
     git {
       remote {
