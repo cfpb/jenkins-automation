@@ -1,98 +1,110 @@
-#### CFPB Open Source Project Template Instructions
+jenkins-automation
+==================
 
-1. Create a new project.
-2. Copy these files into the new project.
-3. Update the README, replacing the contents below as prescribed.
-4. Add any libraries, assets, or hard dependencies whose source code will be included
-   in the project's repository to the _Exceptions_ section in the [TERMS](TERMS.md).
-  - If no exceptions are needed, remove that section from TERMS.
-5. If working with an existing code base, answer the questions on the [open source checklist](opensource-checklist.md)
-6. Delete these instructions and everything up to the _Project Title_ from the README.
-7. Write some great software and tell people about it.
+Repos automated by Jenkins DSL 
 
-> Keep the README fresh! It's the first thing people see and will make the initial impression.
+Jenkins automation is a library of helper functions to make continuous integration and deploment easy. 
 
-----
+We use [Job DSL](https://github.com/jenkinsci/job-dsl-plugin/wiki) to automate.
+The `DSL Master` job will watch all listed repositories for changes, and rebuild all jobs defined in those repositories.
+To create Jenkins jobs for your project, you must create a `jenkins.groovy` file at the root of your project's primary repository.
+Then add your project's primary repo to the list of watched repos in your organization's `jenkins-automation-private` repository.
 
-# Project Title
+You should create your jobs using the templates defined in 
+[jenkins.groovy](https://github.com/cfpb/jenkins-automation/blob/master/jenkins.groovy).
 
-**Description**:  Put a meaningful, short, plain-language description of what
-this project is trying to accomplish and why it matters.
-Describe the problem(s) this project solves.
-Describe how this software can improve the lives of its audience.
+## How it works
 
-Other things to include:
+This repository defines two types of jobs in jenkins-automation.groovy:
 
-  - **Technology stack**: Indicate the technological nature of the software, including primary programming language(s) and whether the software is intended as standalone or as a module in a framework or other ecosystem.
-  - **Status**:  Alpha, Beta, 1.1, etc. It's OK to write a sentence, too. The goal is to let interested people know where this project is at. This is also a good place to link to the [CHANGELOG](CHANGELOG.md).
-  - **Links to production or demo instances**
-  - Describe what sets this apart from related-projects. Linking to another doc or page is OK if this can't be expressed in a sentence or two.
+- A `DSL Master` job: watches all your project repositories and builds all the jobs defined in those repositories' `jenkins.groovy` files`
+- A number of `template` jobs: these templates should be extended by `jenkins.groovy` files in your project repositories to reduce boilerplate.
 
+## Guiding principles
 
-**Screenshot**: If the software has visual components, place a screenshot after the description; e.g.,
+## Installation 
 
-![](https://raw.githubusercontent.com/cfpb/open-source-project-template/master/screenshot.png)
+### Required Jenkins Plugins
 
+- https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin
+- https://wiki.jenkins-ci.org/display/JENKINS/Build+Flow+Plugin
+- https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin
+- http://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
+- http://wiki.jenkins-ci.org/display/JENKINS/Multiple+SCMs+Plugin
+- http://wiki.jenkins-ci.org/display/JENKINS/NodeJS+Plugin
+- http://wiki.jenkins-ci.org/display/JENKINS/Clone+Workspace+SCM+Plugin
 
-## Dependencies
+### jenkins-automation-private repository
+`jenkins-automation` is all the tooling to create a continuous integration/deployment process for your organization.
+You need a way to specify all the projects that should be continuously integrated/deployed.
+`jenkins-automation-private` is the repository where you specify all these projects.
+It contains a single file listing all the projects that should be watched by jenkins.
+When your organization starts a new project,
+you add the root repo for the project to the `jenkins-automation-private` repo.
+All iteration of the deployment process then occurs in the root project repo owned by the project team,
+rather than `jenkins-automation-private`, owned by system engineering.
 
-Describe any dependencies that must be installed for this software to work.
-This includes programming languages, databases or other storage mechanisms, build tools, frameworks, and so forth.
-If specific versions of other software are required, or known not to work, call that out.
+You will need to create a `jenkins-automation-private` repository with the following structure:
 
-## Installation
+```
+  - jenkins-automation-private/
+    - repositories.yml
+    - README.md
+```
 
-Detailed instructions on how to install, configure, and get the project running.
-This should be frequently tested to ensure reliability. Alternatively, link to
-a separate [INSTALL](INSTALL.md) document.
+`repositories.yml` should have the following content:
 
-## Configuration
+```
+repositories:
+    - 'https://github.com/org/project-root-repo1'
+    - 'https://github.examplecom/org/project-root-repo2'
+```
 
-If the software is configurable, describe it in detail, either here or in other documentation to which you link.
+`README.md` should provide organization-specific guidance on how teams can add their project to this repo for continuous integration/delivery.
 
-## Usage
+### Job DSL Bootstrap
 
-Show users how to use the software.
-Be specific.
-Use appropriate formatting when showing code snippets.
+Once you have created your `jenkins-automation-private` repo,
+and installed all the required jenkins plugins,
+you need to create a "bootstrap" job in Jenkins to create the `dsl-master` job.
+Create a free-style job with the following configuration: 
 
-## How to test the software
+  - Project Name: dsl-bootstrap
+  - Description: This job needs to run only once to build the dsl-master job.
+  - Source Control Management > Git > Repository Url: https://github.com/cfpb/jenkins-automation
+  - Build Environment > Inject Environment Variables > Properties Content: 
 
-If the software includes automated tests, detail how to run those tests.
+    ```
+    JENKINS_AUTOMATION_PRIVATE_GIT_URL=https://github.com/<ORG>/jenkins-automation-private.git
+    ```
 
-## Known issues
+  - Build > Process Job DSLs > Look on Filesystem > DSL Scripts: jenkins-bootstrap.groovy
 
-Document any known significant shortcomings with the software.
+Manually run the bootstrap job.  This will create the `dsl-master` job.  
+The `dsl-master` job rebuilds `dsl-project-builder` whenever `jenkins-automation` or `jenkins-automation-private` changes.  The `dsl-project-builder` job rebuilds all jobs defined in all jenkins.groovy files whenever any project repository changes.
 
-## Getting help
+## Using Jenkins Automation
 
-Instruct users how to get help with this software; this might include links to an issue tracker, wiki, mailing list, etc.
+Jenkins Automation (JA) is built around the idea of a "project". A Project contains all the information needed to reproducibly deploy a software system.
 
-**Example**
+In order to create a project, you must define three things:
 
-If you have questions, concerns, bug reports, etc, please file an issue in this repository's Issue Tracker.
+  1. Source Code - Include the source code in your project repository or specify where to find your source code.
+  2. Deployment instructions - Define how to deploy your software to a server or set of servers. We use [Ansible](www.ansible.com) for this purpose, but you can use any configuration management solution.
+  3. Continuous Integration/Deployment configuration - Define what to test, when builds should fail, etc.
 
-## Getting involved
+It is important that we open source as much Source Code as possible, while ensuring the security and integrity of our network and systems.
+It is therefore possible to split a project between two Project Repositories, one public and one private.
+If others wish to contribute to your open source project, 
+they should be able to stand up a development environment without access to the private project repository.
+They should be able to stand up a production environment by creating their own private project repository.
 
-This section should detail why people should get involved and describe key areas you are
-currently focusing on; e.g., trying to get feedback on features, fixing certain bugs, building
-important pieces, etc.
+In the single repository model, the repository has the following structure:
 
-General instructions on _how_ to contribute should be stated with a link to [CONTRIBUTING](CONTRIBUTING.md).
+- project-repository/
+  - jenkins.groovy
+  - ansible/
+    group_vars/
+      all/
+        repositories.yml
 
-
-----
-
-## Open source licensing info
-1. [TERMS](TERMS.md)
-2. [LICENSE](LICENSE)
-3. [CFPB Source Code Policy](https://github.com/cfpb/source-code-policy/)
-
-
-----
-
-## Credits and references
-
-1. Projects that inspired you
-2. Related projects
-3. Books, papers, talks, or other sources that have meaniginful impact or influence on this project
