@@ -108,4 +108,3 @@ In the single repository model, the repository has the following structure:
       all/
         repositories.yml
 
-We use  for orchestration, though the jenkins-automation to is a compilation of code describing a set of servers, the relationship between those server
