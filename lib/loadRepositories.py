@@ -12,7 +12,7 @@ def print_msg(msg):
 
 def clone_repo(pinned_url, is_pinned, workspace_dir, path=None):
     url, version = pinned_url.split('@') if '@' in pinned_url else [pinned_url, None]
-    if pinned_url and not version:
+    if is_pinned and not version:
         raise Exception("You must explicitly pin a version (e.g. append `@v1.0`) to {0}".format(url))
     repo_parent_dir = os.path.join(workspace_dir, path) if path else workspace_dir
     repo_name = url.split('/')[4].replace(".git", "")
