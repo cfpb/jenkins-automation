@@ -15,12 +15,11 @@ job('template-base-js') {
   parameters {
     stringParam("WORKSPACE_BUILDER", "", "name of the workspace builder job from which to clone the workspace")
   }
-  
+  scm {
+    cloneWorkspace('$WORKSPACE_BUILDER')
+  }
   wrappers {
     nodejs('Node 0.12')
-  }
-  steps {
-    copyArtifacts('$WORKSPACE_BUILDER')
   }
 }
 
@@ -72,8 +71,10 @@ job('template-deploy') {
     choiceParam("INVENTORY_FILE", ["dev", "test", "prod"], "name of ansible inventory file to use for deployment")
     stringParam("WORKSPACE_BUILDER", "", "name of the workspace builder job from which to clone the workspace")
   }
+  scm {
+    cloneWorkspace('$WORKSPACE_BUILDER')
+  }
   steps {
-    copyArtifacts('$WORKSPACE_BUILDER')
     shell(
       '''
       # enable python virtualenv that has ansible already installed
@@ -97,10 +98,7 @@ job('template-workspace-builder-base') {
   }
 
   publishers {
-    archiveArtifacts {
-      pattern('**')
-      defaultExcludes(false)
-    }
+    publishCloneWorkspace('')
   }
 }
 
