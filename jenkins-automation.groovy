@@ -74,6 +74,7 @@ job('template-deploy') {
   scm {
     cloneWorkspace('$WORKSPACE_BUILDER')
   }
+  environmentVariables(['host_key_checking': 'False'])
   steps {
     shell(
       '''
