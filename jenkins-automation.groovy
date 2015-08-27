@@ -31,13 +31,8 @@ job('template-build-js') {
     shell(
       '''
       cd $DIR_TO_BUILD
-      if [ -f 'frontendbuild.sh' ]; then
-        ./frontendbuild.sh
-      else
-        npm install
-        npm run build
-      fi
-      '''
+             ./frontendbuild.sh
+            '''
     )
   }
   publishers {
@@ -54,12 +49,8 @@ job('template-test-js') {
     shell(
       '''
       cd $DIR_UNDER_TEST
-      if [ -f 'frontendtest.sh' ]; then
-        ./frontendtest.sh
-      else
-        npm install
-        npm test
-      fi
+      ./frontendtest.sh
+
       '''
     )
   }
