@@ -1,6 +1,3 @@
-package gov.cfpb
-
-
 class ScmUtils {
 
     static void addMultiScm(def job, String projectName, def orgName) {
