@@ -19,15 +19,14 @@ class ScmUtils {
         }
     }
 
-
     static void project_repos(context, repos) {
         context.with {
-            repoList.each { repo ->
+            repos.each { repo ->
                 git {
                     remote {
-                        url(repo.repoUrl)
+                        url(repo.url)
                     }
-                    relativeTargetDir(repo.repoName)
+                    relativeTargetDir(repo.name)
                 }
             }
         }
