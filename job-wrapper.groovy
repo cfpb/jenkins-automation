@@ -1,21 +1,19 @@
-static void buildWorkSpace(def job, String projectName, def orgName) {
+import gov.cfpb.ScmUtils
 
-    def privateRepoUrl = "https://github.com/$orgName/$projectName"
-    def repoList = [[repoUrl = 'test1', repoName = 'foo']]
-    job.with {
-        multiscm {
-            repoList.each { repo ->
-                git {
-                    remote {
-                        url(repo.repoUrl)
-                    }
-                    relativeTargetDir(repo.repoName)
-                }
-            }
+
+def myJob = job('example'){
+
+}
+
+addMultiScm(myJob, projectName='collab', orgName='cfpb')
+
+job('example') {
+    description('some project')
+    multiscm {
+        ScmUtils.project_repos delegate, ['collab', 'cfpb', 'etc']
+        git {
 
         }
     }
-}
 
-def myJob = job('example')
-buildWorkSpace(myJob, 'collab', 'cfpb')
+}
