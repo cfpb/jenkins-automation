@@ -4,7 +4,7 @@ job('dsl-master') {
   multiscm {
     git {
       remote {
-        url('https://github.com/cfpb/jenkins-automation')
+        url('https://github.com/Ooblioob/jenkins-automation')
       }
       branch('*/master')
       relativeTargetDir('jenkins-automation')

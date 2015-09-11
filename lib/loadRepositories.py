@@ -52,8 +52,12 @@ def read_repo_data(repo_name, workspace_dir):
             repo_data = yaml.load(f)
     except IOError:
         repo_data_path = os.path.join(repo_path, 'repositories.yml')
-        with open(repo_data_path, 'r') as f:
-            repo_data = yaml.load(f)
+        try:
+            with open(repo_data_path, 'r') as f:
+                repo_data = yaml.load(f)
+        except IOError: 
+            return {}   # Ok to ignore, repo may not have a repositories.yml file
+
     return repo_data
 
 
