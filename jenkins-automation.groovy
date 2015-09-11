@@ -63,6 +63,32 @@ job('template-test-js') {
   }
 }
 
+job('template-django-unit-test') {
+  using 'template-base'
+
+  steps {
+    shell("""\
+$CREATE_AND_ACTIVATE_VIRTUAL_ENV
+
+pip install -r requirements.txt
+python manage.py test
+    """)
+  }
+
+  publishers {
+    archiveXUnit {
+      jUnit {
+        pattern("**/reports/junit.xml")
+      }
+    }
+    allowBrokenBuildClaiming()
+    cobertura("**/reports/coverage.xml") {
+      failNoReports(true)
+    }
+  }
+
+}
+
 job('template-deploy') {
   using 'template-base'
 
@@ -170,7 +196,7 @@ job('dsl-project-builder') {
   multiscm {
     git {
       remote {
-        url('https://github.com/cfpb/jenkins-automation')
+        url('https://github.com/Ooblioob/jenkins-automation')
       }
       branch('*/master')
     }
