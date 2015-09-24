@@ -173,6 +173,11 @@ behave -k -f=plain --logging-level=INFO --junit --junit-directory=test-results \
 }
 
 // ** build flows **
+//
+// Requires: 
+// - FAILURE_EMAILS: a string of email addresses separated by comma,
+//   notification will be sent to these email addresses when a failure occurs
+//   
 // *****************
 
 buildFlowJob('template-base-build-flow') {
@@ -183,8 +188,18 @@ buildFlowJob('template-base-build-flow') {
   configure { node ->
     node / buildNeedsWorkspace('true')
   }
-}
 
+  publishers {
+    aggregateBuildFlowTests()
+    allowBrokenBuildClaiming()
+    extendedEmail('$FAILURE_EMAILS') {
+      trigger('Failure')
+      configure { node ->
+                  node / replyTo('$DEFAULT_REPLYTO')
+      }
+    }
+  }
+}
 
 // ** DSL Project Builder **
 // ********************
