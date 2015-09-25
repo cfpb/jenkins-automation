@@ -1,18 +1,16 @@
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
-
+import ScmUtils
 class JsJobBuilder {
 
     String name
     String description
-    String ownerAndProject
     String gitBranch = 'master'
     String pollScmSchedule = '@daily'
     String tasks
-    String switches
-    Boolean useWrapper = true
     String junitResults = '**/build/test-results/*.xml'
     String artifacts = 'dist/'
+    List<String> emails
     def repos =[];
 
 
