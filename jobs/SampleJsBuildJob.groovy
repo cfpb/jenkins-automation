@@ -11,10 +11,10 @@ folder(basePath) {
     description 'This example shows how to create jobs using Job builders.'
 }
 
-new GrailsCiJobBuilder(
+new JsJobBuilder(
         name: "$basePath/grails-project1",
         description: 'An example using a job builder for a Grails project.',
         repos: repos,
-        emails: developers,
+        emails: developers
 ).build(this)
 
