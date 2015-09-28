@@ -19,6 +19,9 @@ job('template-base') {
     colorizeOutput()
   }
 
+  logRotator {
+    numToKeep(10)
+  }
   // handle failure
 }
 
@@ -89,7 +92,7 @@ python manage.py test
 
 }
 
-job('template-deploy') {
+job('template-deploy-ansible') {
   using 'template-base'
 
   steps {
@@ -166,6 +169,54 @@ behave -k -f=plain --logging-level=INFO --junit --junit-directory=test-results \
     archiveXUnit {
       jUnit {
         pattern("**/test-results/TESTS-*.xml")
+      }
+    }
+    allowBrokenBuildClaiming()
+  }
+}
+
+
+// Requires: 
+// - BASE_URL: the starting url of your application
+//
+job('template-bdd-security'){
+  using 'template-base'
+
+  configure { node ->
+    node / assignedNode('bdd-security')
+  }
+
+  // The CFPB use an internally modified version of BDD Security
+  // but feel free to uncomment and use the open source version
+  // from Continuum Security: http://www.continuumsecurity.net/bdd-intro.html
+  // scm {
+  //   git('https://github.com/continuumsecurity/bdd-security', '*/master')
+  // }
+  scm {
+    git('$BDD_SECURITY_REPO', '*/master')
+  }
+
+  steps {
+    shell("""
+umask 002
+
+/usr/bin/Xvfb :1 -ac -screen 0 1024x768x24 &
+sleep 10
+export DISPLAY=:1
+
+sed -i 's/<zapPath>.*<\/zapPath>/<zapPath>\/var\/lib\/jenkins\/workspace\/'\${JOB_NAME}'\/zap\/zap.sh<\/zapPath>/g' config.xml
+sed -i 's/<baseUrl><\/baseUrl>/<baseUrl>\$BASE_URL<\/baseUrl>/g' config.xml
+
+ant resolve
+
+ant jbehave.run
+    """)
+  }
+
+  publishers {
+    archiveXUnit {
+      jUnit {
+        pattern("reports/latest/*.xml")
       }
     }
     allowBrokenBuildClaiming()
