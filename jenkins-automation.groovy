@@ -264,35 +264,36 @@ buildFlowJob('template-base-build-flow') {
 
 // ** DSL Project Builder **
 // ********************
-projectRepos = readFileFromWorkspace("project_repos.txt").split('\n')
-
-job('dsl-project-builder') {
-  using 'template-base'
-  description('This job rebuilds all jobs defined in all jenkins.groovy files whenever any project repository changes.')
-  multiscm {
-    git {
-      remote {
-        url('https://github.com/Ooblioob/jenkins-automation')
-      }
-      branch('*/master')
-    }
-    projectRepos.each { repo ->
-      git {
-        remote {
-          url(repo)
-        }
-        branch('*/master')
-        relativeTargetDir(repo.split('/')[4])
-      }
-    }
-  }
-
-  steps {
-    dsl {
-      external(['**/jenkins.groovy'])
-      additionalClasspath('lib/*.jar')
-      removeAction('DISABLE')
-    }
-  }
-}
-
+// projectRepos = readFileFromWorkspace("project_repos.txt").split('\n')
+// 
+// job('dsl-project-builder') {
+//   using 'template-base'
+//   description('This job rebuilds all jobs defined in all jenkins.groovy files whenever any project repository changes.')
+//   multiscm {
+//     git {
+//       remote {
+//         url('https://github.com/Ooblioob/jenkins-automation')
+//       }
+//       branch('*/master')
+//     }
+//     projectRepos.each { repo ->
+//       git {
+//         remote {
+//           url(repo)
+//         }
+//         branch('*/master')
+//         relativeTargetDir(repo.split('/')[4])
+//       }
+//     }
+//   }
+// 
+//   steps {
+//     dsl {
+//       external(['**/jenkins.groovy'])
+//       additionalClasspath('lib/*.jar')
+//       removeAction('DISABLE')
+//     }
+//   }
+// }
+// 
+// 
