@@ -197,15 +197,15 @@ job('template-bdd-security'){
   }
 
   steps {
-    shell("""
+    shell("""\
 umask 002
 
 /usr/bin/Xvfb :1 -ac -screen 0 1024x768x24 &
 sleep 10
 export DISPLAY=:1
 
-sed -i 's/<zapPath>.*<\/zapPath>/<zapPath>\/var\/lib\/jenkins\/workspace\/'\${JOB_NAME}'\/zap\/zap.sh<\/zapPath>/g' config.xml
-sed -i 's/<baseUrl><\/baseUrl>/<baseUrl>\$BASE_URL<\/baseUrl>/g' config.xml
+sed -i 's/<zapPath>.*<\\/zapPath>/<zapPath>\\/var\\/lib\\/jenkins\\/workspace\\/'\${JOB_NAME}'\\/zap\\/zap.sh<\\/zapPath>/g' config.xml
+sed -i 's/<baseUrl><\\/baseUrl>/<baseUrl>\$BASE_URL<\\/baseUrl>/g' config.xml
 
 ant resolve
 
@@ -214,12 +214,22 @@ ant jbehave.run
   }
 
   publishers {
-    archiveXUnit {
-      jUnit {
-        pattern("reports/latest/*.xml")
-      }
-    }
+    
     allowBrokenBuildClaiming()
+  }
+  configure { node -> 
+    node / publishers / xunit {
+      types {
+        JBehavePluginType {
+          pattern 'reports/latest/*.xml'
+          failIfNotNew false
+          deleteOutputFiles false
+          stopProcessingIfError false
+        }
+      }
+      thresholds ""
+      thresholdMode 1
+    }
   }
 }
 
