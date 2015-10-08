@@ -23,16 +23,15 @@ class ScmUtils {
         context.with {
             repos.each { repo ->
                 def parsed_out_url = repo.url.tokenize('@')
-                assert parsed_out_url.size() == 2
 
-                def url = parsed_out_url[0]
-                print url
+                def parsed_url = parsed_out_url[0]
+
                 def version = parsed_out_url[1]
                 git {
                     remote {
-                        url(url)
+                        url(parsed_url)
                     }
-                    if (use_versions) {
+                    if (use_versions && version!=null) {
                         branch("*/tags/$version")
                     }
                     relativeTargetDir(repo.name)
