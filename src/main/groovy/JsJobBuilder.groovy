@@ -11,8 +11,9 @@ class JsJobBuilder {
     String junitResults = '**/build/test-results/*.xml'
     String artifacts = 'dist/'
     List<String> emails
-    def repos =[];
+    Boolean use_versions
 
+    def repos =[];
 
     Job build(DslFactory dslFactory) {
         dslFactory.job(name) {
@@ -23,7 +24,7 @@ class JsJobBuilder {
             }
 
             multiscm {
-                ScmUtils.project_repos(delegate, this.repos)
+                ScmUtils.project_repos(delegate, this.repos, use_versions)
             }
 
             triggers {
