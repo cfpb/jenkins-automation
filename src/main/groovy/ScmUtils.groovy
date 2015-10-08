@@ -26,6 +26,7 @@ class ScmUtils {
                 assert parsed_out_url.size() == 2
 
                 def url = parsed_out_url[0]
+                print url
                 def version = parsed_out_url[1]
                 git {
                     remote {
