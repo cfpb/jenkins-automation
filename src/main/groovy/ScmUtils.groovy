@@ -23,7 +23,7 @@ class ScmUtils {
         context.with {
             repos.each { repo ->
                 def parsed_out_url = repo.url.tokenize('@')
-                assert parsed_out_url.length == 2
+                assert parsed_out_url.size() == 2
 
                 def url = parsed_out_url[0]
                 def version = parsed_out_url[1]
