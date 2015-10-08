@@ -32,7 +32,7 @@ class ScmUtils {
                     remote {
                         url(url)
                     }
-                    if (version) {
+                    if (use_versions) {
                         branch("*/tags/$version")
                     }
                     relativeTargetDir(repo.name)
