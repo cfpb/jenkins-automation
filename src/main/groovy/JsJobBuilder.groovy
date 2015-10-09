@@ -1,6 +1,8 @@
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 import ScmUtils
+import BaseJobBuilder
+
 class JsJobBuilder {
 
     String name
@@ -13,13 +15,13 @@ class JsJobBuilder {
     List<String> emails
     Boolean use_versions
 
-    def repos =[];
+    def repos = [];
 
     Job build(DslFactory dslFactory) {
         dslFactory.job(name) {
             it.description this.description
+            BaseJobBuilder.addBaseStuff(delegate, this.emails)
             wrappers {
-                colorizeOutput()
                 nodejs('Node 0.12')// pass in the version?
             }
 
@@ -40,10 +42,9 @@ class JsJobBuilder {
             }
             publishers {
                 archiveArtifacts artifacts
-                if (emails) {
-                    mailer emails.join(' ')
-                }
             }
+
         }
     }
 }
+
