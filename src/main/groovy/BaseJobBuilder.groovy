@@ -9,7 +9,7 @@ class BaseJobBuilder {
         }
     }
 
-     def addBaseStuff(context, emails) {
+     static void addBaseStuff(context, emails) {
         context.with{
             wrapper{
                 addColorizeOutput(delegate)
