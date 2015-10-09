@@ -13,7 +13,7 @@ class FlowJobBuilder {
             String jobsToBuild =""
 
             jobs.each {jobName->
-                jobsToBuild+= "build('${jobName}')"
+                jobsToBuild+= "build('${jobName}') \r\n"
             }
             buildFlow(jobsToBuild)
         }
