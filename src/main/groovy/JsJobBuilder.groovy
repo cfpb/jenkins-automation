@@ -17,10 +17,18 @@ class JsJobBuilder {
 
     def repos = [];
 
-    Job build(DslFactory dslFactory) {
-        dslFactory.job(name) {
-            it.description this.description
-            BaseJobBuilder.addBaseStuff(delegate, this.emails)
+    Job build(DslFactory factory) {
+
+        def baseJob = new BaseJobBuilder(
+                name: this.name,
+                description: this.description,
+                emails: this.emails,
+                use_versions: this.use_versions,
+//        some more testparams
+        ).build(this)
+
+
+        baseJob.with {
             wrappers {
                 nodejs('Node 0.12')// pass in the version?
             }
@@ -32,6 +40,7 @@ class JsJobBuilder {
             triggers {
                 scm pollScmSchedule
             }
+
             steps {
                 shell( //we can potentially pass those in as well - $DIR_TO_BUILD and build script name
                         '''
@@ -40,6 +49,7 @@ class JsJobBuilder {
                         '''
                 )
             }
+
             publishers {
                 archiveArtifacts artifacts
             }
