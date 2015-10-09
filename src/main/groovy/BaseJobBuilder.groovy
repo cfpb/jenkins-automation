@@ -1,8 +1,6 @@
 import javaposse.jobdsl.dsl.DslFactory
 class BaseJobBuilder {
 
-    List<String> emails
-
 
     static void addColorizeOutput(context){
 
@@ -11,7 +9,7 @@ class BaseJobBuilder {
         }
     }
 
-     def addBaseStuff(context) {
+     def addBaseStuff(context, emails) {
         context.with{
             wrapper{
                 addColorizeOutput(delegate)
@@ -20,7 +18,7 @@ class BaseJobBuilder {
                 numToKeep(10)
             }
             publishers{
-                mailer this.emails.join(' ')
+                mailer emails.join(' ')
             }
         }
 
