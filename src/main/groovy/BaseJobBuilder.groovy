@@ -11,7 +11,7 @@ class BaseJobBuilder {
 
      static void addBaseStuff(context, emails) {
         context.with{
-            wrapper{
+            wrappers{
                 addColorizeOutput(delegate)
             }
             logRotator {
