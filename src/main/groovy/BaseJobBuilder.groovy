@@ -11,7 +11,7 @@ class BaseJobBuilder {
         }
     }
 
-    static def addBaseStuff(context) {
+     def addBaseStuff(context) {
         context.with{
             wrapper{
                 addColorizeOutput(delegate)
