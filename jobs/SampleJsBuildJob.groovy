@@ -16,7 +16,6 @@ new JsJobBuilder(
         description: 'An example using a job builder for a Javascript build jobs project.',
         repos: repos,
         emails: developers,
-        use_versions: true,
-        logRotator: false
+        use_versions: true
 ).build(this)
 
