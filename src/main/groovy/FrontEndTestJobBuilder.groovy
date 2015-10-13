@@ -1,4 +1,4 @@
-import  JsJobBuilder
+import JsJobBuilder
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
@@ -13,21 +13,29 @@ class FrontEndTestJobBuilder {
     String artifacts = 'dist/'
     List<String> emails
     Boolean use_versions
+    def repos;
 
+    Job build(DslFactory factory) {
 
-    Job build(DslFactory factory ){
-
-        Job job= new JsJobBuilder(
-                name: "$basePath/SampleJob1",
-                description: 'An example using a job builder for a Javascript build jobs project.',
-                repos: repos,
-                emails: developers,
+        Job job = new JsJobBuilder(
+                name: "$basePath/$this.name",
+                description: this.description,
+                repos: this.repos,
+                emails: this.emails,
                 use_versions: true
         ).build(this)
 
-        job.with{
+        job.with {
 
-//            passing test_stuff
+            steps {
+                shell(
+                        '''
+                              cd $DIR_UNDER_TEST
+                              ./frontendtest.sh
+
+                              '''
+                )
+            }
+      }
         }
     }
-}
