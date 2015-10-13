@@ -15,12 +15,12 @@ folder(basePath) {
 //opting A
 
 
-new FrontEndTestJobBuilder(
+new JsJobBuilder(
         name: "$basePath/SampleJob1",
         description: 'An example using a job builder for a Javascript build jobs project.',
         repos: repos,
         emails: developers,
-        use_versions: true,
+        use_versions: true
 //        some more testparams
 ).build(this)
 

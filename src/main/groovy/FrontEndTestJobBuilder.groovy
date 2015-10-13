@@ -17,7 +17,7 @@ class FrontEndTestJobBuilder {
 
     Job build(DslFactory factory) {
 
-        Job job = new JsJobBuilder(
+        def job = new JsJobBuilder(
                 name: this.name,
                 description: this.description,
                 repos: this.repos,
