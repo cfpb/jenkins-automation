@@ -18,7 +18,7 @@ class FrontEndTestJobBuilder {
     Job build(DslFactory factory) {
 
         Job job = new JsJobBuilder(
-                name: "$basePath/${this.name}",
+                name: this.name,
                 description: this.description,
                 repos: this.repos,
                 emails: this.emails,
