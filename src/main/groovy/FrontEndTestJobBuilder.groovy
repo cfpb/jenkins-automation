@@ -25,17 +25,17 @@ class FrontEndTestJobBuilder {
                 use_versions: true
         ).build(factory)
 
-        job.with {
-
-            steps {
-                shell(
-                        '''
-                              cd $DIR_UNDER_TEST
-                              ./frontendtest.sh
-
-                              '''
-                )
-            }
-      }
-        }
+//        job.with {
+//
+//            steps {
+//                shell(
+//                        '''
+//                              cd $DIR_UNDER_TEST
+//                              ./frontendtest.sh
+//
+//                              '''
+//                )
+//            }
+//        }
     }
+}
