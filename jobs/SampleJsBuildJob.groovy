@@ -15,8 +15,8 @@ folder(basePath) {
 //opting A
 
 
-new JsJobBuilder(
-        name: "$basePath/SampleJob1",
+new FrontEndTestJobBuilder(
+        name: "$basePath/BuilderVsBuilders",
         description: 'An example using a job builder for a Javascript build jobs project.',
         repos: repos,
         emails: developers,

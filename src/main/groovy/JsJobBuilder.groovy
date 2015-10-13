@@ -25,7 +25,7 @@ class JsJobBuilder {
                 emails: this.emails,
                 use_versions: this.use_versions,
 //        some more testparams
-        ).build(this)
+        ).build(factory)
 
 
         baseJob.with {

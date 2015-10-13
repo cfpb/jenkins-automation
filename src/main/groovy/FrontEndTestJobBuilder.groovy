@@ -23,7 +23,7 @@ class FrontEndTestJobBuilder {
                 repos: this.repos,
                 emails: this.emails,
                 use_versions: true
-        ).build(this)
+        ).build(factory)
 
         job.with {
 
