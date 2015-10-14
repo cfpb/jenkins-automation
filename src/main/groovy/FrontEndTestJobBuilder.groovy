@@ -17,7 +17,7 @@ class FrontEndTestJobBuilder {
 
     Job build(DslFactory factory) {
 
-        Job job = new JsJobBuilder(
+        Job jsJob = new JsJobBuilder(
                 name: this.name,
                 description: this.description,
                 repos: this.repos,
@@ -25,9 +25,10 @@ class FrontEndTestJobBuilder {
                 use_versions: true
         ).build(factory)
 
-        job.with {
+        print jsJob
 
-            steps {
+        jsJob.steps {
+
                 shell(
                         '''
                               cd $DIR_UNDER_TEST
@@ -36,6 +37,6 @@ class FrontEndTestJobBuilder {
                               '''
                 )
             }
-        }
+
     }
 }
