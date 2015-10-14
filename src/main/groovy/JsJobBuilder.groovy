@@ -55,6 +55,8 @@ class JsJobBuilder {
             }
 
         }
+
+        baseJob
     }
 }
 
