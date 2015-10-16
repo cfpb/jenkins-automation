@@ -1,6 +1,8 @@
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 import ScmUtils
+import BaseJobBuilder
+
 class JsJobBuilder {
 
     String name
@@ -11,24 +13,34 @@ class JsJobBuilder {
     String junitResults = '**/build/test-results/*.xml'
     String artifacts = 'dist/'
     List<String> emails
-    def repos =[];
+    Boolean use_versions
+
+    def repos = [];
+
+    Job build(DslFactory factory) {
+
+        def baseJob = new BaseJobBuilder(
+                name: this.name,
+                description: this.description,
+                emails: this.emails,
+                use_versions: this.use_versions,
+//        some more testparams
+        ).build(factory)
 
 
-    Job build(DslFactory dslFactory) {
-        dslFactory.job(name) {
-            it.description this.description
+        baseJob.with {
             wrappers {
-                colorizeOutput()
                 nodejs('Node 0.12')// pass in the version?
             }
 
             multiscm {
-                ScmUtils.project_repos(delegate, this.repos)
+                ScmUtils.project_repos(delegate, this.repos, use_versions)
             }
 
             triggers {
                 scm pollScmSchedule
             }
+
             steps {
                 shell( //we can potentially pass those in as well - $DIR_TO_BUILD and build script name
                         '''
@@ -37,12 +49,14 @@ class JsJobBuilder {
                         '''
                 )
             }
+
             publishers {
                 archiveArtifacts artifacts
-                if (emails) {
-                    mailer emails.join(' ')
-                }
             }
+
         }
+
+        baseJob
     }
 }
+
