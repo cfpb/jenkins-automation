@@ -13,7 +13,10 @@ Then add your project's primary repo to the list of watched repos in your organi
 You should create your jobs using the templates defined in 
 [jenkins.groovy](https://github.com/cfpb/jenkins-automation/blob/master/jenkins.groovy).
 
-## How it works
+## How it works  -DEPRECATED
+### We have significantly pivoted the direction of this project. The docs below are outdated and we are working on updating them 
+
+### If you would like to get started on it for your project please talk to @imuchnik. 
 
 This repository defines two types of jobs in jenkins-automation.groovy:
 
