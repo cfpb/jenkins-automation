@@ -12,7 +12,6 @@ def repos = [
 folder(basePath) {
     description 'This example shows how to create jobs using Job builders.'
 }
-//opting A
 
 
 new FrontEndTestJobBuilder(
