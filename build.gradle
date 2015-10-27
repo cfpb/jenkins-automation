@@ -1,15 +1,13 @@
-group 'gov.cfpb'
-version '1.0-SNAPSHOT'
+apply plugin: 'groovy'
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.2'
-    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+sourceSets {
+    jobs {
+        groovy {
+            srcDirs 'jobs'
+        }
+    }
 }
 
-apply plugin: 'groovy'
-apply plugin: 'java'
-
-sourceCompatibility = 1.5
 
 repositories {
     mavenCentral()
@@ -18,13 +16,19 @@ repositories {
 }
 
 dependencies {
-    compile gradleApi()
+//    compile gradleApi()
     compile 'org.ini4j:ini4j:0.5.1'
     compile "org.yaml:snakeyaml:1.10"
+
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+//    testCompile group: 'junit', name: 'junit', version: '4.11'
+
     compile 'org.jenkins-ci.plugins:job-dsl-core:1.37'
     testCompile('org.spockframework:spock-core:0.7-groovy-2.0') {
         exclude module: 'groovy-all'
     }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
 }
