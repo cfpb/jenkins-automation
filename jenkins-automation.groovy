@@ -19,6 +19,9 @@ job('template-base') {
     colorizeOutput()
   }
 
+  logRotator {
+    numToKeep(10)
+  }
   // handle failure
 }
 
@@ -89,7 +92,7 @@ python manage.py test
 
 }
 
-job('template-deploy') {
+job('template-deploy-ansible') {
   using 'template-base'
 
   steps {
@@ -172,6 +175,64 @@ behave -k -f=plain --logging-level=INFO --junit --junit-directory=test-results \
   }
 }
 
+
+// Requires: 
+// - BASE_URL: the starting url of your application
+//
+job('template-bdd-security'){
+  using 'template-base'
+
+  configure { node ->
+    node / assignedNode('bdd-security')
+  }
+
+  // The CFPB use an internally modified version of BDD Security
+  // but feel free to uncomment and use the open source version
+  // from Continuum Security: http://www.continuumsecurity.net/bdd-intro.html
+  // scm {
+  //   git('https://github.com/continuumsecurity/bdd-security', '*/master')
+  // }
+  scm {
+    git('$BDD_SECURITY_REPO', '*/master')
+  }
+
+  steps {
+    shell("""\
+umask 002
+
+/usr/bin/Xvfb :1 -ac -screen 0 1024x768x24 &
+sleep 10
+export DISPLAY=:1
+
+sed -i 's/<zapPath>.*<\\/zapPath>/<zapPath>\\/var\\/lib\\/jenkins\\/workspace\\/'\${JOB_NAME}'\\/zap\\/zap.sh<\\/zapPath>/g' config.xml
+sed -i 's/<baseUrl><\\/baseUrl>/<baseUrl>\$BASE_URL<\\/baseUrl>/g' config.xml
+
+ant resolve
+
+ant jbehave.run
+    """)
+  }
+
+  publishers {
+    
+    allowBrokenBuildClaiming()
+  }
+  configure { node -> 
+    node / publishers / xunit {
+      types {
+        JBehavePluginType {
+          pattern 'reports/latest/*.xml'
+          failIfNotNew false
+          deleteOutputFiles false
+          stopProcessingIfError false
+        }
+      }
+      thresholds ""
+      thresholdMode 1
+    }
+  }
+}
+
 // ** build flows **
 //
 // Requires: 
@@ -203,35 +264,36 @@ buildFlowJob('template-base-build-flow') {
 
 // ** DSL Project Builder **
 // ********************
-projectRepos = readFileFromWorkspace("project_repos.txt").split('\n')
-
-job('dsl-project-builder') {
-  using 'template-base'
-  description('This job rebuilds all jobs defined in all jenkins.groovy files whenever any project repository changes.')
-  multiscm {
-    git {
-      remote {
-        url('https://github.com/Ooblioob/jenkins-automation')
-      }
-      branch('*/master')
-    }
-    projectRepos.each { repo ->
-      git {
-        remote {
-          url(repo)
-        }
-        branch('*/master')
-        relativeTargetDir(repo.split('/')[4])
-      }
-    }
-  }
-
-  steps {
-    dsl {
-      external(['**/jenkins.groovy'])
-      additionalClasspath('lib/*.jar')
-      removeAction('DISABLE')
-    }
-  }
-}
-
+// projectRepos = readFileFromWorkspace("project_repos.txt").split('\n')
+// 
+// job('dsl-project-builder') {
+//   using 'template-base'
+//   description('This job rebuilds all jobs defined in all jenkins.groovy files whenever any project repository changes.')
+//   multiscm {
+//     git {
+//       remote {
+//         url('https://github.com/Ooblioob/jenkins-automation')
+//       }
+//       branch('*/master')
+//     }
+//     projectRepos.each { repo ->
+//       git {
+//         remote {
+//           url(repo)
+//         }
+//         branch('*/master')
+//         relativeTargetDir(repo.split('/')[4])
+//       }
+//     }
+//   }
+// 
+//   steps {
+//     dsl {
+//       external(['**/jenkins.groovy'])
+//       additionalClasspath('lib/*.jar')
+//       removeAction('DISABLE')
+//     }
+//   }
+// }
+// 
+// 
