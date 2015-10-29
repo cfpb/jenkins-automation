@@ -1,35 +1,1 @@
-import FlowJobBuilder
-
-)def cfGovDeployJob = new FlowJobBuilder(
-        name: 'cf.gov',
-5        description: 'CF.gov master build flow job',
-        jobs: []
-).build(this)
-
-
-cfGovDeployJob.parameters {
-)    booleanParam('DEPLOY_DJANGO', false)
-%    booleanParam('DEPLOY_WP', false)
-    choiceParam('OPTION',
-            [
-                    'Staging',
-4                    '***PRODUCTION(cfproweb01)***',
-5                    '*** PRODUCTION(cfproweb02)*** '
-            ])
-}
-cfGovDeployJob.buildFlow('''
-+            build("cf.gov-pfc-grunt-test")
->            if (params.get("DEPLOY_DJANGO").equals("true")) {
-:                //build("cf.gov-django-dev-build-master")
-X                build("cf.gov-fab-deploy-django", DEPLOY_ENV: params.get("DEPLOY_ENV"))
-            }
-
-:            if (params.get("DEPLOY_WP").equals("true")) {
-7                //build("cf.gov-wordpress-unit-tests")
-[                build("cf.gov-fab-deploy-wordpress", DEPLOY_ENV: params.get("DEPLOY_ENV"))
-            }
-
-/            // Run load tests after deployment
-3            //build("cf.gov-load-test-production")
-V            build("cf.gov-postdeploy-smoketests", TEST_ENV: params.get("DEPLOY_ENV"))
-	    ''')
+Processing provided DSL script

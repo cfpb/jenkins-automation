@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">0</div>
+<div class="counter">1</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.098s</div>
+<div class="counter">1.031s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox success" id="successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures" id="successRate">
+<div class="percent">0%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,13 +61,266 @@
 <div id="tabs">
 <ul class="tabLinks">
 <li>
-<a href="#tab0">Tests</a>
+<a href="#tab0">Failed tests</a>
 </li>
 <li>
-<a href="#tab1">Standard output</a>
+<a href="#tab1">Tests</a>
+</li>
+<li>
+<a href="#tab2">Standard output</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="test cf.gov flow build job"></a>
+<h3 class="failures">test cf.gov flow build job</h3>
+<span class="code">
+<pre>Condition not satisfied:
+
+result[0].xml==expected
+|     |   |  | |
+|     |   |  | &lt;com.cloudbees.plugins.flow.BuildFlow plugin=&quot;build-flow-plugin@0.17&quot;&gt;
+|     |   |  |     &lt;actions/&gt;
+|     |   |  |     &lt;description/&gt;
+|     |   |  |     &lt;keepDependencies&gt;false&lt;/keepDependencies&gt;
+|     |   |  |     &lt;properties&gt;
+|     |   |  |         &lt;com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty plugin=&quot;build-failure-analyzer@1.11.0&quot;&gt;
+|     |   |  |             &lt;doNotScan&gt;false&lt;/doNotScan&gt;
+|     |   |  |         &lt;/com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty&gt;
+|     |   |  |         &lt;org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl plugin=&quot;html5-notifier-plugin@1.3&quot;&gt;
+|     |   |  |             &lt;skip&gt;false&lt;/skip&gt;
+|     |   |  |         &lt;/org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl&gt;
+|     |   |  |         &lt;hudson.model.ParametersDefinitionProperty&gt;
+|     |   |  |             &lt;parameterDefinitions&gt;
+|     |   |  |                 &lt;hudson.model.ChoiceParameterDefinition&gt;
+|     |   |  |                     &lt;name&gt;DEPLOY_ENV&lt;/name&gt;
+|     |   |  |                     &lt;description/&gt;
+|     |   |  |                     &lt;choices class=&quot;java.util.Arrays$ArrayList&quot;&gt;
+|     |   |  |                         &lt;a class=&quot;string-array&quot;&gt;
+|     |   |  |                             &lt;string&gt;Staging&lt;/string&gt;
+|     |   |  |                             &lt;string&gt;***PRODUCTION(cfproweb01)***&lt;/string&gt;
+|     |   |  |                             &lt;string&gt;***PRODUCTION(cfproweb02)***&lt;/string&gt;
+|     |   |  |                         &lt;/a&gt;
+|     |   |  |                     &lt;/choices&gt;
+|     |   |  |                 &lt;/hudson.model.ChoiceParameterDefinition&gt;
+|     |   |  |                 &lt;hudson.model.BooleanParameterDefinition&gt;
+|     |   |  |                     &lt;name&gt;DEPLOY_DJANGO&lt;/name&gt;
+|     |   |  |                     &lt;description/&gt;
+|     |   |  |                     &lt;defaultValue&gt;false&lt;/defaultValue&gt;
+|     |   |  |                 &lt;/hudson.model.BooleanParameterDefinition&gt;
+|     |   |  |                 &lt;hudson.model.BooleanParameterDefinition&gt;
+|     |   |  |                     &lt;name&gt;DEPLOY_WP&lt;/name&gt;
+|     |   |  |                     &lt;description/&gt;
+|     |   |  |                     &lt;defaultValue&gt;false&lt;/defaultValue&gt;
+|     |   |  |                 &lt;/hudson.model.BooleanParameterDefinition&gt;
+|     |   |  |             &lt;/parameterDefinitions&gt;
+|     |   |  |         &lt;/hudson.model.ParametersDefinitionProperty&gt;
+|     |   |  |         &lt;hudson.plugins.disk__usage.DiskUsageProperty plugin=&quot;disk-usage@0.24&quot;/&gt;
+|     |   |  |     &lt;/properties&gt;
+|     |   |  |     &lt;scm class=&quot;hudson.scm.NullSCM&quot;/&gt;
+|     |   |  |     &lt;canRoam&gt;true&lt;/canRoam&gt;
+|     |   |  |     &lt;disabled&gt;false&lt;/disabled&gt;
+|     |   |  |     &lt;blockBuildWhenDownstreamBuilding&gt;false&lt;/blockBuildWhenDownstreamBuilding&gt;
+|     |   |  |     &lt;blockBuildWhenUpstreamBuilding&gt;false&lt;/blockBuildWhenUpstreamBuilding&gt;
+|     |   |  |     &lt;triggers/&gt;
+|     |   |  |     &lt;concurrentBuild&gt;false&lt;/concurrentBuild&gt;
+|     |   |  |     &lt;builders/&gt;
+|     |   |  |     &lt;publishers&gt;
+|     |   |  |         &lt;hudson.plugins.claim.ClaimPublisher plugin=&quot;claim@2.5&quot;/&gt;
+|     |   |  |     &lt;/publishers&gt;
+|     |   |  |     &lt;buildWrappers/&gt;
+|     |   |  |     &lt;icon/&gt;
+|     |   |  |     &lt;dsl&gt;
+|     |   |  |         //build(&quot;cf.gov-pfc-grunt-test&quot;) if(params.get(&quot;DEPLOY_DJANGO&quot;).equals(&quot;true&quot;)){
+|     |   |  |         //build(&quot;cf.gov-django-dev-build-master&quot;) build(&quot;cf.gov-fab-deploy-django&quot;, DEPLOY_ENV:params.get(&quot;DEPLOY_ENV&quot;))
+|     |   |  |         } if(params.get(&quot;DEPLOY_WP&quot;).equals(&quot;true&quot;)){ //build(&quot;cf.gov-wordpress-unit-tests&quot;)
+|     |   |  |         build(&quot;cf.gov-fab-deploy-wordpress&quot;, DEPLOY_ENV:params.get(&quot;DEPLOY_ENV&quot;)) } // Run load tests after deployment
+|     |   |  |         //build(&quot;cf.gov-load-test-production&quot;) build(&quot;cf.gov-postdeploy-smoketests&quot;, TEST_ENV:params.get(&quot;DEPLOY_ENV&quot;))
+|     |   |  |     &lt;/dsl&gt;
+|     |   |  |     &lt;buildNeedsWorkspace&gt;false&lt;/buildNeedsWorkspace&gt;
+|     |   |  | &lt;/com.cloudbees.plugins.flow.BuildFlow&gt;
+|     |   |  false
+|     |   |  1366 differences (55% similarity)
+|     |   |  &lt;com.cloudbees.plugins.flow.BuildFlow(&gt;\n    &lt;act-)i(ons&gt;&lt;/actio--)n(s-----)&gt;\n    &lt;(des)c(rip)tion(&gt;CF.~gov) (master) (build) (flow) (job)&lt;(/)description(-)&gt;\n    &lt;keepDependencies&gt;false&lt;/keepDependencies&gt;\n    &lt;properties&gt;\n        &lt;(hud-)son(.m-----)o(d--)e(l----).(Par-------)a(-)m(et)e(rsDefi)n(iti)o(n)Property(&gt;\n            &lt;p)a(ram-)e(terD---)e(finitions)&gt;\n            (    &lt;hudso)n(.mod-)e(l.B)o(-)o(le-)an(Pa~rameterDefiniti)on(&gt;\n                    &lt;)n(----)a(-)m(--)e(&gt;DEPLOY_D)J(ANGO&lt;/name)&gt;\n        (            &lt;defau)l(tVal)u(e&gt;fal)s(e&lt;/defaul-)t(Valu)e(&gt;\n               ) (&lt;/h)u(dso)n(.mode)l(.Bo)o(leanPa)r(ameterDef)in(ition)&gt;\n            (-------------------~)    (&lt;huds-)o(n-).(model--).(Boo-)l(ea-)n(Para)m(eterDef)i(n)i(ti--)o(n&gt;\n            ~)        &lt;(-----)n(a)m(e&gt;DE-)P(LOY_WP&lt;/-----)n(ame&gt;\n        --~)            &lt;(def)a(ultV)a(lu)e(&gt;fals)e(&lt;/d)ef(aul)t(Value)&gt;\n                &lt;(/)hudson.model.(Bo)o(l-)e(an)ParameterDefinition&gt;\n                (&lt;hudso)n(.)m(odel.ChoicePar-)ame(te~rD--------------------)e(fin)i(-)tion(-)&gt;\n                    &lt;choices class=(')java.util.Arrays$ArrayList(')&gt;\n                        &lt;a class=(')string-array(')&gt;\n                            &lt;string&gt;Staging&lt;/string&gt;\n                            &lt;string&gt;***PRODUCTION(cfproweb01)***&lt;/string&gt;\n                            &lt;string&gt;***( )PRODUCTION(cfproweb02)***( )&lt;/string&gt;\n                        &lt;/a&gt;\n                    &lt;/choices&gt;\n                (------------------------------------------~)    (------------)&lt;(-----)n(------------)a(-----)me(-------------)&gt;(O~PTI---------------------------)O(-----)N(--)&lt;/name&gt;\n                (----)&lt;(-----------)/(--~-------------------------------------------------------~------------------)hudson.model.(C---------------------------~-----------------)h(---)o(---------------------------)i(--------~-------------------------------------------~------------------------)c(----------~----------------------)e(--------------------------------~--------------------------------------)ParameterDefinition&gt;\n            &lt;/parameterDefinitions&gt;\n        &lt;/hudson.model.ParametersDefinitionProperty&gt;\n    (----)&lt;(---------------------------------------------------------------------)/(--~------)properties&gt;\n    &lt;scm class=(')hudson.scm.NullSCM('&gt;&lt;)/(scm)&gt;\n    &lt;canRoam&gt;true&lt;/canRoam&gt;\n    &lt;disabled&gt;false&lt;/disabled&gt;\n    &lt;blockBuildWhenDownstreamBuilding&gt;false&lt;/blockBuildWhenDownstreamBuilding&gt;\n    &lt;blockBuildWhenUpstreamBuilding&gt;false&lt;/blockBuildWhenUpstreamBuilding&gt;\n    &lt;triggers( class='vector'&gt;&lt;)/(triggers)&gt;\n    &lt;concurrentBuild&gt;false&lt;/concurrentBuild&gt;\n    &lt;builders(-)&gt;(-~----)&lt;(/-)b(u)i(ld)ers&gt;\n    (----)&lt;(p)u(b-----)l(--)i(-)s(hers&gt;&lt;/p-----)ublisher(s-------------------)&gt;\n    &lt;(b-)u(i)l(dWrapp)ers&gt;(&lt;~/----)buildWrappers(-)&gt;\n    &lt;icon(&gt;&lt;)/(icon)&gt;\n    &lt;dsl&gt;\n        (    )build(&quot;cf.gov-pfc-grunt-test&quot;)(\n) (           )if( )(params.get(&quot;DEPLOY_DJANGO&quot;).equals(&quot;true&quot;))( ){\n        (        )//build(&quot;cf.gov-django-dev-build-master&quot;)(\n) (               )build(&quot;cf.gov-fab-deploy-django&quot;, DEPLOY_ENV:( )params.get(&quot;DEPLOY_ENV&quot;))\n        (    )}(\n\n) (           )if( )(params.get(&quot;DEPLOY_WP&quot;).equals(&quot;true&quot;))( ){(\n) (               )//build(&quot;cf.gov-wordpress-unit-tests&quot;)\n        (        )build(&quot;cf.gov-fab-deploy-wordpress&quot;, DEPLOY_ENV:( )params.get(&quot;DEPLOY_ENV&quot;))(\n) (           )}(\n\n) (           )// Run load tests after deployment\n        (    )//build(&quot;cf.gov-load-test-production&quot;)(\n) (           )build(&quot;cf.gov-postdeploy-smoketests&quot;, TEST_ENV:( )params.get(&quot;DEPLOY_ENV&quot;))\n    &lt;/dsl&gt;\n(----)&lt;(--------------------------)/(-----------------)c(---~---)om.cloudbees.plugins.flow.BuildFlow&gt;(\n)
+|     |   |  &lt;com.cloudbees.plugins.flow.BuildFlow( p~lugin=&quot;bu)i(ld-flow-plugi)n(@0.17&quot;)&gt;\n    &lt;(a--)c(---)tion(s/&gt;\n---) (------) (-----) (----) (---)&lt;(-)description(/)&gt;\n    &lt;keepDependencies&gt;false&lt;/keepDependencies&gt;\n    &lt;properties&gt;\n        &lt;(com.)son(yericss)o(n.j)e(nkins).(plugins.bf)a(.)m(od)e(l.Scan)n(erJ)o(b)Property( p~lugin=&quot;build-f)a(ilur)e(-analyz)e(r@1.11.0&quot;)&gt;\n            (&lt;doNotSca-)n(&gt;fals)e(&lt;/d)o(N)o(tSc)an(&gt;\n        &lt;/com.s)on(ye~ricsson.jenkins.plugi)n(s.bf)a(.)m(od)e(l.Scanner)J(obProperty)&gt;\n        (&lt;org.jenkins.ci.p-)l(----)u(gin--)s(.html5__no)t(ifi-)e(r.~JobPropertyImpl) (pl-)u(gi-)n(=&quot;htm)l(5-n)o(tifie-)r(-plug----)in(@1.3&quot;)&gt;\n            (&lt;skip&gt;false&lt;/skip&gt;\n)    (    &lt;/)o(rg).(jenkins).(ci.p)l(ugi)n(s.ht)m(l5__not)i(f)i(er.J)o(bPr~opertyImpl&gt;\n)        &lt;(hudso)n(.)m(odel.)P(arametersDefi)n(ition~Property&gt;\n)            &lt;(p--)a(r---)a(m-)e(t----)e(rD-)ef(ini)t(ions-)&gt;\n                &lt;(-)hudson.model.(Ch)o(ic)e(--)ParameterDefinition&gt;\n                (    &lt;-)n(a)m(e&gt;DEPLOY_ENV&lt;/n)ame(&gt;\n                    &lt;d)e(scr)i(p)tion(/)&gt;\n                    &lt;choices class=(&quot;)java.util.Arrays$ArrayList(&quot;)&gt;\n                        &lt;a class=(&quot;)string-array(&quot;)&gt;\n                            &lt;string&gt;Staging&lt;/string&gt;\n                            &lt;string&gt;***PRODUCTION(cfproweb01)***&lt;/string&gt;\n                            &lt;string&gt;***(-)PRODUCTION(cfproweb02)***(-)&lt;/string&gt;\n                        &lt;/a&gt;\n                    &lt;/choices&gt;\n                (&lt;/hudson.model.ChoiceParameterDefinition&gt;\n)    (            )&lt;(hudso)n(.model.Boole)a(nPara)me(terDefinition)&gt;(\n                    &lt;name&gt;DEPL)O(Y_DJA)N(GO)&lt;/name&gt;\n                (    )&lt;(description)/(&gt;\n                    &lt;defaultValue&gt;false&lt;/defaultValue&gt;\n                &lt;/)hudson.model.(BooleanParameterDefinition&gt;\n                &lt;)h(uds)o(n.model.BooleanParameterDef)i(nition&gt;\n                    &lt;name&gt;DEPLOY_WP&lt;/name&gt;\n                    &lt;des)c(ription/&gt;\n                    &lt;d)e(faultValue&gt;false&lt;/defaultValue&gt;\n                &lt;/hudson.model.Boolean)ParameterDefinition&gt;\n            &lt;/parameterDefinitions&gt;\n        &lt;/hudson.model.ParametersDefinitionProperty&gt;\n    (    )&lt;(hudson.plugins.disk__usage.DiskUsageProperty plugin=&quot;disk-usage@0.24&quot;)/(&gt;\n    &lt;/)properties&gt;\n    &lt;scm class=(&quot;)hudson.scm.NullSCM(&quot;--)/(---)&gt;\n    &lt;canRoam&gt;true&lt;/canRoam&gt;\n    &lt;disabled&gt;false&lt;/disabled&gt;\n    &lt;blockBuildWhenDownstreamBuilding&gt;false&lt;/blockBuildWhenDownstreamBuilding&gt;\n    &lt;blockBuildWhenUpstreamBuilding&gt;false&lt;/blockBuildWhenUpstreamBuilding&gt;\n    &lt;triggers(-----------------)/(--------)&gt;\n    &lt;concurrentBuild&gt;false&lt;/concurrentBuild&gt;\n    &lt;builders(/)&gt;(\n    )&lt;(pu)b(l)i(sh)ers&gt;\n    (    )&lt;(h)u(dson.p)l(ug)i(n)s(.claim.ClaimP)ublisher( plugin=&quot;claim@2.5&quot;/)&gt;\n    &lt;(/p)u(b)l(ish---)ers&gt;(\n    &lt;)buildWrappers(/)&gt;\n    &lt;icon(--)/(----)&gt;\n    &lt;dsl&gt;\n        (//--)build(&quot;cf.gov-pfc-grunt-test&quot;)(-~) (-----------)if(-)(params.get(&quot;DEPLOY_DJANGO&quot;).equals(&quot;true&quot;))(-){\n        (--------)//build(&quot;cf.gov-django-dev-build-master&quot;)(-~) (---------------)build(&quot;cf.gov-fab-deploy-django&quot;, DEPLOY_ENV:(-)params.get(&quot;DEPLOY_ENV&quot;))\n        (----)}(-~-~) (-----------)if(-)(params.get(&quot;DEPLOY_WP&quot;).equals(&quot;true&quot;))(-){(-~) (---------------)//build(&quot;cf.gov-wordpress-unit-tests&quot;)\n        (--------)build(&quot;cf.gov-fab-deploy-wordpress&quot;, DEPLOY_ENV:(-)params.get(&quot;DEPLOY_ENV&quot;))(-~) (-----------)}(-~-~) (-----------)// Run load tests after deployment\n        (----)//build(&quot;cf.gov-load-test-production&quot;)(-~) (-----------)build(&quot;cf.gov-postdeploy-smoketests&quot;, TEST_ENV:(-)params.get(&quot;DEPLOY_ENV&quot;))\n    &lt;/dsl&gt;\n(    )&lt;(buildNeedsWorkspace&gt;false&lt;)/(buildNeedsWorkspa)c(e&gt;\n&lt;/c)om.cloudbees.plugins.flow.BuildFlow&gt;(-~)
+|     |   &lt;com.cloudbees.plugins.flow.BuildFlow&gt;
+|     |       &lt;actions&gt;&lt;/actions&gt;
+|     |       &lt;description&gt;CF.gov master build flow job&lt;/description&gt;
+|     |       &lt;keepDependencies&gt;false&lt;/keepDependencies&gt;
+|     |       &lt;properties&gt;
+|     |           &lt;hudson.model.ParametersDefinitionProperty&gt;
+|     |               &lt;parameterDefinitions&gt;
+|     |                   &lt;hudson.model.BooleanParameterDefinition&gt;
+|     |                       &lt;name&gt;DEPLOY_DJANGO&lt;/name&gt;
+|     |                       &lt;defaultValue&gt;false&lt;/defaultValue&gt;
+|     |                   &lt;/hudson.model.BooleanParameterDefinition&gt;
+|     |                   &lt;hudson.model.BooleanParameterDefinition&gt;
+|     |                       &lt;name&gt;DEPLOY_WP&lt;/name&gt;
+|     |                       &lt;defaultValue&gt;false&lt;/defaultValue&gt;
+|     |                   &lt;/hudson.model.BooleanParameterDefinition&gt;
+|     |                   &lt;hudson.model.ChoiceParameterDefinition&gt;
+|     |                       &lt;choices class='java.util.Arrays$ArrayList'&gt;
+|     |                           &lt;a class='string-array'&gt;
+|     |                               &lt;string&gt;Staging&lt;/string&gt;
+|     |                               &lt;string&gt;***PRODUCTION(cfproweb01)***&lt;/string&gt;
+|     |                               &lt;string&gt;*** PRODUCTION(cfproweb02)*** &lt;/string&gt;
+|     |                           &lt;/a&gt;
+|     |                       &lt;/choices&gt;
+|     |                       &lt;name&gt;OPTION&lt;/name&gt;
+|     |                   &lt;/hudson.model.ChoiceParameterDefinition&gt;
+|     |               &lt;/parameterDefinitions&gt;
+|     |           &lt;/hudson.model.ParametersDefinitionProperty&gt;
+|     |       &lt;/properties&gt;
+|     |       &lt;scm class='hudson.scm.NullSCM'&gt;&lt;/scm&gt;
+|     |       &lt;canRoam&gt;true&lt;/canRoam&gt;
+|     |       &lt;disabled&gt;false&lt;/disabled&gt;
+|     |       &lt;blockBuildWhenDownstreamBuilding&gt;false&lt;/blockBuildWhenDownstreamBuilding&gt;
+|     |       &lt;blockBuildWhenUpstreamBuilding&gt;false&lt;/blockBuildWhenUpstreamBuilding&gt;
+|     |       &lt;triggers class='vector'&gt;&lt;/triggers&gt;
+|     |       &lt;concurrentBuild&gt;false&lt;/concurrentBuild&gt;
+|     |       &lt;builders&gt;&lt;/builders&gt;
+|     |       &lt;publishers&gt;&lt;/publishers&gt;
+|     |       &lt;buildWrappers&gt;&lt;/buildWrappers&gt;
+|     |       &lt;icon&gt;&lt;/icon&gt;
+|     |       &lt;dsl&gt;
+|     |               build(&quot;cf.gov-pfc-grunt-test&quot;)
+|     |               if (params.get(&quot;DEPLOY_DJANGO&quot;).equals(&quot;true&quot;)) {
+|     |                   //build(&quot;cf.gov-django-dev-build-master&quot;)
+|     |                   build(&quot;cf.gov-fab-deploy-django&quot;, DEPLOY_ENV: params.get(&quot;DEPLOY_ENV&quot;))
+|     |               }
+|     |    
+|     |               if (params.get(&quot;DEPLOY_WP&quot;).equals(&quot;true&quot;)) {
+|     |                   //build(&quot;cf.gov-wordpress-unit-tests&quot;)
+|     |                   build(&quot;cf.gov-fab-deploy-wordpress&quot;, DEPLOY_ENV: params.get(&quot;DEPLOY_ENV&quot;))
+|     |               }
+|     |    
+|     |               // Run load tests after deployment
+|     |               //build(&quot;cf.gov-load-test-production&quot;)
+|     |               build(&quot;cf.gov-postdeploy-smoketests&quot;, TEST_ENV: params.get(&quot;DEPLOY_ENV&quot;))
+|     |       &lt;/dsl&gt;
+|     |   &lt;/com.cloudbees.plugins.flow.BuildFlow&gt;
+|     [name:cf.gov, xml:&lt;com.cloudbees.plugins.flow.BuildFlow&gt;
+|         &lt;actions&gt;&lt;/actions&gt;
+|         &lt;description&gt;CF.gov master build flow job&lt;/description&gt;
+|         &lt;keepDependencies&gt;false&lt;/keepDependencies&gt;
+|         &lt;properties&gt;
+|             &lt;hudson.model.ParametersDefinitionProperty&gt;
+|                 &lt;parameterDefinitions&gt;
+|                     &lt;hudson.model.BooleanParameterDefinition&gt;
+|                         &lt;name&gt;DEPLOY_DJANGO&lt;/name&gt;
+|                         &lt;defaultValue&gt;false&lt;/defaultValue&gt;
+|                     &lt;/hudson.model.BooleanParameterDefinition&gt;
+|                     &lt;hudson.model.BooleanParameterDefinition&gt;
+|                         &lt;name&gt;DEPLOY_WP&lt;/name&gt;
+|                         &lt;defaultValue&gt;false&lt;/defaultValue&gt;
+|                     &lt;/hudson.model.BooleanParameterDefinition&gt;
+|                     &lt;hudson.model.ChoiceParameterDefinition&gt;
+|                         &lt;choices class='java.util.Arrays$ArrayList'&gt;
+|                             &lt;a class='string-array'&gt;
+|                                 &lt;string&gt;Staging&lt;/string&gt;
+|                                 &lt;string&gt;***PRODUCTION(cfproweb01)***&lt;/string&gt;
+|                                 &lt;string&gt;*** PRODUCTION(cfproweb02)*** &lt;/string&gt;
+|                             &lt;/a&gt;
+|                         &lt;/choices&gt;
+|                         &lt;name&gt;OPTION&lt;/name&gt;
+|                     &lt;/hudson.model.ChoiceParameterDefinition&gt;
+|                 &lt;/parameterDefinitions&gt;
+|             &lt;/hudson.model.ParametersDefinitionProperty&gt;
+|         &lt;/properties&gt;
+|         &lt;scm class='hudson.scm.NullSCM'&gt;&lt;/scm&gt;
+|         &lt;canRoam&gt;true&lt;/canRoam&gt;
+|         &lt;disabled&gt;false&lt;/disabled&gt;
+|         &lt;blockBuildWhenDownstreamBuilding&gt;false&lt;/blockBuildWhenDownstreamBuilding&gt;
+|         &lt;blockBuildWhenUpstreamBuilding&gt;false&lt;/blockBuildWhenUpstreamBuilding&gt;
+|         &lt;triggers class='vector'&gt;&lt;/triggers&gt;
+|         &lt;concurrentBuild&gt;false&lt;/concurrentBuild&gt;
+|         &lt;builders&gt;&lt;/builders&gt;
+|         &lt;publishers&gt;&lt;/publishers&gt;
+|         &lt;buildWrappers&gt;&lt;/buildWrappers&gt;
+|         &lt;icon&gt;&lt;/icon&gt;
+|         &lt;dsl&gt;
+|                 build(&quot;cf.gov-pfc-grunt-test&quot;)
+|                 if (params.get(&quot;DEPLOY_DJANGO&quot;).equals(&quot;true&quot;)) {
+|                     //build(&quot;cf.gov-django-dev-build-master&quot;)
+|                     build(&quot;cf.gov-fab-deploy-django&quot;, DEPLOY_ENV: params.get(&quot;DEPLOY_ENV&quot;))
+|                 }
+|      
+|                 if (params.get(&quot;DEPLOY_WP&quot;).equals(&quot;true&quot;)) {
+|                     //build(&quot;cf.gov-wordpress-unit-tests&quot;)
+|                     build(&quot;cf.gov-fab-deploy-wordpress&quot;, DEPLOY_ENV: params.get(&quot;DEPLOY_ENV&quot;))
+|                 }
+|      
+|                 // Run load tests after deployment
+|                 //build(&quot;cf.gov-load-test-production&quot;)
+|                 build(&quot;cf.gov-postdeploy-smoketests&quot;, TEST_ENV: params.get(&quot;DEPLOY_ENV&quot;))
+|         &lt;/dsl&gt;
+|     &lt;/com.cloudbees.plugins.flow.BuildFlow&gt;
+|     ]
+[[name:cf.gov, xml:&lt;com.cloudbees.plugins.flow.BuildFlow&gt;
+    &lt;actions&gt;&lt;/actions&gt;
+    &lt;description&gt;CF.gov master build flow job&lt;/description&gt;
+    &lt;keepDependencies&gt;false&lt;/keepDependencies&gt;
+    &lt;properties&gt;
+        &lt;hudson.model.ParametersDefinitionProperty&gt;
+            &lt;parameterDefinitions&gt;
+                &lt;hudson.model.BooleanParameterDefinition&gt;
+                    &lt;name&gt;DEPLOY_DJANGO&lt;/name&gt;
+                    &lt;defaultValue&gt;false&lt;/defaultValue&gt;
+                &lt;/hudson.model.BooleanParameterDefinition&gt;
+                &lt;hudson.model.BooleanParameterDefinition&gt;
+                    &lt;name&gt;DEPLOY_WP&lt;/name&gt;
+                    &lt;defaultValue&gt;false&lt;/defaultValue&gt;
+                &lt;/hudson.model.BooleanParameterDefinition&gt;
+                &lt;hudson.model.ChoiceParameterDefinition&gt;
+                    &lt;choices class='java.util.Arrays$ArrayList'&gt;
+                        &lt;a class='string-array'&gt;
+                            &lt;string&gt;Staging&lt;/string&gt;
+                            &lt;string&gt;***PRODUCTION(cfproweb01)***&lt;/string&gt;
+                            &lt;string&gt;*** PRODUCTION(cfproweb02)*** &lt;/string&gt;
+                        &lt;/a&gt;
+                    &lt;/choices&gt;
+                    &lt;name&gt;OPTION&lt;/name&gt;
+                &lt;/hudson.model.ChoiceParameterDefinition&gt;
+            &lt;/parameterDefinitions&gt;
+        &lt;/hudson.model.ParametersDefinitionProperty&gt;
+    &lt;/properties&gt;
+    &lt;scm class='hudson.scm.NullSCM'&gt;&lt;/scm&gt;
+    &lt;canRoam&gt;true&lt;/canRoam&gt;
+    &lt;disabled&gt;false&lt;/disabled&gt;
+    &lt;blockBuildWhenDownstreamBuilding&gt;false&lt;/blockBuildWhenDownstreamBuilding&gt;
+    &lt;blockBuildWhenUpstreamBuilding&gt;false&lt;/blockBuildWhenUpstreamBuilding&gt;
+    &lt;triggers class='vector'&gt;&lt;/triggers&gt;
+    &lt;concurrentBuild&gt;false&lt;/concurrentBuild&gt;
+    &lt;builders&gt;&lt;/builders&gt;
+    &lt;publishers&gt;&lt;/publishers&gt;
+    &lt;buildWrappers&gt;&lt;/buildWrappers&gt;
+    &lt;icon&gt;&lt;/icon&gt;
+    &lt;dsl&gt;
+            build(&quot;cf.gov-pfc-grunt-test&quot;)
+            if (params.get(&quot;DEPLOY_DJANGO&quot;).equals(&quot;true&quot;)) {
+                //build(&quot;cf.gov-django-dev-build-master&quot;)
+                build(&quot;cf.gov-fab-deploy-django&quot;, DEPLOY_ENV: params.get(&quot;DEPLOY_ENV&quot;))
+            }
+ 
+            if (params.get(&quot;DEPLOY_WP&quot;).equals(&quot;true&quot;)) {
+                //build(&quot;cf.gov-wordpress-unit-tests&quot;)
+                build(&quot;cf.gov-fab-deploy-wordpress&quot;, DEPLOY_ENV: params.get(&quot;DEPLOY_ENV&quot;))
+            }
+ 
+            // Run load tests after deployment
+            //build(&quot;cf.gov-load-test-production&quot;)
+            build(&quot;cf.gov-postdeploy-smoketests&quot;, TEST_ENV: params.get(&quot;DEPLOY_ENV&quot;))
+    &lt;/dsl&gt;
+&lt;/com.cloudbees.plugins.flow.BuildFlow&gt;
+]]
+
+	at cfGovMigrationsTests.test cf.gov flow build job(cfGovMigrationsTests.groovy:27)
+</pre>
+</span>
+</div>
+</div>
+<div id="tab1" class="tab">
 <h2>Tests</h2>
 <table>
 <thead>
@@ -78,57 +331,23 @@
 </tr>
 </thead>
 <tr>
-<td class="success">test cf.gov flow build job</td>
-<td>0.098s</td>
-<td class="success">passed</td>
+<td class="failures">test cf.gov flow build job</td>
+<td>1.031s</td>
+<td class="failures">failed</td>
 </tr>
 </table>
 </div>
-<div id="tab1" class="tab">
+<div id="tab2" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>import FlowJobBuilder
-
-def cfGovDeployJob = new FlowJobBuilder(
-        name: 'cf.gov',
-        description: 'CF.gov master build flow job',
-        jobs: []
-).build(this)
-
-
-cfGovDeployJob.parameters {
-    booleanParam('DEPLOY_DJANGO', false)
-    booleanParam('DEPLOY_WP', false)
-    choiceParam('OPTION',
-            [
-                    'Staging',
-                    '***PRODUCTION(cfproweb01)***',
-                    '*** PRODUCTION(cfproweb02)*** '
-            ])
-}
-cfGovDeployJob.buildFlow('''
-            build(&quot;cf.gov-pfc-grunt-test&quot;)
-            if (params.get(&quot;DEPLOY_DJANGO&quot;).equals(&quot;true&quot;)) {
-                //build(&quot;cf.gov-django-dev-build-master&quot;)
-                build(&quot;cf.gov-fab-deploy-django&quot;, DEPLOY_ENV: params.get(&quot;DEPLOY_ENV&quot;))
-            }
-
-            if (params.get(&quot;DEPLOY_WP&quot;).equals(&quot;true&quot;)) {
-                //build(&quot;cf.gov-wordpress-unit-tests&quot;)
-                build(&quot;cf.gov-fab-deploy-wordpress&quot;, DEPLOY_ENV: params.get(&quot;DEPLOY_ENV&quot;))
-            }
-
-            // Run load tests after deployment
-            //build(&quot;cf.gov-load-test-production&quot;)
-            build(&quot;cf.gov-postdeploy-smoketests&quot;, TEST_ENV: params.get(&quot;DEPLOY_ENV&quot;))
-    ''')
+<pre>Processing provided DSL script
 </pre>
 </span>
 </div>
 </div>
 <div id="footer">
 <p>Generated by 
-<a href="http://www.gradle.org">Gradle 2.2</a> at Oct 27, 2015 5:55:01 PM</p>
+<a href="http://www.gradle.org">Gradle 2.2</a> at Oct 29, 2015 12:21:58 PM</p>
 </div>
 </div>
 </body>
