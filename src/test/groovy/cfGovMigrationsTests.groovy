@@ -25,17 +25,15 @@ class cfGovMigrationsTests extends Specification {
 
         def jobMap = new XmlParserHelper().parse(expected)
         def resultMap = new XmlParserHelper().parse(result[0].xml)
-        println jobMap
-        println resultMap
+
         then:
-        println "generated"+result[0].xml
         jobMap.each { k, v ->
-            if (!resultMap[k].toString().trim().equals(v.toString().trim())) {
-                println "generated"+result[0].xml
-                println "actual  :"+ v.toString().trim()
-                println "expected:"+resultMap[k].toString().trim()
+            if (!resultMap[k] == v) {
+                //helpful for debugging
+                println "actual  :" + v
+                println "expected:" + resultMap[k]
             }
-            assert resultMap[k] == v
+                assert resultMap[k] == v
 
         }
 
