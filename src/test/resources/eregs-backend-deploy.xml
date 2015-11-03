@@ -1,0 +1,148 @@
+<project>
+    <actions/>
+    <description/>
+    <keepDependencies>false</keepDependencies>
+    <properties>
+        <com.chikli.hudson.plugin.naginator.NaginatorOptOutProperty plugin="naginator@1.14">
+            <optOut>false</optOut>
+        </com.chikli.hudson.plugin.naginator.NaginatorOptOutProperty>
+        <com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty plugin="build-failure-analyzer@1.11.0">
+            <doNotScan>false</doNotScan>
+        </com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty>
+        <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.10">
+            <projectUrl>https://github.com/cfpb/regulations-site/</projectUrl>
+        </com.coravy.hudson.plugins.github.GithubProjectProperty>
+        <org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl plugin="html5-notifier-plugin@1.3">
+            <skip>false</skip>
+        </org.jenkins.ci.plugins.html5__notifier.JobPropertyImpl>
+        <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+                <hudson.model.ChoiceParameterDefinition>
+                    <name>DEPLOY_ENV</name>
+                    <description/>
+                    <choices class="java.util.Arrays$ArrayList">
+                        <a class="string-array">
+                            <string>Staging</string>
+                            <string>***PRODUCTION(cfproweb01)***</string>
+                            <string>***PRODUCTION(cfproweb02)***</string>
+                        </a>
+                    </choices>
+                </hudson.model.ChoiceParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>has_tag</name>
+                    <description/>
+                    <defaultValue/>
+                </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+        </hudson.model.ParametersDefinitionProperty>
+        <hudson.plugins.throttleconcurrents.ThrottleJobProperty plugin="throttle-concurrents@1.8.4">
+            <maxConcurrentPerNode>0</maxConcurrentPerNode>
+            <maxConcurrentTotal>0</maxConcurrentTotal>
+            <throttleEnabled>false</throttleEnabled>
+            <throttleOption>project</throttleOption>
+        </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
+        <hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.25"/>
+    </properties>
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.1">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+            <hudson.plugins.git.UserRemoteConfig>
+                <url>https://github.cfpb.gov/CFPB/consumerfinance.gov</url>
+            </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+            <hudson.plugins.git.BranchSpec>
+                <name>*/master</name>
+            </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions/>
+    </scm>
+    <canRoam>true</canRoam>
+    <disabled>false</disabled>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers/>
+    <concurrentBuild>false</concurrentBuild>
+    <builders>
+        <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.32.1">
+            <project>eRegs-frontend-build</project>
+            <filter>regulations/</filter>
+            <target/>
+            <excludes/>
+            <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+            <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+        </hudson.plugins.copyartifact.CopyArtifact>
+        <hudson.tasks.Shell>
+            <command>
+                # Determine environment from parameters
+                if [ $DEPLOY_ENV = "Staging" ];
+                    then
+                        ip_address=$STAGING_IP_ADDRESS
+                        user=$STAGING_USER django_deploy=deploy_tst
+                elif [ $DEPLOY_ENV ="***PRODUCTION(cfproweb01)***" ];
+                    then
+                        ip_address=$PROD1_IP_ADDRESS
+                        user=$PROD_USER
+                        django_deploy=deploy_pro
+                elif [ $DEPLOY_ENV = "***PRODUCTION(cfproweb02)***" ]; then
+                ip_address=$PROD2_IP_ADDRESS user=$PROD_USER django_deploy=deploy_pro fi # Activate virtualenv if [ -d
+                ".env" ]; then echo "**> virtualenv exists" else echo "**> creating virtualenv" virtualenv -p python2.7
+                .env fi . .env/bin/activate # Install Fabric pip install fabric cp ./deployment_scripts/fabfile.py
+                fabfile.py fab -i ${JENKINS_HOME}/.ssh/id_rsa_cfgovdeploy -H $ip_address -u $user
+                deploy_eregs_regcore:has_tag=$has_tag $django_deploy
+            </command>
+        </hudson.tasks.Shell>
+    </builders>
+    <publishers>
+        <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.39">
+            <recipientList>
+                daniel.davis@cfpb.gov, marc.esher@cfpb.gov, lucas.pfaff@cfpb.gov, adam.scott@cfpb.gov,
+                Kimberly.munoz@cfpb.gov, yury.vinokurov@cfpb.gov
+            </recipientList>
+            <configuredTriggers>
+                <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+                    <email>
+                        <recipientList/>
+                        <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+                        <body>$PROJECT_DEFAULT_CONTENT</body>
+                        <recipientProviders>
+                            <hudson.plugins.emailext.plugins.recipients.ListRecipientProvider/>
+                        </recipientProviders>
+                        <attachmentsPattern/>
+                        <attachBuildLog>false</attachBuildLog>
+                        <compressBuildLog>false</compressBuildLog>
+                        <replyTo>$PROJECT_DEFAULT_REPLYTO</replyTo>
+                        <contentType>project</contentType>
+                    </email>
+                </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+            </configuredTriggers>
+            <contentType>default</contentType>
+            <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
+            <defaultContent>$DEFAULT_CONTENT</defaultContent>
+            <attachmentsPattern/>
+            <presendScript>$DEFAULT_PRESEND_SCRIPT</presendScript>
+            <attachBuildLog>false</attachBuildLog>
+            <compressBuildLog>false</compressBuildLog>
+            <replyTo>$DEFAULT_REPLYTO</replyTo>
+            <saveOutput>false</saveOutput>
+            <disabled>false</disabled>
+        </hudson.plugins.emailext.ExtendedEmailPublisher>
+    </publishers>
+    <buildWrappers>
+        <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.4.0">
+            <colorMapName>xterm</colorMapName>
+        </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+        <EnvInjectBuildWrapper plugin="envinject@1.90">
+            <info>
+                <propertiesContent>
+                    #STAGING_IP_ADDRESS=10.95.33.8 STAGING_IP_ADDRESS=cftstweb01.cfpbext.local STAGING_USER=cfdeploy
+                    PROD1_IP_ADDRESS=cfproweb01.cfpbext.local PROD2_IP_ADDRESS=cfproweb02.cfpbext.local
+                    PROD_USER=cfdeploy
+                </propertiesContent>
+                <loadFilesFromMaster>false</loadFilesFromMaster>
+            </info>
+        </EnvInjectBuildWrapper>
+    </buildWrappers>
+</project>
