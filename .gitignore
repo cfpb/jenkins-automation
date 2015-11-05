@@ -73,3 +73,8 @@ dist/
 .idea/
 .iml
 jenkins-automation.iml
+build/
+build/reports/
+.gradle/
+.gradle/2.2
+.gradle/2.2
