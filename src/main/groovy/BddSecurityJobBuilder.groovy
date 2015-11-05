@@ -29,8 +29,8 @@ class BddSecurityJobBuilder {
 
 
 
-                        cd /var/lib/jenkins/workspace/${JOB_NAME}
-                        sed -i 's/<zapPath>.*<\\/zapPath>/<zapPath>\\/var\\/lib\\/jenkins\\/workspace\\/'${JOB_NAME}'\\/zap\\/zap.sh<\\/zapPath>/g' config.xml
+                        cd /var/lib/jenkins/workspace/\${JOB_NAME}
+                        sed -i 's/<zapPath>.*<\\/zapPath>/<zapPath>\\/var\\/lib\\/jenkins\\/workspace\\/'\${JOB_NAME}'\\/zap\\/zap.sh<\\/zapPath>/g' config.xml
                         sed -i 's/<baseUrl><\\/baseUrl>/<baseUrl>${this.baseUrl}/baseUrl>/g' config.xml
 
                         ant resolve
