@@ -23,7 +23,7 @@ class BddSecurityJobBuilder {
                         sleep 10
                         export DISPLAY=:1
 
-                        #cd $HOME/ZAP_2.4.0
+                        #cd \$HOME/ZAP_2.4.0
                         #java -jar zap-2.4.0.jar -daemon -host 127.0.0.1 -port 8888 &
                         #sleep 30
 
