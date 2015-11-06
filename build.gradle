@@ -9,8 +9,6 @@ task wrapper(type: Wrapper) {
 apply plugin: 'groovy'
 apply plugin: 'java'
 
-sourceCompatibility = 1.5
-
 repositories {
     mavenCentral()
     jcenter()
