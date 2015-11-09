@@ -1,3 +1,5 @@
+package jenkins.automation.utils
+
 class ScmUtils {
 
     //TODO : add a conditional to handle a single repo.

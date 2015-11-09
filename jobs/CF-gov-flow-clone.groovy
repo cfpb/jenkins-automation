@@ -1,4 +1,4 @@
-import FlowJobBuilder
+import jenkins.automation.utils.FlowJobBuilder
 
 def cfGovDeployJob = new FlowJobBuilder(
         name: 'cf.gov',

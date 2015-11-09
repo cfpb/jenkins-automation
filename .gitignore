@@ -73,3 +73,5 @@ dist/
 .idea/
 .iml
 jenkins-automation.iml
+build/
+.gradle/
