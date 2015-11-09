@@ -8,6 +8,7 @@ task wrapper(type: Wrapper) {
 
 apply plugin: 'groovy'
 apply plugin: 'java'
+apply plugin: 'maven'
 
 sourceCompatibility = 1.5
 
