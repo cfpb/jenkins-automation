@@ -1,3 +1,10 @@
+.idea/
+.gradle/
+build/
+sandbox/
+*.iml
+
+
 # Compiled source #
 ###################
 *.com
@@ -70,6 +77,3 @@ bower_components/
 .grunt/
 src/vendor/
 dist/
-.idea/
-.iml
-jenkins-automation.iml
