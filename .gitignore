@@ -75,3 +75,5 @@ dist/
 jenkins-automation.iml
 build/
 .gradle/
+.gradle/
+jenkins-automation.iml
