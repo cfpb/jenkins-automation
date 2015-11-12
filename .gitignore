@@ -71,9 +71,6 @@ bower_components/
 src/vendor/
 dist/
 .idea/
-.iml
-jenkins-automation.iml
+*.iml
 build/
 .gradle/
-.gradle/
-jenkins-automation.iml
