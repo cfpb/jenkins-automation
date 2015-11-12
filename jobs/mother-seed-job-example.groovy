@@ -1,4 +1,5 @@
 import jenkins.automation.utils.RepositoryYamlParser
+import jenkins.automation.utils.ScmUtils
 
 
 def reposToAutomate = RepositoryYamlParser.parseRepositories('some_yaml_file')
@@ -6,9 +7,11 @@ def reposToAutomate = RepositoryYamlParser.parseRepositories('some_yaml_file')
 
 reposToAutomate.each { project ->
     job(project.projectName + 'SeedJob') {
-        scm {
-            github project.url
+
+        multiscm {
+            ScmUtils.project_repos(delegate, [ project.url, 'https://github.com/cfpb/jenkins-automation.git'], use_versions)
         }
+
         triggers {
             scm 'H/5 * * * *'
         }
