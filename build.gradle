@@ -27,3 +27,11 @@ dependencies {
         exclude module: 'groovy-all'
     }
 }
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/main/groovy', 'jobs'  ]
+        }
+    }
+}
