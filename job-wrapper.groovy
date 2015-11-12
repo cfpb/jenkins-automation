@@ -1,4 +1,5 @@
 import gov.cfpb.ScmUtils
+import jenkins.automation.utils.ScmUtils
 
 
 def myJob = job('example'){

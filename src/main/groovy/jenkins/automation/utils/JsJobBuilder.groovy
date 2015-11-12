@@ -1,7 +1,7 @@
+package jenkins.automation.utils
+
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
-import ScmUtils
-import BaseJobBuilder
 
 class JsJobBuilder {
 
@@ -41,14 +41,14 @@ class JsJobBuilder {
                 scm pollScmSchedule
             }
 
-            steps {
-                shell( //we can potentially pass those in as well - $DIR_TO_BUILD and build script name
-                        '''
-                            cd $DIR_TO_BUILD
-                             ./frontendbuild.sh
-                        '''
-                )
-            }
+//            steps {
+//                shell( // TODO:we can potentially pass those in as well - $DIR_TO_BUILD and build script name
+//                        '''
+//                            cd $DIR_TO_BUILD
+//                             ./frontendbuild.sh
+//                        '''
+//                )
+//            }
 
             publishers {
                 archiveArtifacts artifacts

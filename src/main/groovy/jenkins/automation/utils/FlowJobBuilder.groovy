@@ -1,3 +1,5 @@
+package jenkins.automation.utils
+
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 

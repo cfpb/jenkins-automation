@@ -1,5 +1,4 @@
-import JsJobBuilder
-import FrontEndTestJobBuilder
+import jenkins.automation.utils.FrontEndTestJobBuilder
 
 
 String basePath = 'JsJobSamples'
@@ -12,7 +11,6 @@ def repos = [
 folder(basePath) {
     description 'This example shows how to create jobs using Job builders.'
 }
-//opting A
 
 
 new FrontEndTestJobBuilder(
