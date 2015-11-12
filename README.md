@@ -14,6 +14,43 @@ You should create your jobs using the templates defined in
 [jenkins.groovy](https://github.com/cfpb/jenkins-automation/blob/master/jenkins.groovy).
 
 ## How it works  -DEPRECATED
+### Good place to start learning about job-dsl API:
+  http://sheehan.github.io/job-dsl-plugin
+  
+### Once you are little more comfortable, try the sandbox:
+  
+  http://job-dsl.herokuapp.com/
+  Here is some code that uses our utils:
+
+```
+
+   static void addMyFeature(def job) {
+        def repoList=[
+          [name: "jenkins-automation", url: "https://github.com/cfpb/jenkins-automation@2.0"],
+          [name: "collab", url: "https://github.com/cfpb/jenkins-automation"]
+   ]
+          job.with {
+              description("Arbitrary feature")
+            multiscm{
+              repoList.each { repo ->
+              def parsed_out_url = repo.url.tokenize('@')
+              def parsed_url = parsed_out_url[0]
+                             
+                git {
+                  remote{
+                    url(parsed_url)
+                  }
+                }
+              }
+            }
+          }
+      }
+      
+  
+      def myJob = job('example')
+      addMyFeature(myJob)
+      
+```
 ### We have significantly pivoted the direction of this project. The docs below are outdated and we are working on updating them 
 
 ### If you would like to get started on it for your project please talk to @imuchnik. 

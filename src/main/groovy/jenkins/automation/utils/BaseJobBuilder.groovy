@@ -1,3 +1,5 @@
+package jenkins.automation.utils
+
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
@@ -14,7 +16,6 @@ class BaseJobBuilder {
         }
     }
 
-
     static void addColorizeOutput(context){
 
         context.with{
@@ -28,10 +29,11 @@ class BaseJobBuilder {
                 addColorizeOutput(delegate)
             }
             logRotator {
+                //TODO: make it parametrized to builder
                 numToKeep(10)
             }
             publishers{
-                mailer emails.join(' ')
+                mailer emails.join(' ')  //TODO use extended email
             }
         }
 
