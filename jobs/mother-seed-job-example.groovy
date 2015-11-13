@@ -1,9 +1,9 @@
-import jenkins.automation.utils.RepositoryYamlParser
+
 import jenkins.automation.utils.ScmUtils
 
 
-def reposToAutomate = RepositoryYamlParser.parseRepositories('some_yaml_file')
-reposToAutomate = [
+//def reposToAutomate = RepositoryYamlParser.parseRepositories('some_yaml_file')
+def reposToAutomate = [
         [projectName: "OAH", url:"https://github.cfpb.gov/muchniki/oah-jenkins-automation.git"]
 
 ]
