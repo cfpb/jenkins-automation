@@ -7,7 +7,7 @@ def reposToAutomate = [
 
 ]
 def reposToInclude =reposToAutomate
-reposToInclude<< [projectName: "automation", url: 'https://github.com/muchniki/jenkins-automation']
+reposToInclude<< [projectName: "automation", url: 'https://github.com/imuchnik/jenkins-automation']
 
 reposToAutomate.each { project ->
     job(project.projectName + 'SeedJob') {
