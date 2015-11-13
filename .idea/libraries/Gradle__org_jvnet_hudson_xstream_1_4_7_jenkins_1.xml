@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jvnet.hudson:xstream:1.4.7-jenkins-1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jvnet.hudson/xstream/1.4.7-jenkins-1/161ed1603117c2d37b864f81a0d62f36cf7e958a/xstream-1.4.7-jenkins-1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jvnet.hudson/xstream/1.4.7-jenkins-1/98e1c327a76d0bf7a715caf90d4d137d6b0c6f87/xstream-1.4.7-jenkins-1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

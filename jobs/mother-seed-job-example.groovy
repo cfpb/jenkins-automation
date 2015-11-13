@@ -3,6 +3,10 @@ import jenkins.automation.utils.ScmUtils
 
 
 def reposToAutomate = RepositoryYamlParser.parseRepositories('some_yaml_file')
+reposToAutomate = [
+        [projectName: "OAH", url:"https://github.cfpb.gov/muchniki/oah-jenkins-automation.git"]
+
+]
 
 
 reposToAutomate.each { project ->
@@ -18,7 +22,7 @@ reposToAutomate.each { project ->
         steps {
 
             dsl {
-                external 'jobs/seed.groovy'
+                external 'jobs/**/*.groovy'
                 // you can also give a pattern here like jobs/**/*Jobs.groovy', which would runa
                 //scripts in jobs directory that end with /*Jobs.groovy
                 additionalClasspath 'src/main/groovy'

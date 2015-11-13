@@ -12,7 +12,7 @@ class my_job_test extends Specification {
         given:
         JobManagement jm = new MemoryJobManagement()
 
-        def testjob = new File('jobs/SampleBuildFlow-example').text
+        def testjob = new File('jobs/mother-seed-job-example.groovy').text
         def expected = new File('path-to-xml-file.xml').text
 
         when:
