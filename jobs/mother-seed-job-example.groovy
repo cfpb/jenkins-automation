@@ -13,7 +13,7 @@ reposToAutomate.each { project ->
     job(project.projectName + 'SeedJob') {
 
         multiscm {
-            ScmUtils.project_repos(delegate, [ project.url, 'https://github.com/cfpb/jenkins-automation.git'], use_versions)
+            ScmUtils.project_repos(delegate, [ project.url, 'https://github.com/cfpb/jenkins-automation.git'], false)
         }
 
         triggers {
