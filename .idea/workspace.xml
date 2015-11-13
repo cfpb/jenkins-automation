@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c58c36cc-1143-44e9-a17a-f589746c9bc8" name="Default" comment="Ported cf-gov flow job and quick and dirty readme update&#10;&#10;Conflicts:&#10;&#9;jobs/CF-gov-flow-clone.groovy&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="c58c36cc-1143-44e9-a17a-f589746c9bc8" name="Default" comment="Ported cf-gov flow job and quick and dirty readme update&#10;&#10;Conflicts:&#10;&#9;jobs/CF-gov-flow-clone.groovy&#10;" />
     <ignored path="jenkins-automation.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -127,8 +125,8 @@
       <file leaf-file-name="mother-seed-job-example.groovy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jobs/mother-seed-job-example.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.07109005">
-              <caret line="6" column="90" selection-start-line="6" selection-start-column="90" selection-end-line="6" selection-end-column="90" />
+            <state vertical-scroll-proportion="0.4265403">
+              <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -1142,12 +1140,12 @@
       <workItem from="1447192985894" duration="3227000" />
       <workItem from="1447351522546" duration="6035000" />
       <workItem from="1447425795711" duration="1069000" />
-      <workItem from="1447427555821" duration="1728000" />
+      <workItem from="1447427555821" duration="1857000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125915000" />
+    <option name="totallyTimeSpent" value="126044000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1649,8 +1647,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jobs/mother-seed-job-example.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.07109005">
-          <caret line="6" column="90" selection-start-line="6" selection-start-column="90" selection-end-line="6" selection-end-column="90" />
+        <state vertical-scroll-proportion="0.4265403">
+          <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
           <folding />
         </state>
       </provider>
