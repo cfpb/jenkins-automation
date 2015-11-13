@@ -4,7 +4,7 @@ import jenkins.automation.utils.ScmUtils
 
 //def reposToAutomate = RepositoryYamlParser.parseRepositories('some_yaml_file')
 def reposToAutomate = [
-        [projectName: "OAH", url:"https://github.cfpb.gov/muchniki/oah-jenkins-automation.git"]
+        [projectName: "OAH", url: "https://github.cfpb.gov/muchniki/oah-jenkins-automation" ]
 
 ]
 
@@ -13,7 +13,7 @@ reposToAutomate.each { project ->
     job(project.projectName + 'SeedJob') {
 
         multiscm {
-            ScmUtils.project_repos(delegate, [ project.url, 'https://github.com/cfpb/jenkins-automation.git'], false)
+            ScmUtils.project_repos(delegate, [ project.url, 'https://github.com/cfpb/jenkins-automation'], false)
         }
 
         triggers {
