@@ -22,12 +22,21 @@ class SiteMonitorJobBuilder {
 
 
         baseJob.with {
-
-
             triggers {
                 cron(cronSchedule)
             }
-
+            configure { project ->
+                project / publishers << 'hudson.plugins.sitemonitor.SiteMonitorRecorder' {
+                    mSites {
+                        'hudson.plugins.sitemonitor.model.Site' {
+                            mUrl 'http://google.com'
+                        }
+                        'hudson.plugins.sitemonitor.model.Site' {
+                            mUrl 'http://foo.com'
+                        }
+                    }
+                }
+            }
 
         }
 
