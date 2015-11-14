@@ -23,7 +23,9 @@ class SiteMonitorJobBuilder {
 
         baseJob.with {
             triggers {
-                cron(cronSchedule)
+                if(cronSchedule){
+                    cron(cronSchedule)
+                }
             }
             configure { project ->
                 project / publishers << 'hudson.plugins.sitemonitor.SiteMonitorRecorder' {
