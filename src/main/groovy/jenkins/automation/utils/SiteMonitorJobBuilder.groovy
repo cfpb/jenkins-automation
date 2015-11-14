@@ -8,7 +8,7 @@ class SiteMonitorJobBuilder {
     String name
     String description
     List<String> emails
-    String cronSchedule = '"H/15 * * * *"'
+    String cronSchedule = 'H/15 * * * *'
 
     List<String> urls
 
