@@ -28,9 +28,9 @@ class SiteMonitorJobBuilder {
             configure { project ->
                 project / publishers << 'hudson.plugins.sitemonitor.SiteMonitorRecorder' {
                     mSites {
-                        urls.each {
+                        urls.each { url ->
                             'hudson.plugins.sitemonitor.model.Site' {
-                                mUrl it
+                                mUrl url
                             }
                         }
                     }
