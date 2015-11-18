@@ -33,7 +33,11 @@ class BaseJobBuilder {
                 numToKeep(10)
             }
             publishers{
-                mailer emails.join(' ')  //TODO use extended email
+                allowBrokenBuildClaiming()
+
+                if(emails){
+                    mailer emails.join(' ')  //TODO use extended email
+                }
             }
         }
 
