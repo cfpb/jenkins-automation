@@ -4,12 +4,26 @@ import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
 
+/**
+ * Bdd Security builder creates a default BDD security build configuration
+
+ * @see <a href=”http://github.com/cfpb/blob/gh-pages/jenkins-as-code-starter-project/docs/examples.md#BDD-Security-Job Builder”>Example</a>
+
+ * @param name
+ * @param description
+ * @param baseUrl
+ */
 class BddSecurityJobBuilder {
 
     String name
     String description
     String baseUrl
 
+    /**
+     * The main job-dsl script that build job configuration xml
+     * @param DslFactory
+     * @return Job
+     */
     Job build(DslFactory factory){
         factory.job(name){
             it.description this.description
