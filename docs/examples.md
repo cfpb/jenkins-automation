@@ -2,7 +2,8 @@
 
 ## BDD Security Job Builder
 
-```import jenkins.automation.utils.BddSecurityJobBuilder
+```
+import jenkins.automation.utils.BddSecurityJobBuilder
    
    def projectName ='foo'
    new BddSecurityJobBuilder(
@@ -10,4 +11,5 @@
            description: "Sample bdd security job",
            baseUrl: "http://google.com"
    ).build(this);
-   ```
+   
+```

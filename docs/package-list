@@ -1,7 +1,0 @@
-DefaultPackage
-build.tmp.groovydoc
-build.tmp.groovydoc.jenkins.automation.utils
-jobs
-lib
-src.main.groovy.jenkins.automation.utils
-src.test.groovy

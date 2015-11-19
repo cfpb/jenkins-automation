@@ -7,7 +7,7 @@ import javaposse.jobdsl.dsl.Job
 /**
  * Bdd Security builder creates a default BDD security build configuration
 
- * @see <a href=”http://github.com/cfpb/blob/gh-pages/jenkins-as-code-starter-project/docs/examples.md#BDD-Security-Job Builder”>Example</a>
+ * @see <a href=”https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#bdd-security-job-builder”>Example</a>
 
  * @param name
  * @param description
