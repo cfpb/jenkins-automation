@@ -7,11 +7,15 @@ import javaposse.jobdsl.dsl.Job
 /**
  * Bdd Security builder creates a default BDD security build configuration
 
- * @see <a href=”https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#bdd-security-job-builder”>Example</a>
-
+ *
  * @param name
  * @param description
  * @param baseUrl
+ *
+ * @see <a href=”https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#bdd-security-job-builder”>Example</a>
+ * <p>
+ *     <a href=”https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#bdd-security-job-builder”>Example</a>
+ * </p>
  */
 class BddSecurityJobBuilder {
 
@@ -24,8 +28,8 @@ class BddSecurityJobBuilder {
      * @param DslFactory
      * @return Job
      */
-    Job build(DslFactory factory){
-        factory.job(name){
+    Job build(DslFactory factory) {
+        factory.job(name) {
             it.description this.description
 
             steps {
