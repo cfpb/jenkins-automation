@@ -12,7 +12,7 @@ import javaposse.jobdsl.dsl.Job
  * @param description  job description
  * @param baseUrl  url to test against
  *
- * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#bdd-security-job-builder">Example</a>
+ * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#bdd-security-job-builder">BDD job Example</a>
  *
  */
 class BddSecurityJobBuilder {
