@@ -19,7 +19,7 @@ Our collection of builders is still growing and we would love your contributions
   http://job-dsl.herokuapp.com/
   
 #### If you would like to get started on it for your project a good place to start is our
-[starter repo](https://github.com/cfpb/jenkins-as-code-starter-projectgit s). 
+[starter repo](https://github.com/cfpb/jenkins-as-code-starter-project). 
 
 ## Guiding principles
 
