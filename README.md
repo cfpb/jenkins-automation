@@ -1,4 +1,4 @@
- welcom to jenkins-automation
+ Welcome to jenkins-automation
 ==================
 
 Repos automated by Jenkins DSL 
@@ -11,7 +11,6 @@ We have further enhanced the functionality with a set of builders. You can see w
 
 Our collection of builders is still growing and we would love your contributions. Please see [How to contribute](CONTRIBUTING.md)
 
-## How it works  -DEPRECATED
 ### Good place to start learning about job-dsl API:
   http://sheehan.github.io/job-dsl-plugin
   
@@ -19,7 +18,7 @@ Our collection of builders is still growing and we would love your contributions
   
   http://job-dsl.herokuapp.com/
   
-### If you would like to get started on it for your project a good place to start is our
+#### If you would like to get started on it for your project a good place to start is our
 [starter repo](https://github.com/cfpb/jenkins-as-code-starter-projectgit s). 
 
 ## Guiding principles
@@ -33,9 +32,8 @@ and always [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it),
             [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
           and [KISS](https://en.wikipedia.org/wiki/KISS_principle)
 
-## Installation 
 
-### Required Jenkins Plugins
+### Commonly used Jenkins Plugins that we support
 
 - https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin
 - https://wiki.jenkins-ci.org/display/JENKINS/Build+Flow+Plugin
