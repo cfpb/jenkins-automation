@@ -29,6 +29,27 @@ import jenkins.automation.utils.BaseJobBuilder
 
 ```
 
+## Flow Job Builder
+
+
+```
+import jenkins.automation.utils.FlowJobBuilder
+
+    def oahMaster= new FlowJobBuilder(
+            name: 'GeneratedFlowJob',
+            description: 'this our first stab at it',
+            jobs:['job1', 'job2']
+    ).build(this);
+    
+    oahMaster.with{
+      logRotator{
+          numToKeep(365)
+      }
+    
+    }
+
+```
+
 ## JS Build Job
 
 

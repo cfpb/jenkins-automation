@@ -1,8 +1,11 @@
 package jenkins.automation.utils
 
-class ScmUtils {
+/**
+ * Utility class to provide nicer, terser DSL for common tasks
+ *  @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#using-multiscm-utility" target="_blank">Using Utility Class example</a>
 
-    //TODO : add a conditional to handle a single repo.
+ */
+class ScmUtils {
 
 
     static void project_repos(context, repos, use_versions = true) {

@@ -145,7 +145,7 @@ if (location.href.indexOf('is-external=true') == -1) {
 <dt><span class="strong"><a href="jenkins/automation/utils/BddSecurityJobBuilder.html#build(DslFactory)" title="Method in BddSecurityJobBuilder">build(DslFactory)</a></span> - Method in <a href="jenkins/automation/utils/BddSecurityJobBuilder.html">BddSecurityJobBuilder</a>
 </dt><dd> <div class="block">The main job-dsl script that build job configuration xml</div></dd>
 <dt><span class="strong"><a href="jenkins/automation/utils/FlowJobBuilder.html#build(DslFactory)" title="Method in FlowJobBuilder">build(DslFactory)</a></span> - Method in <a href="jenkins/automation/utils/FlowJobBuilder.html">FlowJobBuilder</a>
-</dt><dd> <div class="block"></div></dd>
+</dt><dd> <div class="block">@param DLS factory class,  provided by Jenkins when executed from build context</div></dd>
 <dt><span class="strong"><a href="jenkins/automation/utils/FrontEndTestJobBuilder.html#build(DslFactory)" title="Method in FrontEndTestJobBuilder">build(DslFactory)</a></span> - Method in <a href="jenkins/automation/utils/FrontEndTestJobBuilder.html">FrontEndTestJobBuilder</a>
 </dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="jenkins/automation/utils/JsJobBuilder.html#build(DslFactory)" title="Method in JsJobBuilder">build(DslFactory)</a></span> - Method in <a href="jenkins/automation/utils/JsJobBuilder.html">JsJobBuilder</a>
@@ -180,10 +180,8 @@ if (location.href.indexOf('is-external=true') == -1) {
 <h2 class="title">F</h2>
 <dl>
 
-<dt><span class="strong"><a href="jenkins/automation/utils/RepositoryYamlParser.html#fileExistsInWorkspace(def, def)" title="Method in RepositoryYamlParser">fileExistsInWorkspace(def, def)</a></span> - Method in <a href="jenkins/automation/utils/RepositoryYamlParser.html">RepositoryYamlParser</a>
-</dt><dd> <div class="block"></div></dd>
 <dt><span class="strong"><a href="jenkins/automation/utils/FlowJobBuilder.html" title="Class in jenkins.automation.utils">FlowJobBuilder</a></span> - Class in <a href="./jenkins/automation/utils/package-summary.html">jenkins.automation.utils</a>
-</dt><dd><div class="block"></div></dd>
+</dt><dd><div class="block">The basic Flow Job builder</div></dd>
 <dt><span class="strong"><a href="jenkins/automation/utils/FrontEndTestJobBuilder.html" title="Class in jenkins.automation.utils">FrontEndTestJobBuilder</a></span> - Class in <a href="./jenkins/automation/utils/package-summary.html">jenkins.automation.utils</a>
 </dt><dd><div class="block"></div></dd>
 </dl>
@@ -193,10 +191,6 @@ if (location.href.indexOf('is-external=true') == -1) {
 <h2 class="title">G</h2>
 <dl>
 
-<dt><span class="strong"><a href="jenkins/automation/utils/RepositoryYamlParser.html#getRepoOriginUrl(def, def)" title="Method in RepositoryYamlParser">getRepoOriginUrl(def, def)</a></span> - Method in <a href="jenkins/automation/utils/RepositoryYamlParser.html">RepositoryYamlParser</a>
-</dt><dd> <div class="block"></div></dd>
-<dt><span class="strong"><a href="jenkins/automation/utils/RepositoryYamlParser.html#getRepositoryUrls(def, def)" title="Method in RepositoryYamlParser">getRepositoryUrls(def, def)</a></span> - Method in <a href="jenkins/automation/utils/RepositoryYamlParser.html">RepositoryYamlParser</a>
-</dt><dd> <div class="block"></div></dd>
 </dl>
 
     
@@ -263,13 +257,8 @@ if (location.href.indexOf('is-external=true') == -1) {
 <dl>
 
 <dt><span class="strong"><a href="jenkins/automation/utils/XmlParserHelper.html#parse(java.lang.String)" title="Method in XmlParserHelper">parse(String)</a></span> - Method in <a href="jenkins/automation/utils/XmlParserHelper.html">XmlParserHelper</a>
-</dt><dd> <div class="block"></div></dd>
-<dt><span class="strong"><a href="jenkins/automation/utils/RepositoryYamlParser.html#parseRepositories(def)" title="Method in RepositoryYamlParser">parseRepositories(def)</a></span> - Method in <a href="jenkins/automation/utils/RepositoryYamlParser.html">RepositoryYamlParser</a>
-</dt><dd> <div class="block"></div></dd>
-<dt><span class="strong"><a href="jenkins/automation/utils/XmlParserHelper.html#processLeaf(Map<String, ?>, def)" title="Method in XmlParserHelper">processLeaf(Map&lt;String, ?&gt;, def)</a></span> - Method in <a href="jenkins/automation/utils/XmlParserHelper.html">XmlParserHelper</a>
-</dt><dd> <div class="block"></div></dd>
-<dt><span class="strong"><a href="jenkins/automation/utils/XmlParserHelper.html#processNode(Map<String, ?>, def)" title="Method in XmlParserHelper">processNode(Map&lt;String, ?&gt;, def)</a></span> - Method in <a href="jenkins/automation/utils/XmlParserHelper.html">XmlParserHelper</a>
-</dt><dd> <div class="block"></div></dd>
+</dt><dd> <div class="block">Converts XML string into a HashMap
+ very useful in xml string comparison</div></dd>
 <dt><span class="strong"><a href="jenkins/automation/utils/ScmUtils.html#project_repos(def, def, def)" title="Method in ScmUtils">project_repos(def, def, def)</a></span> - Method in <a href="jenkins/automation/utils/ScmUtils.html">ScmUtils</a>
 </dt><dd> <div class="block"></div></dd>
 </dl>
@@ -286,8 +275,6 @@ if (location.href.indexOf('is-external=true') == -1) {
 <h2 class="title">R</h2>
 <dl>
 
-<dt><span class="strong"><a href="jenkins/automation/utils/RepositoryYamlParser.html" title="Class in jenkins.automation.utils">RepositoryYamlParser</a></span> - Class in <a href="./jenkins/automation/utils/package-summary.html">jenkins.automation.utils</a>
-</dt><dd><div class="block"></div></dd>
 </dl>
 
     
@@ -296,9 +283,9 @@ if (location.href.indexOf('is-external=true') == -1) {
 <dl>
 
 <dt><span class="strong"><a href="jenkins/automation/utils/ScmUtils.html" title="Class in jenkins.automation.utils">ScmUtils</a></span> - Class in <a href="./jenkins/automation/utils/package-summary.html">jenkins.automation.utils</a>
-</dt><dd><div class="block"></div></dd>
+</dt><dd><div class="block">Utility class to provide nicer, terser DSL for common tasks</div></dd>
 <dt><span class="strong"><a href="jenkins/automation/utils/SiteMonitorJobBuilder.html" title="Class in jenkins.automation.utils">SiteMonitorJobBuilder</a></span> - Class in <a href="./jenkins/automation/utils/package-summary.html">jenkins.automation.utils</a>
-</dt><dd><div class="block"></div></dd>
+</dt><dd><div class="block">@author  Mark Esher - you need to add docs and an example</div></dd>
 </dl>
 
     
@@ -335,7 +322,7 @@ if (location.href.indexOf('is-external=true') == -1) {
 <dl>
 
 <dt><span class="strong"><a href="jenkins/automation/utils/XmlParserHelper.html" title="Class in jenkins.automation.utils">XmlParserHelper</a></span> - Class in <a href="./jenkins/automation/utils/package-summary.html">jenkins.automation.utils</a>
-</dt><dd><div class="block"></div></dd>
+</dt><dd><div class="block">Utility class to aid testing and XML handling</div></dd>
 </dl>
 
     
