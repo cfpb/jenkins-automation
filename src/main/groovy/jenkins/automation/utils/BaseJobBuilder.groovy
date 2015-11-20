@@ -14,8 +14,8 @@ import javaposse.jobdsl.dsl.Job
  * @param description   job description
  * @param emails  list of developer to get notifications
  *<p>
- * See some examples of usage:
- * <a href=”https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#base-job-job-builder”>Base job builder example</a>
+ *
+ * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#base-job-job-builder" target="_blank">Base job builder example</a>
 
  * </p>
  */
