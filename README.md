@@ -12,11 +12,12 @@ We have further enhanced the functionality with a set of builders. You can see w
 Our collection of builders is still growing and we would love your contributions. Please see [How to contribute](CONTRIBUTING.md)
 
 ### Good place to start learning about job-dsl API:
-  http://sheehan.github.io/job-dsl-plugin
+    
+    http://jenkinsci.github.io/job-dsl-plugin/
   
 ### Once you are little more comfortable, try the sandbox:
   
-  http://job-dsl.herokuapp.com/
+    http://job-dsl.herokuapp.com/
   
 #### If you would like to get started on it for your project a good place to start is our
 [starter repo](https://github.com/cfpb/jenkins-as-code-starter-project). 
