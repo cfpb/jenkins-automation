@@ -1,9 +1,12 @@
 package jenkins.automation.utils
 import groovy.util.slurpersupport.GPathResult
 
+/**
+ * Utility class to aid testing and XML handling
+ */
 class XmlParserHelper {
 
-    def processNode( Map<String, ?> map, node) {
+    private  processNode( Map<String, ?> map, node) {
         if (  !map[node.name()] ){
             map[node.name()] = map.getClass().newInstance()
         }
@@ -19,7 +22,7 @@ class XmlParserHelper {
         nodeMap
     }
 
-    def processLeaf(Map<String, ?> map, node) {
+    private processLeaf(Map<String, ?> map, node) {
         if ( map[node.name()] == null) {
             map[node.name()] = node.text()
         } else {
@@ -31,7 +34,12 @@ class XmlParserHelper {
 
         map[node.name()]
     }
-
+    /**
+     * Converts XML string into a HashMap
+     * very useful in xml string comparison
+     * @param xmlString  XML string to be parsed
+     * @return Hashmap  Hashmap of maps using node names as keys
+     */
     def parse(String xmlString) {
         final GPathResult xml = new XmlSlurper().parseText(xmlString)
         final Map map = [ : ]

@@ -3,6 +3,9 @@ package jenkins.automation.utils
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 
+/**
+ * @author  Mark Esher - you need to add docs and an example
+ */
 class SiteMonitorJobBuilder {
 
     String name
