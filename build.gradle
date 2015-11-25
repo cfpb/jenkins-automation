@@ -31,7 +31,7 @@ dependencies {
 sourceSets {
     main {
         groovy {
-            srcDirs = ['src/main/groovy', 'jobs'  ]
+            srcDirs = ['src/main/groovy', 'example-jobs'  ]
         }
     }
 }
