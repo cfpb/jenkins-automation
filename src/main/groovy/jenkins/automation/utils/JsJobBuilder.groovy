@@ -22,9 +22,7 @@ class JsJobBuilder {
         def baseJob = new BaseJobBuilder(
                 name: this.name,
                 description: this.description,
-                emails: this.emails,
-                use_versions: this.use_versions,
-//        some more testparams
+                emails: this.emails
         ).build(factory)
 
 

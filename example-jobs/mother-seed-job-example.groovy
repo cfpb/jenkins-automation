@@ -5,16 +5,19 @@ import java.lang.reflect.Array
 
 //def reposToAutomate = RepositoryYamlParser.parseRepositories('some_yaml_file')
 def reposToAutomate = [
-        [projectName: "OAH", url: "https://github.cfpb.gov/muchniki/oah-jenkins-automation"]
+        [name: "OAH", url: "https://github.cfpb.gov/muchniki/oah-jenkins-automation"],
+        [name: "Qu", url: "https://github.cfpb.gov/marcesher/qu-jenkins-automation"]
 
 ]
-def reposToInclude  = reposToAutomate.collect()
+//def reposToInclude  = reposToAutomate.collect()
 
 
-reposToInclude<< [projectName: "automation", url: 'https://github.com/imuchnik/jenkins-automation']
+
 
 reposToAutomate.each { project ->
-    listView(project.projectName) {
+    def reposToInclude = [[name: "automation", url: 'https://github.com/imuchnik/jenkins-automation']]  //repo containing utils and builders
+    reposToInclude<< project
+    listView(project.name) {
         columns {
             status()
             weather()
@@ -27,10 +30,10 @@ reposToAutomate.each { project ->
         filterBuildQueue()
         filterExecutors()
         jobs {
-            regex(/(?i)(${project.projectName}.*)/)
+            regex(/(?i)(${project.name}.*)/)
         }
     }
-    job(project.projectName + 'SeedJob') {
+    job(project.name + 'SeedJob') {
 
         multiscm {
             ScmUtils.project_repos(delegate, reposToInclude, false)
@@ -42,10 +45,11 @@ reposToAutomate.each { project ->
         steps {
 
             dsl {
-                external 'jobs/**/*.groovy'
-                // you can also give a pattern here like jobs/**/*Jobs.groovy', which would runa
+                external "jobs/**/*.groovy"
+                // you can also give a pattern here like jobs/**/*Jobs.groovy', which would run
                 //scripts in jobs directory that end with /*Jobs.groovy
-                additionalClasspath 'src/main/groovy'
+                additionalClasspath "automation/src/main/groovy \r\n ${project.name}/src/main/groovy \r\n"
+
             }
         }
     }
