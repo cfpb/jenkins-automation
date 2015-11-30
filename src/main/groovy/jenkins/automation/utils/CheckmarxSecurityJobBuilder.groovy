@@ -9,35 +9,45 @@ class CheckmarxSecurityJobBuilder {
     String name
     String description
     String baseUrl
+    String username
     String scanRepo
     String checkmarxComment
+    Boolean useOwnServerCredentials
     Boolean vulnerabilityThresholdEnabled
     String highThreshold
     String mediumThreshold
     String lowThreshold
+    String serverUrl
+    String groupId
 
     Job build(DslFactory factory){
-        factory.job(name){
-            it.description this.description
-            
-            scm {
-                git {
-                    remote {
-                        name('Repo to Scan')
-                        url(scanRepo)
-                    }
-                    
-                    branch('*/master')
-                    wipeOutWorkspace(true)
-                }
-            }
 
+        def baseJob = new BaseJobBuilder(
+                name: this.name,
+                description: this.description,
+        ).build(factory)
+
+        baseJob.with{
+                scm {
+                    git{
+                        remote{
+                            name('Repo to Scan')
+                            url(scanRepo)
+                        }
+                        branch('*/master')
+                        clean()
+                    }
+                }
+        }
+
+        baseJob.with{
             configure { project -> 
-                project / builders / 'com.checkmarx.jenkins.CxScanBuilder' (plugin:"checkmarx@7.2.3-31") {
-                    'useOwnServerCredentials'('false')
-                    'serverUrl'('http://awe-codescan-w-d01')
-                    'projectName'('CheckmarxBuilder')
-                    'groupId'('ac43cb0d-034d-4b1e-9bf5-e7c1c46f71d2')  // Team
+                project / builders / 'com.checkmarx.jenkins.CxScanBuilder' {
+                    'useOwnServerCredentials'(useOwnServerCredentials)
+                    'serverUrl'(serverUrl)
+                    'username'(username)
+                    'projectName'(name) // Checkmarx Project Name
+                    'groupId'(groupId)  // Team
                     'preset'('17') // Default 2014
                     'presetSpecified'('false')
                     'excludeFolders'('resources')
@@ -57,7 +67,8 @@ class CheckmarxSecurityJobBuilder {
                     'generatePdfReport'(true)
                 }
             }
-
         }
+
+        return baseJob
     }
 }
