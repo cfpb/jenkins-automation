@@ -16,8 +16,12 @@ repositories {
     maven { url 'http://repo.jenkins-ci.org/releases/' }
 }
 
+configurations {
+    groovyDoc
+}
 dependencies {
     compile gradleApi()
+//    compile localGroovy()
     compile 'org.ini4j:ini4j:0.5.1'
     compile "org.yaml:snakeyaml:1.10"
     compile 'org.codehaus.groovy:groovy-all:2.4.4'
@@ -26,6 +30,10 @@ dependencies {
     testCompile('org.spockframework:spock-core:0.7-groovy-2.0') {
         exclude module: 'groovy-all'
     }
+    groovyDoc 'org.codehaus.groovy:groovy-groovydoc:2.4.4'
+    groovyDoc 'org.codehaus.groovy:groovy-ant:2.3.3'
+
+
 }
 
 sourceSets {
@@ -34,4 +42,10 @@ sourceSets {
             srcDirs = ['src/main/groovy', 'example-jobs'  ]
         }
     }
+}
+
+groovydoc {
+    groovyClasspath = configurations.groovyDoc
+    source = files('src/main/groovy')
+    destinationDir = file('.')
 }
