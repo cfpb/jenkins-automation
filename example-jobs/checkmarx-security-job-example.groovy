@@ -4,7 +4,6 @@ def projectName ='foo'
 new CheckmarxSecurityJobBuilder(
         name: "${projectName}-checkmarx",
         description: "Sample checkmarx security job",
-        baseUrl: "http://google.com",
         useOwnServerCredentials: false,
         serverUrl: "http://awe-codescan-w-d01",
         groupId: "ac43cb0d-034d-4b1e-9bf5-e7c1c46f71d2",
@@ -14,5 +13,6 @@ new CheckmarxSecurityJobBuilder(
         vulnerabilityThresholdEnabled: true,
         highThreshold: "1",
         mediumThreshold: "2",
-        lowThreshold: "3"
+        lowThreshold: "3",
+        cleanWorkspace: true // Clean up the workspace before every checkout
 ).build(this);

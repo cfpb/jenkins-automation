@@ -8,12 +8,12 @@ class CheckmarxSecurityJobBuilder {
 
     String name
     String description
-    String baseUrl
     String username
     String scanRepo
     String checkmarxComment
     Boolean useOwnServerCredentials
     Boolean vulnerabilityThresholdEnabled
+    Boolean cleanWorkspace
     String highThreshold
     String mediumThreshold
     String lowThreshold
@@ -35,7 +35,10 @@ class CheckmarxSecurityJobBuilder {
                             url(scanRepo)
                         }
                         branch('*/master')
-                        clean()
+                        if (cleanWorkspace){
+                            clean()   
+                        }
+                        
                     }
                 }
         }
