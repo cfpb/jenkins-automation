@@ -7,7 +7,7 @@ Jenkins automation is a library of helper functions to make continuous integrati
 
 We use [Job DSL](https://github.com/jenkinsci/job-dsl-plugin/wiki) to automate.
 We have further enhanced the functionality with a set of builders. You can see what they can do and how to use them in our 
-[API documentation] (http://imuchnik.github.io/jenkins-automation/)
+[API documentation] (http://cfpb.github.io/jenkins-automation/)
 
 Our collection of builders is still growing and we would love your contributions. Please see [How to contribute](CONTRIBUTING.md)
 
