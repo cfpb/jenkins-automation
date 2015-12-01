@@ -5,16 +5,24 @@ import javaposse.jobdsl.dsl.Job
 
 /**
  * Checkmarx Security builder creates a default Checkmarx security build configuration
-
  *
  * @param name  job name
  * @param description  job description
- * @param scanRepo  Github repo to scan
- * @param checkmarxComment Additional comment(s) to include in the scan results
- * @param useOwnServerCredentials If set to false then credentials from the Manage Jenkins page are used; serverUrl, username and password parameters are ignored. 
+ * @param scanRepo  Github repo to scan with Checkmarx
+ * @param cleanWorkspace  Clean up the workspace before every checkout by deleting all untracked files and directories, including those which are specified in .gitignore. Defaults to false.
+ * @param checkmarxComment  Additional comment(s) to include in the scan results
+ * @param useOwnServerCredentials  If set to false then credentials from the Manage Jenkins page are used; serverUrl, username and password parameters are ignored. 
  * If set to true then credentials must be specified in serverUrl, username and password parameters
- *
- * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#bdd-security-job-builder" target="_blank">TODO Checkmarx job Example</a>
+ * @param serverUrl  URL of the Checkmarx server
+ * @param username  Checkmarx user name
+ * @param password  Checkmarx password
+ * @param groupId  Checkmarx group ID passed from environmental variable
+ * @param vulnerabilityThresholdEnabled  Mark the build as unstable if the number of high severity vulnerabilities is above the specified threshold
+ * @param highThreshold  High severity vulnerabilities threshold
+ * @param mediumThreshold  Medium severity vulnerabilities threshold
+ * @param lowThreshold  Low severity vulnerabilities threshold
+ * 
+ * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#checkmarx-security-job-builder" target="_blank">Checkmarx job Example</a>
  *
  */
 
@@ -23,6 +31,7 @@ class CheckmarxSecurityJobBuilder {
     String name
     String description
     String scanRepo
+    Boolean cleanWorkspace
     String checkmarxComment
     Boolean useOwnServerCredentials
     String serverUrl
@@ -30,11 +39,15 @@ class CheckmarxSecurityJobBuilder {
     String password
     String groupId
     Boolean vulnerabilityThresholdEnabled
-    Boolean cleanWorkspace
     String highThreshold
     String mediumThreshold
     String lowThreshold
 
+    /**
+     * The main job-dsl script that build job configuration xml
+     * @param DslFactory
+     * @return Job
+     */
     Job build(DslFactory factory){
 
         def baseJob = new BaseJobBuilder(
