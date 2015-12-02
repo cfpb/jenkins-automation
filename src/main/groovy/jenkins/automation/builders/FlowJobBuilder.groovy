@@ -17,6 +17,7 @@ class FlowJobBuilder {
     List<String> jobs
     String name
     String description
+    String jobFlow = null
 
     /**
      * @param DLS factory class,  provided by Jenkins when executed from build context
@@ -28,9 +29,14 @@ class FlowJobBuilder {
 
             String jobsToBuild =""
 
-            jobs.each {jobName->
-                jobsToBuild+= "build('${jobName}') \r\n"
+            if (jobFlow == null) {
+                jobs.each { jobName ->
+                    jobsToBuild += "build('${jobName}') \r\n"
+                }
+            } else {
+                jobsToBuild += jobFlow
             }
+
             buildFlow(jobsToBuild)
         }
     }
