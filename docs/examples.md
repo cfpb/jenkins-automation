@@ -3,7 +3,7 @@
 ## BDD Security Job Builder
 
 ```
-import jenkins.automation.utils.BddSecurityJobBuilder
+import jenkins.automation.builders.BddSecurityJobBuilder
    
    def projectName ='foo'
    new BddSecurityJobBuilder(
@@ -19,7 +19,7 @@ import jenkins.automation.utils.BddSecurityJobBuilder
 
 
 ```
-import jenkins.automation.utils.BaseJobBuilder
+import jenkins.automation.builders.BaseJobBuilder
    
    def baseJob = new BaseJobBuilder(
                    name: this.name,
@@ -33,7 +33,7 @@ import jenkins.automation.utils.BaseJobBuilder
 
 
 ```
-import jenkins.automation.utils.FlowJobBuilder
+import jenkins.automation.builders.FlowJobBuilder
 
     def oahMaster= new FlowJobBuilder(
             name: 'GeneratedFlowJob',
@@ -55,7 +55,7 @@ import jenkins.automation.utils.FlowJobBuilder
 
 ```
 
-import jenkins.automation.utils.JsJobBuilder
+import jenkins.automation.builders.JsJobBuilder
 
 
 String basePath = 'JsJobSamples'
@@ -85,7 +85,7 @@ new JsJobBuilder(
 
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
-import jenkins.automation.utils.BaseJobBuilder
+import jenkins.automation.builders.BaseJobBuilder
 import jenkins.automation.utils.ScmUtils
 
  def baseJob = new BaseJobBuilder(

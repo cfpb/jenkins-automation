@@ -1,4 +1,4 @@
-import jenkins.automation.utils.SiteMonitorJobBuilder
+import jenkins.automation.builders.SiteMonitorJobBuilder
 
 
 new SiteMonitorJobBuilder(

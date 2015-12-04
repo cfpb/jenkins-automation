@@ -1,7 +1,8 @@
-package jenkins.automation.utils
+package jenkins.automation.builders
 
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
+import jenkins.automation.builders.BaseJobBuilder
 
 /**
  * @author  Mark Esher - you need to add docs and an example

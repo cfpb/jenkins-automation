@@ -1,4 +1,4 @@
-import jenkins.automation.utils.FlowJobBuilder
+import jenkins.automation.builders.FlowJobBuilder
 
 def oahMaster= new FlowJobBuilder(
         name: 'GeneratedFlowJob',

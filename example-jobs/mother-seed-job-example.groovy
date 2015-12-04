@@ -9,7 +9,6 @@ def reposToAutomate = [
         [name: "Qu", url: "https://github.cfpb.gov/marcesher/qu-jenkins-automation"]
 
 ]
-//def reposToInclude  = reposToAutomate.collect()
 
 
 
