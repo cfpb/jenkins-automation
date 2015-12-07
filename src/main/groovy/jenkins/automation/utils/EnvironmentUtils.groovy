@@ -36,8 +36,8 @@ class EnvironmentUtils {
             String env = configuration["ENVIRONMENT"]
             return "${configuration}"
         } catch (all) {
-           all.printStackTrace()
-            return "dev"
+
+            return all.getLocalizedMessage()
         }
     }
 
