@@ -1,8 +1,7 @@
 package jenkins.automation.utils
 
-import jenkins.automation.utils.Environment
-import javaposse.jobdsl.dsl.DslFactory
-import javaposse.jobdsl.dsl.ContextHelper
+import  groovy.lang.*
+
 
 /**
  * Utility Class used to determine the environment at runtime
@@ -30,7 +29,8 @@ class EnvironmentUtils {
         try {
             def configuration = new HashMap()
 
-            def binding = getBinding()
+
+            def binding = Script.getBinding()
             configuration.putAll(binding.getVariables())
 
             String env = configuration["ENVIRONMENT"]
