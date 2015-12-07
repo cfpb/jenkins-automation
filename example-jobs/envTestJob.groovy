@@ -7,7 +7,7 @@ def env = isDev();
 job('test') {
     steps {
         shell """echo $env
-                echo ${ENVIRONEMNT}
+                echo ${ENVIRONMENT}
     """
     }
 
