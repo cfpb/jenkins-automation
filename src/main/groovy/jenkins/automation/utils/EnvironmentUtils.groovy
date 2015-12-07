@@ -36,7 +36,7 @@ class EnvironmentUtils {
             String env = configuration["ENVIRONMENT"]
             return "${configuration}"
         } catch (all) {
-            println("WARNING!!!!! ENVIRONMENT variable not defined in main jenkins config!!!")
+           all.printStackTrace()
             return "dev"
         }
     }
