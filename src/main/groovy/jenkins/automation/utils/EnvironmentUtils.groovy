@@ -33,7 +33,7 @@ class EnvironmentUtils {
             def binding = getBinding()
             configuration.putAll(binding.getVariables())
 
-            String ENVIRONMENT = configuration["ENVIRONMENT"]
+            String env = configuration["ENVIRONMENT"]
             return "${configuration}"
         } catch (all) {
             println("WARNING!!!!! ENVIRONMENT variable not defined in main jenkins config!!!")
