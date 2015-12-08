@@ -1,6 +1,6 @@
 package jenkins.automation.utils
 
-import  groovy.lang.*
+import groovy.lang.Script
 
 
 /**
@@ -8,7 +8,7 @@ import  groovy.lang.*
  */
 
 
-class EnvironmentUtils {
+class EnvironmentUtils extends Expando {
 
 /**
  *  Enum for Jenkins environments
@@ -27,14 +27,8 @@ class EnvironmentUtils {
 
     static getEnv() {
         try {
-            def configuration = new HashMap()
-
-
-            def binding = Script.getBinding()
-            configuration.putAll(binding.getVariables())
-
-            String env = configuration["ENVIRONMENT"]
-            return "${configuration}"
+            String env = System.getenv()
+            return env
         } catch (all) {
 
             return all.getLocalizedMessage()
