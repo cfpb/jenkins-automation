@@ -1,6 +1,6 @@
 package jenkins.automation.utils
 
-import groovy.lang.Script
+import javaposse.jobdsl.*
 
 
 /**
@@ -8,7 +8,7 @@ import groovy.lang.Script
  */
 
 
-class EnvironmentUtils extends Expando {
+class EnvironmentUtils {
 
 /**
  *  Enum for Jenkins environments
@@ -27,7 +27,8 @@ class EnvironmentUtils extends Expando {
 
     static getEnv() {
         try {
-            String env = System.getenv()
+            String envDIDNOTWORK = System.getenv()
+            def env =build.
             return env
         } catch (all) {
 

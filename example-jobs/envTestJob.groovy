@@ -1,5 +1,6 @@
 
 import static jenkins.automation.utils.EnvironmentUtils.getEnv
+import hudson.*
 
 def env = getEnv();
 
