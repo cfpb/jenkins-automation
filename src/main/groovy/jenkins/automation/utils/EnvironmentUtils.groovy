@@ -5,6 +5,7 @@ import javaposse.jobdsl.*
 
 /**
  * Utility Class used to determine the environment at runtime
+ * see example usage
  */
 
 
@@ -15,20 +16,16 @@ class EnvironmentUtils {
  *  relies on ENVIRONMENT env variable in Jenkins
  */
 
-    static isDev() {
-        Environment e = getEnv().toUpperCase()
-        return e == Environment.DEV
+    static isDev(Environment env) {
+        return env == Environment.DEV
     }
 
-    static isProd() {
-        Environment e = getEnv().toUpperCase()
-        return e == Environment.PROD
+    static isProd(Environment env) {
+        return env == Environment.PROD
     }
 
-    static getEnv() {
+    static getEnv(Environment env) {
         try {
-            String envDIDNOTWORK = System.getenv()
-            def env =build.
             return env
         } catch (all) {
 

@@ -1,22 +1,17 @@
 
-import static jenkins.automation.utils.EnvironmentUtils.getEnv
-import hudson.*
+import static jenkins.automation.utils.EnvironmentUtils.isDev
 
-def env = getEnv();
 
-def configuration = new HashMap()
-def binding = getBinding()
-configuration.putAll(binding.getVariables())
+def env
+if (isDev(${ENVIRONMENT})){
+    env = 'DEV'
+}
 
-String shoo = configuration["ENVIRONMENT"]
+
 
 job('test') {
     steps {
         shell """echo $env
-            echo soo $shoo
-
-    """
+      """
     }
-
-
 }
