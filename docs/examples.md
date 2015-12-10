@@ -35,7 +35,9 @@ import jenkins.automation.utils.BddSecurityJobBuilder
    new BddSecurityJobBuilder(
            name: "${projectName}bdd_security_job",
            description: "Sample bdd security job",
-           baseUrl: "http://google.com"
+           baseUrl: "http://google.com",
+           bddSecurityRepo: "${bddSecurityRepo}",
+           chromedriverPath: "\\/Users\\/sotoo\\/homebrew\\/bin\\/Chromedriver"
    ).build(this);
    
 
