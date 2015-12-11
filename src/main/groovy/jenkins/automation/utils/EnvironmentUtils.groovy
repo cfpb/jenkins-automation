@@ -1,11 +1,11 @@
 package jenkins.automation.utils
 
-import javaposse.jobdsl.*
-
 
 /**
  * Utility Class used to determine the environment at runtime
  * see example usage
+ *
+ * TODO: where is this example usage?
  */
 
 
@@ -24,6 +24,7 @@ class EnvironmentUtils {
         return env == Environment.PROD
     }
 
+    //TODO: why do we need this? all it does is return the arg passed in
     static getEnv(Environment env) {
         try {
             return env

@@ -1,4 +1,4 @@
-import jenkins.automation.utils.CheckmarxSecurityJobBuilder
+import jenkins.automation.builders.CheckmarxSecurityJobBuilder
 
 def projectName ='foo'
 new CheckmarxSecurityJobBuilder(
