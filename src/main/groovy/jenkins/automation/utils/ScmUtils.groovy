@@ -23,7 +23,7 @@ class ScmUtils {
                     if (use_versions && version!=null) {
                         branch("*/tags/$version")
                     }
-                    relativeTargetDir(repo.name)
+                    relativeTargetDir(repo.sub_directory)
                 }
             }
         }

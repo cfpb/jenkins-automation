@@ -1,4 +1,4 @@
-import jenkins.automation.utils.BddSecurityJobBuilder
+import jenkins.automation.builders.BddSecurityJobBuilder
 
 def projectName ='foo'
 new BddSecurityJobBuilder(

@@ -1,4 +1,4 @@
-import jenkins.automation.utils.FrontEndTestJobBuilder
+import jenkins.automation.builders.FrontEndTestJobBuilder
 
 
 String basePath = 'JsJobSamples'
