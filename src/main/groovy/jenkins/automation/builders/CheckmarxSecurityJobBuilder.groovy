@@ -45,6 +45,9 @@ class CheckmarxSecurityJobBuilder {
 
     /**
      * The main job-dsl script that build job configuration xml
+     * <p>This example uses a single GH repo
+     * <p>For multiple GH repo support use ScmUtils 
+     *
      * @param DslFactory
      * @return Job
      */
