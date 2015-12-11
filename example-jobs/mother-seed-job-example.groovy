@@ -5,11 +5,11 @@ import java.lang.reflect.Array
 
 //def reposToAutomate = RepositoryYamlParser.parseRepositories('some_yaml_file')
 def reposToAutomate = [
-        [name: "OAH", url: "https://github.cfpb.gov/muchniki/oah-jenkins-automation"],
-        [name: "Qu", url: "https://github.cfpb.gov/marcesher/qu-jenkins-automation"]
+        [name: "OAH", url: "https://github.com/muchniki/oah-jenkins-automation"],
+        [name: "PFC", url: "https://github.com/paying-for-college/jenkins"],
+        [name: "Qu", url: "https://github.com//qu-jenkins-automation"]
 
 ]
-//def reposToInclude  = reposToAutomate.collect()
 
 
 
