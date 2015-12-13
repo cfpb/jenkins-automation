@@ -2,9 +2,9 @@
 import static jenkins.automation.utils.EnvironmentUtils.isDev
 
 
-def env
-if (isDev(${ENVIRONMENT})){
-    env = 'DEV'
+def env=${ENVIRONMENT}
+if (isDev(env)){
+    //do something
 }
 
 

@@ -9,24 +9,24 @@ import javaposse.jobdsl.*
  */
 
 
-class EnvironmentUtils {
+ class EnvironmentUtils {
 
 /**
  *  Enum for Jenkins environments
  *  relies on ENVIRONMENT env variable in Jenkins
  */
 
-    static isDev(Environment env) {
-        return env == Environment.DEV
+    static isDev(String env) {
+        return env.toUpperCase() as Environment== Environment.DEV
     }
 
-    static isProd(Environment env) {
-        return env == Environment.PROD
+    static isProd(String env) {
+        return env.toUpperCase() as Environment == Environment.PROD
     }
 
-    static getEnv(Environment env) {
+    static getEnv(String env) {
         try {
-            return env
+            return env.toUpperCase() as Environment
         } catch (all) {
 
             return all.getLocalizedMessage()
