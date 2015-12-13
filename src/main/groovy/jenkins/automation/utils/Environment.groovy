@@ -7,5 +7,4 @@ enum Environment {
     DEV,
     PROD,
     STAGE
-
 }

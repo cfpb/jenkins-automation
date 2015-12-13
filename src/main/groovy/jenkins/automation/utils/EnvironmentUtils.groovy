@@ -1,7 +1,5 @@
 package jenkins.automation.utils
 
-import javaposse.jobdsl.*
-
 
 /**
  * Utility Class used to determine the environment at runtime
