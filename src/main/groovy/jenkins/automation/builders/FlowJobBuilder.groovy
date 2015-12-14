@@ -9,6 +9,7 @@ import javaposse.jobdsl.dsl.Job
  * @param jobs  comma separated list of jobs to include in the build flow
  * @param name  job name
  * @param description  job description
+ * @param jobFlow optional parameter for jobs done in parallel
  * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#flow-job-job-builder" target="_blank">Flow job builder example</a>
 
  *
