@@ -26,7 +26,7 @@ job('generate docs') {
             pushOnlyIfSuccess()
             pushMerge(false)
             forcePush(true)
-            branch(origin,'gh-pages')
+            branch('origin','gh-pages')
         }
     }
 }
