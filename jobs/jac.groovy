@@ -15,7 +15,7 @@ job('generate docs') {
         }
         shell("""
             git add -A
-            git commit -m"Jenkins autogenerate docs
+            git commit -m'Jenkins autogenerate docs'
        """)
     }
     triggers {
