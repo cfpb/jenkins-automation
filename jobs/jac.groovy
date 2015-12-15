@@ -30,4 +30,3 @@ job('generate docs') {
         }
     }
 }
-gi
