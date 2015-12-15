@@ -3,7 +3,7 @@ job('generate docs') {
         git {
             remote {
                 name('origin')
-                url("https://github.com/cfpb/jenkins-automation.git")
+                url("https://github.com/cfpb/jenkins-automation")
             }
         }
     }
