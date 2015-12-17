@@ -1,24 +1,43 @@
 import jenkins.automation.builders.FlowJobBuilder
 
-def exampleFlow = new FlowJobBuilder(
+def flowJob = new FlowJobBuilder(
         name: 'GeneratedFlowJob',
         description: 'this our first stab at it',
         jobs:['job1', 'job2']
 ).build(this);
 
-exampleFlow.with{
-  logRotator{
-      numToKeep(365)
-  }
+flowJob.with{
+    logRotator{
+        numToKeep(365)
+    }
 }
 
-def exampleFlowWithWorkspace = new FlowJobBuilder(
+def customFlowJob = new FlowJobBuilder(
+        name: 'GeneratedCustomFlowJob',
+        description: 'this a custom flow job',
+        jobFlow: """
+                build('job1')
+                build('job2')
+                parallel(
+                 { build('job3') },
+                 { build('job4') },
+                )
+            """
+).build(this);
+
+customFlowJob.with{
+    logRotator{
+        numToKeep(365)
+    }
+}
+
+def customFlowJobWithWorkspace = new FlowJobBuilder(
         name: 'flow-job-with-workspace',
         description: 'a build flow job with its own workspace',
         jobs:['job1', 'job2']
 ).build(this)
 
-exampleFlowWithWorkspace.with{
+customFlowJobWithWorkspace.with{
     scm {
         git('https://github.com/cfpb/qu.git', 'master')
     }
@@ -26,6 +45,4 @@ exampleFlowWithWorkspace.with{
     configure { node ->
         node << buildNeedsWorkspace(true)
     }
-
 }
-
