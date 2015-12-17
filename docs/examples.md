@@ -49,7 +49,7 @@ import jenkins.automation.builders.FlowJobBuilder
     }
     def customFlowJob= new FlowJobBuilder(
             name: 'GeneratedCustomFlowJob',
-            description: 'this a custom flow it',
+            description: 'this a custom flow job',
             jobFlow: """
                 build('job1')
                 build('job2')
