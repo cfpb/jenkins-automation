@@ -1,13 +1,12 @@
 package jenkins.automation.utils
 
-
 /**
  * Utility Class used to determine the environment at runtime
  * see example usage
  */
 
 
- class EnvironmentUtils {
+class EnvironmentUtils {
 
 /**
  *  Enum for Jenkins environments
@@ -15,20 +14,19 @@ package jenkins.automation.utils
  */
 
     static isDev(String env) {
-        return env.toUpperCase() as Environment== Environment.DEV
+        return getEnv(env) == Environment.DEV
     }
 
     static isProd(String env) {
-        return env.toUpperCase() as Environment == Environment.PROD
+        return getEnv(env) == Environment.PROD
+    }
+
+    static isStage(String env) {
+        return getEnv(env) == Environment.STAGE
     }
 
     static getEnv(String env) {
-        try {
-            return env.toUpperCase() as Environment
-        } catch (all) {
-
-            return all.getLocalizedMessage()
-        }
+        return env.toUpperCase() as Environment
     }
 
 }

@@ -1,13 +1,9 @@
-/**
- * Created by muchniki on 12/13/15.
- */
-//import jenkins.automation.utils.EnvironmentUtils
-import jenkins.automation.utils.Environment
 import spock.lang.Specification
 
 import static jenkins.automation.utils.EnvironmentUtils.getEnv
 import static jenkins.automation.utils.EnvironmentUtils.isProd
 import static jenkins.automation.utils.EnvironmentUtils.isDev
+import static jenkins.automation.utils.EnvironmentUtils.isStage
 
 class EnvironmentUtilsTests extends Specification  {
 
@@ -20,12 +16,14 @@ class EnvironmentUtilsTests extends Specification  {
         when:
         def prod = isProd(ENVIRONMENT)
         def dev = isDev(ENVIRONMENT)
+        def stage = isStage(ENVIRONMENT)
 
 
 
         then:
         assert  dev
         assert !prod
-        assert getEnv(ENVIRONMENT) as String== ENVIRONMENT.toUpperCase() ;
+        assert !stage
+        assert getEnv(ENVIRONMENT) as String == ENVIRONMENT.toUpperCase() ;
     }
 }
