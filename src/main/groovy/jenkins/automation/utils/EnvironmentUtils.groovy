@@ -7,24 +7,26 @@ package jenkins.automation.utils
  */
 
 
- class EnvironmentUtils {
+class EnvironmentUtils {
 
 /**
  *  Enum for Jenkins environments
  *  relies on ENVIRONMENT env variable in Jenkins
  */
 
-    static isDev(String env) {
+    String env
+
+    boolean isDev() {
         return env.toUpperCase() as Environment== Environment.DEV
     }
 
-    static isProd(String env) {
+    boolean isProd() {
         return env.toUpperCase() as Environment == Environment.PROD
     }
 
-    static getEnv(String env) {
+    String getEnv() {
         try {
-            return env.toUpperCase() as Environment
+            return env.toLowerCase() as Environment
         } catch (all) {
 
             return all.getLocalizedMessage()
