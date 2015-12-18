@@ -17,11 +17,11 @@ class EnvironmentUtils {
     String env
 
     boolean isDev() {
-        return env.toUpperCase() as Environment== Environment.DEV
+        return env.toLowerCase() as Environment== Environment.dev
     }
 
     boolean isProd() {
-        return env.toUpperCase() as Environment == Environment.PROD
+        return env.toLowerCase() as Environment == Environment.prod
     }
 
     String getEnv() {
