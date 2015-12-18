@@ -18,7 +18,7 @@ class FlowJobBuilder {
     List<String> jobs
     String name
     String description
-    String jobFlow = null
+    String jobFlow = ""
 
     /**
      * @param DLS factory class,  provided by Jenkins when executed from build context
