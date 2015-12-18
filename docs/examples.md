@@ -53,7 +53,7 @@ import jenkins.automation.builders.BaseJobBuilder
                    name: this.name,
                    description: this.description,
                    emails: this.emails 
-   ).build(factory)
+   ).build(this)
 
 ```
 
