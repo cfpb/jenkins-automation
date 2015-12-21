@@ -1,7 +1,7 @@
 /**
  * Created by muchniki on 12/13/15.
  */
-//import jenkins.automation.utils.EnvironmentUtils
+import jenkins.automation.utils.EnvironmentUtils
 import jenkins.automation.utils.Environment
 import spock.lang.Specification
 
@@ -16,16 +16,17 @@ class EnvironmentUtilsTests extends Specification  {
         given:
 
         def ENVIRONMENT = 'dev'
+        def myEnv = EnvironmentUtils.getInstance(ENVIRONMENT)
 
         when:
-        def prod = isProd(ENVIRONMENT)
-        def dev = isDev(ENVIRONMENT)
+        def prod = env.isProd()
+        def dev = env.isDev()
 
 
 
         then:
-        assert  dev
+        assert dev
         assert !prod
-        assert getEnv(ENVIRONMENT) as String== ENVIRONMENT.toUpperCase() ;
+        assert myEnv.getEnv() as String == ENVIRONMENT;
     }
 }
