@@ -156,14 +156,16 @@ import jenkins.automation.utils.ScmUtils
 ## Determining the environment
 
 ```
-import static jenkins.automation.utils.EnvironmentUtils.isDev
+import static jenkins.automation.utils.EnvironmentUtils
 
 // ${ENVIRONMENT} is available directly from the scripts
 // It is a jenkins environment variable that is set directly in 
 //Jenkins system configuration.
-def env 
-if (isDev(${ENVIRONMENT})){
-    env = 'DEV' //set any other environment specific variables here
+
+def env = EnvironmentUtils.getInstance("${ENVIRONMENT}")
+
+if (env.isDev()){
+    //set any other environment specific variables here
 }
 
 

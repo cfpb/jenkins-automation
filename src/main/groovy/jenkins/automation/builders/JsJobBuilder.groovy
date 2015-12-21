@@ -40,18 +40,11 @@ class JsJobBuilder {
                 ScmUtils.project_repos(delegate, this.repos, use_versions)
             }
 
-            triggers {
-                scm pollScmSchedule
+            if (pollScmSchedule) {
+                triggers {
+                    scm pollScmSchedule
+                }
             }
-
-//            steps {
-//                shell( // TODO:we can potentially pass those in as well - $DIR_TO_BUILD and build script name
-//                        '''
-//                            cd $DIR_TO_BUILD
-//                             ./frontendbuild.sh
-//                        '''
-//                )
-//            }
 
             if (artifacts) {
                 publishers {
