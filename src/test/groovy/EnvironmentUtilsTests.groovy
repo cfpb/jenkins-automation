@@ -19,8 +19,8 @@ class EnvironmentUtilsTests extends Specification  {
         def myEnv = EnvironmentUtils.getInstance(ENVIRONMENT)
 
         when:
-        def prod = env.isProd()
-        def dev = env.isDev()
+        def prod = myEnv.isProd()
+        def dev = myEnv.isDev()
 
 
 
