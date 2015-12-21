@@ -17,18 +17,21 @@ class EnvironmentUtils {
     String env
 
     boolean isDev() {
-        return env.toLowerCase() as Environment== Environment.dev
+        return getEnv() as Environment== Environment.dev
     }
 
     boolean isProd() {
-        return env.toLowerCase() as Environment == Environment.prod
+        return getEnv() as Environment == Environment.prod
+    }
+
+    boolean isStage() {
+        return getEnv() as Environment == Environment.stage
     }
 
     String getEnv() {
         try {
             return env.toLowerCase() as Environment
         } catch (all) {
-
             return all.getLocalizedMessage()
         }
     }
