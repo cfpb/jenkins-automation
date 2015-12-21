@@ -23,7 +23,7 @@ class EnvironmentUtils {
 
     public static EnvironmentUtils getInstance(String env) {
         instance.env = env
-        return instance()
+        return instance
     }
 
 
