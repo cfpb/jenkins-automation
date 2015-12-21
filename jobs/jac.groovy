@@ -33,4 +33,8 @@ job('generate docs') {
             branch('origin','gh-pages')
         }
     }
+    postSuccessfulBuildSteps{
+        shell("git reset HEAD~1 --hard")
+
+    }
 }
