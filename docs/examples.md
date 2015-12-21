@@ -156,7 +156,7 @@ import jenkins.automation.utils.ScmUtils
 ## Determining the environment
 
 ```
-import static jenkins.automation.utils.EnvironmentUtils
+import jenkins.automation.utils.EnvironmentUtils
 
 // ${ENVIRONMENT} is available directly from the scripts
 // It is a jenkins environment variable that is set directly in 

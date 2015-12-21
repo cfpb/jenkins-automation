@@ -1,5 +1,5 @@
 
-import static jenkins.automation.utils.EnvironmentUtils
+import jenkins.automation.utils.EnvironmentUtils
 
 
 def env=EnvironmentUtils.getInstance("${ENVIRONMENT}")
