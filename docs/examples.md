@@ -54,7 +54,7 @@ import jenkins.automation.builders.BaseJobBuilder
                    name: this.name,
                    description: this.description,
                    emails: this.emails 
-   ).build(factory)
+   ).build(this)
 
 ```
 
@@ -64,17 +64,36 @@ import jenkins.automation.builders.BaseJobBuilder
 ```
 import jenkins.automation.builders.FlowJobBuilder
 
-    def flowExampleJob= new FlowJobBuilder(
+    def flowJob= new FlowJobBuilder(
             name: 'GeneratedFlowJob',
             description: 'this our first stab at it',
             jobs:['job1', 'job2']
     ).build(this);
     
-    flowExampleJob.with{
+    flowJob.with{
       logRotator{
           numToKeep(365)
       }
     
+    }
+    def customFlowJob= new FlowJobBuilder(
+            name: 'GeneratedCustomFlowJob',
+            description: 'this a custom flow job',
+            jobFlow: """
+                build('job1')
+                build('job2')
+                parallel(
+                 { build('job3') },
+                 { build('job4') },
+                )
+            """
+    ).build(this);
+
+    customFlowJob.with{
+      logRotator{
+          numToKeep(365)
+      }
+
     }
 
 ```
@@ -138,17 +157,17 @@ import jenkins.automation.utils.ScmUtils
 ## Determining the environment
 
 ```
-
-import static jenkins.automation.utils.EnvironmentUtils.isDev
+import jenkins.automation.utils.EnvironmentUtils
 
 
 // ${ENVIRONMENT} is available directly from the scripts
 // It is a jenkins environment variable that is set directly in 
-//Jenkins system configuration
+//Jenkins system configuration.
 
-def env="${ENVIRONMENT}"
-if (isDev(env)){
-    //do something
+def env = EnvironmentUtils.getInstance("${ENVIRONMENT}")
+
+if (env.isDev()){
+    //set any other environment specific variables here
 }
 
 job('test') {

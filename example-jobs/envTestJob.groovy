@@ -1,13 +1,12 @@
 
-import static jenkins.automation.utils.EnvironmentUtils.isDev
+import jenkins.automation.utils.EnvironmentUtils
 
 
-def env="${ENVIRONMENT}"
-if (isDev(env)){
+def env=EnvironmentUtils.getInstance("${ENVIRONMENT}")
+
+if (env.isDev()){
     //do something
 }
-
-
 
 job('test') {
     steps {
