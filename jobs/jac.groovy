@@ -11,7 +11,7 @@ job('generate docs') {
         }
     }
 
-    steps{
+    steps {
         gradle {
             tasks('groovydoc')
             useWrapper()
@@ -30,11 +30,15 @@ job('generate docs') {
             pushOnlyIfSuccess()
             pushMerge(false)
             forcePush(true)
-            branch('origin','gh-pages')
+            branch('origin', 'gh-pages')
         }
     }
-    postSuccessfulBuildSteps{
-        shell("git reset HEAD~1 --hard")
+    wrappers {
+        release {
+            postSuccessfulBuildSteps {
+                shell("git reset HEAD~1 --hard")
 
+            }
+        }
     }
 }
