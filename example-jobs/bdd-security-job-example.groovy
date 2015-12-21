@@ -1,5 +1,5 @@
 import jenkins.automation.builders.BddSecurityJobBuilder
-
+def  bddSecurityRepo ='some repo to scan'
 def projectName ='foo'
 new BddSecurityJobBuilder(
         name: "${projectName}-bdd-security-tests",

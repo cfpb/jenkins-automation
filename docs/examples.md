@@ -4,7 +4,7 @@
 
 ```
 import jenkins.automation.builders.CheckmarxSecurityJobBuilder
-   
+def groupId = "your-group-id"  
 def projectName ='foo'
 new CheckmarxSecurityJobBuilder(
         name: "${projectName}-checkmarx",
@@ -32,6 +32,7 @@ new CheckmarxSecurityJobBuilder(
 import jenkins.automation.builders.BddSecurityJobBuilder
    
    def projectName ='foo'
+   def bddSecurityRepo ="repo-to-scan'
    new BddSecurityJobBuilder(
            name: "${projectName}bdd_security_job",
            description: "Sample bdd security job",
@@ -158,6 +159,7 @@ import jenkins.automation.utils.ScmUtils
 ```
 import jenkins.automation.utils.EnvironmentUtils
 
+
 // ${ENVIRONMENT} is available directly from the scripts
 // It is a jenkins environment variable that is set directly in 
 //Jenkins system configuration.
@@ -168,11 +170,9 @@ if (env.isDev()){
     //set any other environment specific variables here
 }
 
-
-
 job('test') {
     steps {
-        shell """echo $env # use it anywhere is the script. 
+        shell """echo $env
       """
     }
 }
