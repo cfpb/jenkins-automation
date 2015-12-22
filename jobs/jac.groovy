@@ -13,12 +13,12 @@ job('generate docs') {
     }
 
     steps {
+
         gradle {
             tasks('groovydoc')
             useWrapper()
         }
         shell("""
-            git checkout gh-pages
             git add -A
             git commit -m'Jenkins autogenerate docs'
        """)
