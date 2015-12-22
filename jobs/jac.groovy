@@ -2,7 +2,7 @@ job('generate docs') {
     scm {
         git {
             remote {
-                name('origin')
+                name('origin', 'master')
                 url("https://github.com/cfpb/jenkins-automation")
                 credentials('009c8c9d-3cf5-4b2a-89f3-286977cabddf')
                 clean()
@@ -31,14 +31,6 @@ job('generate docs') {
             pushMerge(false)
             forcePush(true)
             branch('origin', 'gh-pages')
-        }
-    }
-    wrappers {
-        release {
-            postSuccessfulBuildSteps {
-                shell("git reset HEAD~1 --hard")
-
-            }
         }
     }
 }
