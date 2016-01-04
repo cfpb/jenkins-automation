@@ -44,6 +44,7 @@ import jenkins.automation.builders.BddSecurityJobBuilder
 
 ```
 
+
 ## Base Job Builder
 
 
@@ -127,6 +128,34 @@ new JsJobBuilder(
 ).build(this)
 
 ```
+
+## Periodic Job Builder
+
+```
+import jenkins.automation.builders.PeriodicJobBuilder
+
+List developers = ['irina.muchnik@cfpb.gov', 'daniel.davis@cfpb.gov']
+String projectUrl = 'https://github.com/cfpb/bash-automation'
+String cronSchedule = 'H/10 * * * *'
+
+def periodicJob = new PeriodicJobBuilder(
+        name: 'periodic-job-name',
+        description: 'An example using a job builder for a periodic task.',
+        emails: developers,
+        cronSchedule: cronSchedule,
+        repo: projectUrl
+).build(this)
+
+periodicJob.with {
+  steps {
+    shell('''
+./execute_script_from_projectUrl_repo.sh
+''')
+  }
+}
+
+```
+
 ## Using MultiScm Utility 
 
 ```
