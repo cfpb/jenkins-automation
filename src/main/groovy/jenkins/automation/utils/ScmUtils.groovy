@@ -9,7 +9,6 @@ class ScmUtils {
 
 
     static void project_repos(context, repos, use_versions = true) {
-        Boolean shallow
         context.with {
             repos.each { repo ->
                 def parsed_out_url = repo.url.tokenize('@')
@@ -17,12 +16,6 @@ class ScmUtils {
                 def parsed_url = parsed_out_url[0]
 
                 def version = parsed_out_url[1]
-
-                if(repo.containsKey('shallow')) {
-                    shallow = repo.shallow
-                }else{
-                    shallow = false
-                }
 
                 git {
                     remote {
@@ -32,7 +25,7 @@ class ScmUtils {
                         branch("*/tags/$version")
                     }
                     relativeTargetDir(repo.sub_directory)
-                    shallowClone(shallow)
+                    shallowClone(repo.shallow?:false)
                 }
             }
         }
