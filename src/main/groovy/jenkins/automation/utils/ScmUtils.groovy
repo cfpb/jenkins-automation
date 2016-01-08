@@ -28,7 +28,8 @@ class ScmUtils {
                         branch("*/tags/$version")
                     }
                     relativeTargetDir(repo.sub_directory)
-                    shallowClone(repo.shallow?:false)
+                    //shallow clone is the default
+                    shallowClone(repo.shallow!=false?true:false)
                     if(disable_submodule){
                         configure { node ->
                             node / 'extensions' / 'hudson.plugins.git.extensions.impl.SubmoduleOption' {
