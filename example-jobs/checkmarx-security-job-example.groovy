@@ -1,6 +1,7 @@
 import jenkins.automation.builders.CheckmarxSecurityJobBuilder
 
 def projectName ='foo'
+def groupId = "your-group-id"
 new CheckmarxSecurityJobBuilder(
         name: "${projectName}-checkmarx",
         description: "Sample checkmarx security job",

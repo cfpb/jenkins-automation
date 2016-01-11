@@ -4,7 +4,7 @@
 
 ```
 import jenkins.automation.builders.CheckmarxSecurityJobBuilder
-   
+def groupId = "your-group-id"  
 def projectName ='foo'
 new CheckmarxSecurityJobBuilder(
         name: "${projectName}-checkmarx",
@@ -32,6 +32,7 @@ new CheckmarxSecurityJobBuilder(
 import jenkins.automation.builders.BddSecurityJobBuilder
    
    def projectName ='foo'
+   def bddSecurityRepo ="repo-to-scan'
    new BddSecurityJobBuilder(
            name: "${projectName}bdd_security_job",
            description: "Sample bdd security job",
@@ -53,7 +54,7 @@ import jenkins.automation.builders.BaseJobBuilder
                    name: this.name,
                    description: this.description,
                    emails: this.emails 
-   ).build(factory)
+   ).build(this)
 
 ```
 
@@ -110,7 +111,8 @@ List developers = ['irina.muchnik@cfpb.gov', 'daniel.davis@cfpb.gov']
 
 def repos = [
         [name: 'jenkins-automation', url: "https://github.com/cfpb/jenkins-automation@2.0"],
-        [name: 'collab', url: "https://github.com/cfpb/jenkins-automation"]
+        [name: 'collab', url: "https://github.com/cfpb/jenkins-automation", shallow: true]
+        [name: 'other', url: "https://github.com/cfpb/jenkins-automation", disable_submodule: true]
 ]
 folder(basePath) {
     description 'This example shows how to create jobs using Job builders.'
@@ -156,21 +158,22 @@ import jenkins.automation.utils.ScmUtils
 ## Determining the environment
 
 ```
-import static jenkins.automation.utils.EnvironmentUtils.isDev
+import jenkins.automation.utils.EnvironmentUtils
+
 
 // ${ENVIRONMENT} is available directly from the scripts
 // It is a jenkins environment variable that is set directly in 
 //Jenkins system configuration.
-def env 
-if (isDev(${ENVIRONMENT})){
-    env = 'DEV' //set any other environment specific variables here
+
+def env = EnvironmentUtils.getInstance("${ENVIRONMENT}")
+
+if (env.isDev()){
+    //set any other environment specific variables here
 }
-
-
 
 job('test') {
     steps {
-        shell """echo $env # use it anywhere is the script. 
+        shell """echo $env
       """
     }
 }

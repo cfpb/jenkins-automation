@@ -1,29 +1,22 @@
+/**
+ * Created by muchniki on 12/13/15.
+ */
+import jenkins.automation.utils.EnvironmentUtils
 import spock.lang.Specification
-
-import static jenkins.automation.utils.EnvironmentUtils.getEnv
-import static jenkins.automation.utils.EnvironmentUtils.isProd
-import static jenkins.automation.utils.EnvironmentUtils.isDev
-import static jenkins.automation.utils.EnvironmentUtils.isStage
 
 class EnvironmentUtilsTests extends Specification  {
 
     void 'Should Correctly Return Env'() {
 
         given:
-
         def ENVIRONMENT = 'dev'
 
         when:
-        def prod = isProd(ENVIRONMENT)
-        def dev = isDev(ENVIRONMENT)
-        def stage = isStage(ENVIRONMENT)
-
-
+        def myEnv = EnvironmentUtils.getInstance(ENVIRONMENT)
 
         then:
-        assert  dev
-        assert !prod
-        assert !stage
-        assert getEnv(ENVIRONMENT) as String == ENVIRONMENT.toUpperCase() ;
+        assert myEnv.isDev()
+        assert !myEnv.isProd()
+        assert myEnv.getEnv() as String == ENVIRONMENT;
     }
 }
