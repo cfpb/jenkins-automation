@@ -17,6 +17,7 @@ class EnvironmentUtilsTests extends Specification  {
         then:
         assert myEnv.isDev()
         assert !myEnv.isProd()
+        assert !myEnv.isStage()
         assert myEnv.getEnv() as String == ENVIRONMENT;
     }
 }
