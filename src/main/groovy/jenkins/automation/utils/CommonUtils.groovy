@@ -6,13 +6,13 @@ package jenkins.automation.utils
  * @param context  delegate passed in context\
  */
 class CommonUtils {
-    static void add_defaults(context) {
+    static void addDefaults(context) {
         context.with {
             wrappers {
                 colorizeOutput()
             }
             logRotator {
-                numToKeep(10)
+                numToKeep(30)
             }
             publishers {
                 allowBrokenBuildClaiming()

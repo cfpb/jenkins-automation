@@ -2,6 +2,7 @@ package jenkins.automation.builders
 
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
+import jenkins.automation.utils.CommonUtils
 
 /**
  * The basic Flow Job builder
@@ -19,6 +20,7 @@ class FlowJobBuilder {
     String name
     String description
     String jobFlow = ""
+    List<String> emails
 
     /**
      * @param DLS factory class,  provided by Jenkins when executed from build context
@@ -27,6 +29,19 @@ class FlowJobBuilder {
     Job build(DslFactory factory){
         factory.buildFlowJob(name){
             it.description this.description
+            CommonUtils.addDefaults(delegate)
+            publishers {
+                if (emails) {
+                    publishers {
+                        extendedEmail(emails.join(',')) {
+                            trigger(triggerName: 'Failure',
+                                    sendToDevelopers: true, sendToRequester: false, includeCulprits: true, sendToRecipientList: true)
+                            trigger(triggerName: 'Fixed',
+                                    sendToDevelopers: true, sendToRequester: false, includeCulprits: true, sendToRecipientList: true)
+                        }
+                    }
+                }
+            }
 
             String jobsToBuild =""
 

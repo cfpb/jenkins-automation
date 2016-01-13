@@ -29,10 +29,17 @@ class BaseJobBuilder {
     Job build(DslFactory factory) {
         factory.job(name) {
             it.description this.description
-            CommonUtils.add_defaults(delegate)
+            CommonUtils.addDefaults(delegate)
             publishers {
                 if (emails) {
-                    mailer emails.join(' ')  //TODO use extended email
+                    publishers {
+                        extendedEmail(emails.join(',')) {
+                            trigger(triggerName: 'Failure',
+                                    sendToDevelopers: true, sendToRequester: false, includeCulprits: true, sendToRecipientList: true)
+                            trigger(triggerName: 'Fixed',
+                                    sendToDevelopers: true, sendToRequester: false, includeCulprits: true, sendToRecipientList: true)
+                        }
+                    }
                 }
             }
         }
