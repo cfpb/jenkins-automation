@@ -3,15 +3,12 @@ import jenkins.automation.builders.FlowJobBuilder
 def flowJob= new FlowJobBuilder(
         name: 'GeneratedFlowJob',
         description: 'this our first stab at it',
-        jobs:['job1', 'job2']
+        jobs:['job1', 'job2'],
+        emails:['joe@joe.com', 'jane@jane.com']
 ).build(this);
 
-flowJob.with{
-    logRotator{
-        numToKeep(365)
-    }
 
-}
+
 
 def customFlowJob= new FlowJobBuilder(
         name: 'GeneratedCustomFlowJob',
@@ -26,10 +23,7 @@ def customFlowJob= new FlowJobBuilder(
             """
 ).build(this);
 
-customFlowJob.with{
-    logRotator{
-        numToKeep(365)
-    }
+
 
 }
 
