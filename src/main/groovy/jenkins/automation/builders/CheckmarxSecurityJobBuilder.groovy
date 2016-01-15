@@ -8,7 +8,7 @@ import javaposse.jobdsl.dsl.Job
  *
  * @param name  job name
  * @param description  job description
- * @param scanRepo  Github repo to scan with Checkmarx
+ * @param scanRepo  a collection of Github repos to scan with Checkmarx
  * @param cleanWorkspace  Clean up the workspace before every checkout by deleting all untracked files and directories, including those which are specified in .gitignore. Defaults to false.
  * @param checkmarxComment  Additional comment(s) to include in the scan results
  * @param useOwnServerCredentials  If set to false then credentials from the Manage Jenkins page are used; serverUrl, username and password parameters are ignored. 
@@ -30,7 +30,7 @@ class CheckmarxSecurityJobBuilder {
 
     String name
     String description
-    String scanRepo
+    def scanRepo
     Boolean cleanWorkspace
     String checkmarxComment
     Boolean useOwnServerCredentials
@@ -59,19 +59,9 @@ class CheckmarxSecurityJobBuilder {
         ).build(factory)
 
         baseJob.with{
-                scm {
-                    git{
-                        remote{
-                            name('Repo to Scan')
-                            url(scanRepo)
-                        }
-                        branch('*/master')
-                        if (cleanWorkspace){
-                            clean()   
-                        }
-                        
-                    }
-                }
+             multiscm {
+            ScmUtils.project_repos(delegate, this.scanRepo, false)
+            }    
         }
 
         baseJob.with{
