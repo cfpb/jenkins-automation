@@ -2,6 +2,7 @@ package jenkins.automation.builders
 
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
+import jenkins.automation.utils.ScmUtils
 
 /**
  * Checkmarx Security builder creates a default Checkmarx security build configuration
