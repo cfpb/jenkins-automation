@@ -22,6 +22,7 @@ class BddSecurityJobBuilder {
     String name
     String description
     String baseUrl
+    List<String> emails
     String bddSecurityRepo
     String chromedriverPath
 
@@ -34,6 +35,7 @@ class BddSecurityJobBuilder {
         def baseJob = new BaseJobBuilder(
                 name: this.name,
                 description: this.description,
+                emails: this.emails
         ).build(factory)
 
         baseJob.with {
