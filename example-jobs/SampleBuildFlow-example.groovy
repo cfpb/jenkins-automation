@@ -2,8 +2,9 @@ import jenkins.automation.builders.FlowJobBuilder
 
 def flowJob = new FlowJobBuilder(
         name: 'GeneratedFlowJob',
-        description: 'this our first stab at it',
-        jobs:['job1', 'job2']
+        description: 'this is a simple build flow job',
+        jobs:['job1', 'job2'],
+        emails:['joe@example.com', 'jane@example.com']
 ).build(this);
 
 flowJob.with{
@@ -11,6 +12,7 @@ flowJob.with{
         numToKeep(365)
     }
 }
+
 
 def customFlowJob = new FlowJobBuilder(
         name: 'GeneratedCustomFlowJob',
