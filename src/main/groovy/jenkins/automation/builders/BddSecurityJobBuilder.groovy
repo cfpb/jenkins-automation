@@ -8,11 +8,11 @@ import javaposse.jobdsl.dsl.Job
  * Bdd Security builder creates a default BDD security build configuration
 
  *
- * @param name  job name
- * @param description  job description
- * @param baseUrl  url of the application to scan
- * @param bddSecurityRepo  repo where BDD Security framework resides
- * @param chromedriverPath  path to the Chromedriver binary  
+ * @param name job name
+ * @param description job description
+ * @param baseUrl url of the application to scan
+ * @param bddSecurityRepo repo where BDD Security framework resides
+ * @param chromedriverPath path to the Chromedriver binary
  *
  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#bdd-security-job-builder" target="_blank">BDD job Example</a>
  *
@@ -36,22 +36,22 @@ class BddSecurityJobBuilder {
                 description: this.description,
         ).build(factory)
 
-        baseJob.with{
-                scm {
-                    git{
-                        remote{
-                            name('BDD Repo')
-                            url(bddSecurityRepo)
-                        }
-                        branch('*/master')
-                        clean()
+        baseJob.with {
+            scm {
+                git {
+                    remote {
+                        name('BDD Repo')
+                        url(bddSecurityRepo)
                     }
+                    branch('*/master')
+                    clean()
                 }
+            }
         }
 
-        baseJob.with{
-                steps {
-                    shell("""umask 002
+        baseJob.with {
+            steps {
+                shell("""umask 002
                         /usr/bin/Xvfb :1 -ac -screen 0 1024x768x24 &
                         sleep 10
                         export DISPLAY=:1
@@ -67,27 +67,28 @@ class BddSecurityJobBuilder {
                         ant resolve
 
                         ant jbehave.run""")
-                }
+            }
         }
 
-        baseJob.with{
-                /**
-                *  file path pattern of the JBehave reports
-                */
-                configure { project -> 
-                    project / publishers / 'xunit' / 'types' / 'JBehavePluginType' {
-                        'pattern'('reports/latest/*.xml')
-                    }
+        baseJob.with {
+            /**
+             *  file path pattern of the JBehave reports
+             */
+            configure { project ->
+                project / publishers / 'xunit' / 'types' / 'JBehavePluginType' {
+                    'pattern'('reports/latest/*.xml')
                 }
-                /**
-                *  If the Total number of failed tests exceeds this threshold then fail the build
-                */
-                configure { project -> 
-                    project / publishers / 'xunit' / 'thresholds' / 'org.jenkinsci.plugins.xunit.threshold.FailedThreshold' {
-                        'failureThreshold'('1')
-                    }
+            }
+            /**
+             *  If the Total number of failed tests exceeds this threshold then fail the build
+             */
+            configure { project ->
+                project / publishers / 'xunit' / 'thresholds' / 'org.jenkinsci.plugins.xunit.threshold.FailedThreshold' {
+                    'failureThreshold'('1')
                 }
+            }
         }
 
+        return baseJob
     }
 }
