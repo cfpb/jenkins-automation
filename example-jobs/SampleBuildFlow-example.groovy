@@ -45,6 +45,6 @@ customFlowJobWithWorkspace.with{
     }
 
     configure { node ->
-        node << buildNeedsWorkspace(true)
+        (node / buildNeedsWorkspace).value = true
     }
 }
