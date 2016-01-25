@@ -33,7 +33,7 @@ class BaseJobBuilder {
             publishers {
                 if (emails) {
                     publishers {
-                        CommonUtils.addExtendedEmail(delegate, ['Failure, Fixed'], emails, true, false, true, true)
+                        CommonUtils.addExtendedEmail(delegate, ['Failure', 'Fixed'], emails, true, false, true, true)
                     }
                 }
             }
