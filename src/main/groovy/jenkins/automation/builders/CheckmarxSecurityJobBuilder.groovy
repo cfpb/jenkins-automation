@@ -7,22 +7,22 @@ import jenkins.automation.utils.ScmUtils
 /**
  * Checkmarx Security builder creates a default Checkmarx security build configuration
  *
- * @param name  job name
- * @param description  job description
- * @param scanRepo  a collection of Github repos to scan with Checkmarx
- * @param cleanWorkspace  Clean up the workspace before every checkout by deleting all untracked files and directories, including those which are specified in .gitignore. Defaults to false.
- * @param checkmarxComment  Additional comment(s) to include in the scan results
- * @param useOwnServerCredentials  If set to false then credentials from the Manage Jenkins page are used; serverUrl, username and password parameters are ignored. 
+ * @param name job name
+ * @param description job description
+ * @param scanRepo a collection of Github repos to scan with Checkmarx
+ * @param cleanWorkspace Clean up the workspace before every checkout by deleting all untracked files and directories, including those which are specified in .gitignore. Defaults to false.
+ * @param checkmarxComment Additional comment(s) to include in the scan results
+ * @param useOwnServerCredentials If set to false then credentials from the Manage Jenkins page are used; serverUrl, username and password parameters are ignored.
  * If set to true then credentials must be specified in serverUrl, username and password parameters
- * @param serverUrl  URL of the Checkmarx server
- * @param username  Checkmarx user name
- * @param password  Checkmarx password
- * @param groupId  Checkmarx group ID passed from environmental variable
- * @param vulnerabilityThresholdEnabled  Mark the build as unstable if the number of high severity vulnerabilities is above the specified threshold
- * @param highThreshold  High severity vulnerabilities threshold
- * @param mediumThreshold  Medium severity vulnerabilities threshold
- * @param lowThreshold  Low severity vulnerabilities threshold
- * 
+ * @param serverUrl URL of the Checkmarx server
+ * @param username Checkmarx user name
+ * @param password Checkmarx password
+ * @param groupId Checkmarx group ID passed from environmental variable
+ * @param vulnerabilityThresholdEnabled Mark the build as unstable if the number of high severity vulnerabilities is above the specified threshold
+ * @param highThreshold High severity vulnerabilities threshold
+ * @param mediumThreshold Medium severity vulnerabilities threshold
+ * @param lowThreshold Low severity vulnerabilities threshold
+ *
  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#checkmarx-security-job-builder" target="_blank">Checkmarx job Example</a>
  *
  */
@@ -52,21 +52,21 @@ class CheckmarxSecurityJobBuilder {
      * @param DslFactory
      * @return Job
      */
-    Job build(DslFactory factory){
+    Job build(DslFactory factory) {
 
         def baseJob = new BaseJobBuilder(
                 name: this.name,
                 description: this.description,
         ).build(factory)
 
-        baseJob.with{
-             multiscm {
-            ScmUtils.project_repos(delegate, this.scanRepo, false)
-            }    
+        baseJob.with {
+            multiscm {
+                ScmUtils.project_repos(delegate, this.scanRepo, false)
+            }
         }
 
-        baseJob.with{
-            configure { project -> 
+        baseJob.with {
+            configure { project ->
                 project / builders / 'com.checkmarx.jenkins.CxScanBuilder' {
                     'useOwnServerCredentials'(useOwnServerCredentials)
                     'serverUrl'(serverUrl)
