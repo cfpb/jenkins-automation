@@ -27,8 +27,8 @@ class CommonUtils {
 
 /** Utility function to add extended email
  *
- * @param triggers List<String> triggers E.g Failure, Fixed etc...
  * @param List emails List of email string to make it seamlessly compatible with builders
+ * @param triggers List<String> triggers E.g Failure, Fixed etc...
  * @param sendToDevelopers Default false,
  * @param sendToRequester Default true,
  * @param includeCulprits Default false,
@@ -36,7 +36,7 @@ class CommonUtils {
  *
  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">BDD job Example</a>
  * */
-    static void addExtendedEmail(context, List<String> triggers = ["Failure", "Fixed"], List<String> emails, sendToDevelopers = false,  sendToRequester=true, includeCulprits = false, sendToRecipientList = true) {
+    static void addExtendedEmail(context, List<String> emails, List<String> triggers = ["Failure", "Fixed"], sendToDevelopers = false,  sendToRequester = true, includeCulprits = false, sendToRecipientList = true) {
         context.with {
             extendedEmail(emails.join(",")) {
                 triggers.each {
@@ -51,9 +51,8 @@ class CommonUtils {
 
 /**
  * Utility function to add extended email
- *
- * @param triggers List<String> triggers E.g Failure, Fixed etc...
  * @param String emails Comma separated string of emails
+ * @param triggers List<String> triggers E.g Failure, Fixed etc...
  * @param sendToDevelopers Default false,
  * @param sendToRequester Default true,
  * @param includeCulprits Default false,
@@ -62,7 +61,7 @@ class CommonUtils {
  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">BDD job Example</a>
  */
 
-    static void addExtendedEmail(context, List<String> triggers = ["Failure", "Fixed"], String emails, sendToDevelopers = false,  sendToRequester =true,includeCulprits = false, sendToRecipientList = true) {
+    static void addExtendedEmail(context, String emails, List<String> triggers = ["Failure", "Fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true) {
         context.with {
             extendedEmail(emails) {
                 triggers.each {
