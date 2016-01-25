@@ -33,12 +33,7 @@ class BaseJobBuilder {
             publishers {
                 if (emails) {
                     publishers {
-                        extendedEmail(emails.join(',')) {
-                            trigger(triggerName: 'Failure',
-                                    sendToDevelopers: true, sendToRequester: false, includeCulprits: true, sendToRecipientList: true)
-                            trigger(triggerName: 'Fixed',
-                                    sendToDevelopers: true, sendToRequester: false, includeCulprits: true, sendToRecipientList: true)
-                        }
+                        CommonUtils.extendedEmail(delegate, ['Failure, Fixed'], emails, true, false, true, true)
                     }
                 }
             }

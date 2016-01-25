@@ -27,6 +27,7 @@ def customFlowJob = new FlowJobBuilder(
             """
 ).build(this);
 
+
 customFlowJob.with{
     logRotator{
         numToKeep(365)
