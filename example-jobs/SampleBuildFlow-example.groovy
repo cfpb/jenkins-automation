@@ -45,7 +45,8 @@ customFlowJobWithWorkspace.with{
     }
 
     //for use on job-dsl-plugin versions 1.41 and earlier
-    //on 1.42+, simply use buildNeedsWorkspace(). See https://jenkinsci.github.io/job-dsl-plugin/#method/javaposse.jobdsl.dsl.jobs.BuildFlowJob.buildNeedsWorkspace
+    //on 1.42+, simply use buildNeedsWorkspace()
+    //See https://jenkinsci.github.io/job-dsl-plugin/#method/javaposse.jobdsl.dsl.jobs.BuildFlowJob.buildNeedsWorkspace
     configure { node ->
         (node / buildNeedsWorkspace).value = true
     }
