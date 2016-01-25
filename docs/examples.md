@@ -179,3 +179,28 @@ job('test') {
 }
 
 ```
+
+## Common Utils
+
+### Defaults
+```
+import jenkins.automation.utils.CommonUtils
+
+ job('example'){
+    CommonUtils.addDefaults(delegate)
+    }
+```
+### Extended Email
+
+import jenkins.automation.utils.CommonUtils
+
+ job('example'){
+   extendedEmail(delegate, 
+                 triggers = ["Failure", "Fixed"], 
+                'someperson@email.com, someotherperson@email.com', 
+                 sendToDevelopers = false, 
+                 includeCulprits = false, 
+                 sendToRecipientList = true) 
+         
+    }
+```
