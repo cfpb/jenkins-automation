@@ -2,9 +2,9 @@ import jenkins.automation.builders.FlowJobBuilder
 
 def flowJob = new FlowJobBuilder(
         name: 'GeneratedFlowJob',
-        description: 'this our first stab at it',
+        description: 'this is a simple build flow job',
         jobs:['job1', 'job2'],
-        emails:['joe@joe.com', 'jane@jane.com']
+        emails:['joe@example.com', 'jane@example.com']
 ).build(this);
 
 flowJob.with{
