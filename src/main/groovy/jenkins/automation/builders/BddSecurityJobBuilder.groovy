@@ -61,10 +61,10 @@ class BddSecurityJobBuilder {
                         echo \${WORKSPACE}
 
                         cd \${WORKSPACE}
-                        sed -i '' 's/<zapPath>.*<\\/zapPath>/<zapPath>zap\\/zap.sh<\\/zapPath>/g' config.xml
-                        sed -i '' 's/<baseUrl><\\/baseUrl>/<baseUrl>${baseUrl}<\\/baseUrl>/g' config.xml
+                        sed -i 's/<zapPath>.*<\\/zapPath>/<zapPath>zap\\/zap.sh<\\/zapPath>/g' config.xml
+                        sed -i 's/<baseUrl><\\/baseUrl>/<baseUrl>${baseUrl}<\\/baseUrl>/g' config.xml
 
-                        sed -i '' 's/<defaultDriver path.*/<defaultDriver path="${chromedriverPath}">Chrome<\\/defaultDriver>/g' config.xml
+                        sed -i 's/<defaultDriver path.*/<defaultDriver path="${chromedriverPath}">Chrome<\\/defaultDriver>/g' config.xml
 
                         ant resolve
 
