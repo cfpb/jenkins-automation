@@ -46,8 +46,7 @@ class FlowJobBuilder {
             jobsToBuild += jobFlow
 
             buildFlow(jobsToBuild)
+            buildNeedsWorkspace()
         }
     }
-
-
 }
