@@ -48,4 +48,13 @@ class EnvironmentUtils {
         }
     }
 
+    /**
+     * Utility function to inject env specifis config values as environment variables.
+     * @param filePath path to the config file in the workspace
+     */
+
+    public static injectEnvironmentVariable(def context, filePath){
+
+    }
+
 }
