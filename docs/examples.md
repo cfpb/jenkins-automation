@@ -186,9 +186,9 @@ job('test') {
 ```
 import jenkins.automation.utils.CommonUtils
 
- job('example'){
+job('example'){
     CommonUtils.addDefaults(delegate)
-    }
+}
 ```
 
 ### Extended Email
@@ -196,27 +196,16 @@ import jenkins.automation.utils.CommonUtils
 ```
 import jenkins.automation.utils.CommonUtils
 
- job("example"){
-   CommonUtils.extendedEmail(delegate, 
-                 triggers = ["Failure", "Fixed"], 
-                 emails= 'someperson@email.com, someotherperson@email.com', 
-                 sendToDevelopers = false, 
-                 sendToRequester =true,
-                 includeCulprits = false, 
-                 sendToRecipientList = true) 
+job("example"){
+  CommonUtils.addExtendedEmail(delegate, 
+  emails = 'someperson@email.com, someotherperson@email.com') 
          
-    }
+}
    
    
-    //override accepts emails as a list. Compatable with builders
-     job('example'){
-       CommonUtils.extendedEmail(delegate, 
-                     triggers = ["Failure", "Fixed"], 
-                     emails= ['someperson@email.com', 'someotherperson@email.com'], 
-                     sendToDevelopers = false, 
-                     sendToRequester =true,
-                     includeCulprits = false, 
-                     sendToRecipientList = true) 
-             
-        }
+//override accepts emails as a list. Compatible with builders
+job('example'){
+  CommonUtils.addExtendedEmail(delegate, 
+  emails = ['someperson@email.com', 'someotherperson@email.com']) 
+}
 ```
