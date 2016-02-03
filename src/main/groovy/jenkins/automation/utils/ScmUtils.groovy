@@ -28,7 +28,7 @@ class ScmUtils {
                         branch("*/tags/$version")
                     }
                     else {
-                        branch master
+                        branch "master"
                     }
                     relativeTargetDir(repo.sub_directory)
                     shallowClone(repo.shallow?:false)
