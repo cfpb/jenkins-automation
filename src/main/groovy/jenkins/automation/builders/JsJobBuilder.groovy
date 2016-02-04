@@ -8,7 +8,7 @@ import jenkins.automation.utils.ScmUtils
 /**
  * @param name          Job name
  * @param description   Job description
- * @param pollSchedule  Optional
+ * @param pollScmSchedule  Optional
  * @param artifacts     Optional Closure defaulted to closure below :
                                   {
                                      pattern("dist/")
