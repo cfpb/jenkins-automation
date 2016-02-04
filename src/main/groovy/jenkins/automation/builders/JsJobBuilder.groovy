@@ -17,7 +17,7 @@ class JsJobBuilder {
         fingerprint()
         defaultExcludes()
     }
-    List<String> emails
+    def emails
     Boolean use_versions
 
     def repos = [];

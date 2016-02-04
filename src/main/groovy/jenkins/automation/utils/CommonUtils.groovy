@@ -37,16 +37,7 @@ class CommonUtils {
  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">BDD job Example</a>
  * */
     static void addExtendedEmail(context, List<String> emails, List<String> triggers = ["Failure", "Unstable", "Fixed"], sendToDevelopers = false,  sendToRequester = true, includeCulprits = false, sendToRecipientList = true) {
-        context.with {
-            extendedEmail(emails.join(",")) {
-                triggers.each {
-                    trigger(triggerName: it,
-                            sendToDevelopers: sendToDevelopers, sendToRequester: sendToRequester, includeCulprits: includeCulprits, sendToRecipientList: sendToRecipientList)
-
-                }
-            }
-        }
-
+        addExtendedEmail(context, emails.join(","), triggers, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList)
     }
 
 /**
@@ -67,12 +58,9 @@ class CommonUtils {
                 triggers.each {
                     trigger(triggerName: it,
                             sendToDevelopers: sendToDevelopers, sendToRequester: sendToRequester, includeCulprits: includeCulprits, sendToRecipientList: sendToRecipientList)
-
                 }
             }
         }
-
     }
-
 }
 
