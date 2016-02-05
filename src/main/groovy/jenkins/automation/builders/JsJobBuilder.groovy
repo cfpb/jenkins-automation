@@ -8,7 +8,7 @@ import jenkins.automation.utils.ScmUtils
 /**
  * @param name          Job name
  * @param description   Job description
- * @param pollScmSchedule  Optional
+ * @param pollScmSchedule  Optional Configure Jenkins to poll changes in SCM. Cron style schedule string.
  * @param artifacts     Optional Closure defaulted to closure below :
                                   {
                                      pattern("dist/")
