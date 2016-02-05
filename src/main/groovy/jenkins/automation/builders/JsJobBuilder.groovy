@@ -19,7 +19,8 @@ import jenkins.automation.utils.ScmUtils
 
  * @param emails  List or String of notification email addresses
  * @param repos List of repos to watch
- * @param use_versions same as BaseJobBuilder
+ * @param use_versions flag to check out the repo at a specific tag. The tag is parsed out from url property appended after '@' sign.
+
  * <p>
  *
  * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#js-job-builder"
