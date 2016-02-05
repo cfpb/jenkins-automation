@@ -18,7 +18,8 @@ import jenkins.automation.utils.ScmUtils
 
  * @param emails  List or String of notification email addresses
  * @param repos List of repos to watch
- * @param use_versions flag to check out the repo at a specific tag. The tag is parsed out from url property appended after '@' sign.
+ * @param use_versions flag to check out the repo at a specific tag. Applies only to MultiScm block.
+ *          The tag is parsed out from url property appended after '@' sign.
 
  * <p>
  *
