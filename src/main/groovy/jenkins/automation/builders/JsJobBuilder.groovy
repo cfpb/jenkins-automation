@@ -17,7 +17,8 @@ import jenkins.automation.utils.ScmUtils
                                      }
 
  * @param emails  List or String of notification email addresses
- * @param node_version  Version of nodeJs installation to use. Relies on nodejs plugin
+ * @param node_version  Version of nodeJs installation to use. Relies on nodejs plugin and corresponds to the installation
+ *                      defined in Jenkins.
  * @param repos List of repos to watch
  * @param use_versions flag to check out the repo at a specific tag. Applies only to MultiScm block.
  *          The tag is parsed out from url property appended after '@' sign.
