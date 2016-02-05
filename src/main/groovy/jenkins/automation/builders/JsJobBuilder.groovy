@@ -4,7 +4,6 @@ import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 import jenkins.automation.utils.ScmUtils
 
-
 /**
  * @param name          Job name
  * @param description   Job description
@@ -30,10 +29,12 @@ import jenkins.automation.utils.ScmUtils
  */
 
 class JsJobBuilder {
-
     String name
     String description
-    String pollScmSchedule
+    String gitBranch = 'master'
+    String pollScmSchedule = '@daily'
+    String tasks
+    String junitResults = '**/build/test-results/*.xml'
     def artifacts = {
         pattern("dist/")
         fingerprint()
@@ -41,6 +42,7 @@ class JsJobBuilder {
     }
     def emails
     Boolean use_versions
+
     def repos = [];
 
     Job build(DslFactory factory) {

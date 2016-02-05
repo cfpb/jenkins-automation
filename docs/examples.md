@@ -98,7 +98,7 @@ import jenkins.automation.builders.FlowJobBuilder
 
 ```
 
-## JS Job Builder
+## JS Build Job
 
 
 ```
@@ -131,6 +131,7 @@ new JsJobBuilder(
 ## Using MultiScm Utility 
 
 ```
+
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 import jenkins.automation.builders.BaseJobBuilder
