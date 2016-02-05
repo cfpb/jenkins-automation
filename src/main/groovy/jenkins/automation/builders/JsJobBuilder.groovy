@@ -4,35 +4,14 @@ import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.Job
 import jenkins.automation.utils.ScmUtils
 
-
-/**
- * @param name          Job name
- * @param description   Job description
- * @param pollScmSchedule  Optional
- * @param artifacts     Optional Closure defaulted to closure below :
-                                  {
-                                     pattern("dist/")
-                                     fingerprint()
-                                     defaultExcludes()
-
-                                     }
-
- * @param emails  List or String of notification email addresses
- * @param repos List of repos to watch
- * @param use_versions same as BaseJobBuilder
- * <p>
- *
- * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#js-job-builder"
- *      target="_blank">JS job builder example</a>
-
- * </p>
- */
-
 class JsJobBuilder {
 
     String name
     String description
-    String pollScmSchedule
+    String gitBranch = 'master'
+    String pollScmSchedule = '@daily'
+    String tasks
+    String junitResults = '**/build/test-results/*.xml'
     def artifacts = {
         pattern("dist/")
         fingerprint()
@@ -40,6 +19,7 @@ class JsJobBuilder {
     }
     def emails
     Boolean use_versions
+
     def repos = [];
 
     Job build(DslFactory factory) {
