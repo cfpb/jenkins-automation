@@ -160,21 +160,20 @@ import jenkins.automation.utils.ScmUtils
 ```
 import jenkins.automation.utils.EnvironmentUtils
 
+// In our Jenkinses, we name this variable "JAC_ENVIRONMENT" with values of "DEV", "STAGE", or "PROD"
+// In your Jenkins, you can name the variable whatever you like; replace the variable you pass into 
+// EnvironmentUtils.getInstance(...) with your global variable name
 
-// ${ENVIRONMENT} is available directly from the scripts
-// It is a jenkins environment variable that is set directly in 
-//Jenkins system configuration.
-
-def env = EnvironmentUtils.getInstance("${ENVIRONMENT}")
+def env = EnvironmentUtils.getInstance("${JAC_ENVIRONMENT}")
+println "Environment is " + env.getEnv()
 
 if (env.isDev()){
-    //set any other environment specific variables here
+    // Do environment-specific things here
 }
 
 job('test') {
     steps {
-        shell """echo $env
-      """
+        shell "echo ${env.getEnv()}"
     }
 }
 
@@ -203,7 +202,7 @@ job("example"){
 }
    
    
-//override accepts emails as a list. Compatible with builders
+// override accepts emails as a list. Compatible with builders
 job('example'){
   CommonUtils.addExtendedEmail(delegate, 
   emails = ['someperson@email.com', 'someotherperson@email.com']) 
