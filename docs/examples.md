@@ -160,12 +160,12 @@ import jenkins.automation.utils.ScmUtils
 ```
 import jenkins.automation.utils.EnvironmentUtils
 
+//In our Jenkinses, we name this variable "JAC_ENVIRONMENT" with values of "dev", "stage", or "prod"
+//In your Jenkins, you can name the variable whatever you like; replace the variable you pass into 
+//EnvironmentUtils.getInstance(...) with your global variable name
 
-// ${ENVIRONMENT} is available directly from the scripts
-// It is a jenkins environment variable that is set directly in 
-//Jenkins system configuration.
-
-def env = EnvironmentUtils.getInstance("${ENVIRONMENT}")
+def env = EnvironmentUtils.getInstance("${JAC_ENVIRONMENT}")
+println "Environment is " + env.getEnv()
 
 if (env.isDev()){
     //set any other environment specific variables here
@@ -173,8 +173,7 @@ if (env.isDev()){
 
 job('test') {
     steps {
-        shell """echo $env
-      """
+        shell "echo $env"
     }
 }
 
