@@ -11,6 +11,6 @@ if(env.isDev()) {
 
 job('test') {
     steps {
-        shell "echo $env"
+        shell "echo ${env.getEnv()}"
     }
 }
