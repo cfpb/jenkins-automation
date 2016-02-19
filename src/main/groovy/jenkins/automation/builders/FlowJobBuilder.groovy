@@ -55,6 +55,11 @@ class FlowJobBuilder {
 
             buildFlow(jobsToBuild)
             buildNeedsWorkspace()
+            configure {
+                it / publishers << 'org.zeroturnaround.jenkins.flowbuildtestaggregator.FlowTestAggregator' {
+                    showTestResultTrend true
+                }
+            }
         }
     }
 }
