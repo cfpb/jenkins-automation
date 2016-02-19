@@ -58,7 +58,7 @@ new BddSecurityJobBuilder(
 ```
 import jenkins.automation.builders.FlowJobBuilder
 
-FlowJobBuilder(
+new FlowJobBuilder(
         name: 'sample-flow-job',
         description: 'A sample build flow job that builds a list of jobs in order',
         jobs:['job1', 'job2']
@@ -96,7 +96,7 @@ List developers = ['irina.muchnik@cfpb.gov', 'daniel.davis@cfpb.gov']
 
 def repos = [
         [name: 'jenkins-automation', url: "https://github.com/cfpb/jenkins-automation@2.0"],
-        [name: 'collab', url: "https://github.com/cfpb/collab", shallow: true]
+        [name: 'collab', url: "https://github.com/cfpb/collab"]
         [name: 'other', url: "https://github.com/cfpb/jenkins-automation", disable_submodule: true]
 ]
 folder(basePath) {
@@ -120,7 +120,7 @@ import jenkins.automation.utils.ScmUtils
 
 def repos = [
         [name: 'jenkins-automation', url: "https://github.com/cfpb/jenkins-automation@2.0"],
-        [name: 'collab', url: "https://github.com/cfpb/collab", shallow: true]
+        [name: 'collab', url: "https://github.com/cfpb/collab"]
 ]
 new BaseJobBuilder(
         name: "sample-job-with-multiscm",
