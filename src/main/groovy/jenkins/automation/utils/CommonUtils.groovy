@@ -81,7 +81,6 @@ class CommonUtils {
         }
     }
 
-
     /**
      * Utility function to add log parser publisher
      *
@@ -100,4 +99,3 @@ class CommonUtils {
         }
     }
 }
-
