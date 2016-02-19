@@ -211,8 +211,31 @@ job('example'){
 }
 ```
 
-### Inject Globals
+### Inject global passwords
 
 ```
+import jenkins.automation.builders.BaseJobBuilder
+import jenkins.automation.utils.CommonUtils
 
+new BaseJobBuilder(
+        name: "sample-base-job-with-additional-config",
+        description: "A job with some additional configurations added"
+).build(this).with {
+    CommonUtils.addInjectGlobalPasswords(delegate)
+}
+```
+
+### Add shell parsing rules
+
+```
+import jenkins.automation.builders.BaseJobBuilder
+import jenkins.automation.utils.CommonUtils
+
+new BaseJobBuilder(
+        name: "sample-base-job-with-log-parsing",
+        description: "A job with log parsing added"
+).build(this).with {
+    //how to use CommonUtils; pass a custom filename to override the default
+    CommonUtils.addLogParserPublisher(delegate, "/var/lib/jenkins/some_rules_file.txt")
+}
 ```

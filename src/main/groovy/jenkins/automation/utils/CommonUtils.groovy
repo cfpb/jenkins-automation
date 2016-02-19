@@ -65,17 +65,36 @@ class CommonUtils {
     }
 
     /**
-     * Utility function to add 'injectGlobals'
+     * Utility function to add injectGlobalPasswords
      *
-     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">BDD job Example</a>
+     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addInjectGlobals(context) {
+    static void addInjectGlobalPasswords(context) {
         context.with {
             configure {
                 it / buildWrappers / EnvInjectPasswordWrapper {
                     injectGlobalPasswords(true)
                     maskPasswordParameters(true)
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Utility function to add log parser publisher
+     *
+     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
+     */
+
+    static void addLogParserPublisher(context, rulesPath="/var/lib/jenkins/shell_parse_rules.txt") {
+        context.with {
+            configure {
+                it / publishers  << 'hudson.plugins.logparser.LogParserPublisher' {
+                    unstableOnWarning true
+                    failBuildOnError true
+                    parsingRulesPath rulesPath
                 }
             }
         }
