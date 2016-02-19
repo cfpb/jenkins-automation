@@ -22,6 +22,11 @@ class CommonUtils {
             publishers {
                 allowBrokenBuildClaiming()
             }
+            configure { Node project ->
+                project / 'properties' / 'com.sonyericsson.jenkins.plugins.bfa.model.ScannerJobProperty'(plugin: "build-failure-analyzer") {
+                    doNotScan 'false'
+                }
+            }
         }
     }
 
@@ -60,6 +65,7 @@ class CommonUtils {
                             sendToDevelopers: sendToDevelopers, sendToRequester: sendToRequester, includeCulprits: includeCulprits, sendToRecipientList: sendToRecipientList)
                 }
             }
+
         }
     }
 }
