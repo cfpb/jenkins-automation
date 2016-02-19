@@ -127,7 +127,7 @@ def repos = [
 new BaseJobBuilder(
         name: "sample-job-with-multiscm",
         description: "A sample with multiple source control repositories",
-).build(factory).with {
+).build(this).with {
     multiscm {
         ScmUtils.project_repos(delegate, repos, true)
     }
