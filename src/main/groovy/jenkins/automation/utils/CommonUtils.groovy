@@ -34,7 +34,7 @@ class CommonUtils {
      * @param includeCulprits Default false,
      * @param sendToRecipientList Default true
      *
-     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">BDD job Example</a>
+     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
     static void addExtendedEmail(context, List<String> emails, List<String> triggers = ["Failure", "Unstable", "Fixed"], sendToDevelopers = false,  sendToRequester = true, includeCulprits = false, sendToRecipientList = true) {
@@ -50,7 +50,7 @@ class CommonUtils {
      * @param includeCulprits Default false,
      * @param sendToRecipientList Default true
      *
-     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">BDD job Example</a>
+     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
     static void addExtendedEmail(context, String emails, List<String> triggers = ["Failure", "Unstable", "Fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true) {
