@@ -2,7 +2,6 @@
 
 ## Base Job Builder
 
-
 ```
 import jenkins.automation.builders.BaseJobBuilder
    
@@ -55,7 +54,6 @@ new BddSecurityJobBuilder(
 ```
 
 ## Flow Job Builder
-
 
 ```
 import jenkins.automation.builders.FlowJobBuilder
@@ -161,6 +159,7 @@ job('test') {
 ## Common Utils
 
 ### Defaults
+
 ```
 import jenkins.automation.utils.CommonUtils
 
@@ -175,16 +174,12 @@ job('example'){
 import jenkins.automation.utils.CommonUtils
 
 job("example"){
-  CommonUtils.addExtendedEmail(delegate, 
-  emails = 'someperson@email.com, someotherperson@email.com') 
-         
+    CommonUtils.addExtendedEmail(delegate, emails = 'foo@example.com, bar@example.com') 
 }
-   
    
 // override accepts emails as a list. Compatible with builders
 job('example'){
-  CommonUtils.addExtendedEmail(delegate, 
-  emails = ['someperson@email.com', 'someotherperson@email.com']) 
+    CommonUtils.addExtendedEmail(delegate, emails = ['foo@example.com', 'bar@example.com']) 
 }
 ```
 
