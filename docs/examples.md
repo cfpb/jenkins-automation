@@ -6,20 +6,20 @@
 ```
 import jenkins.automation.builders.BaseJobBuilder
    
-   def baseJob = new BaseJobBuilder(
-                   name: "JobName",
-                   description: "Description of your job",
-                   emails: ["foo@example.com","bar@example.com"] 
-   ).build(this)
-
+new BaseJobBuilder(
+     name: "sample-job",
+     description: "Description of your job",
+     emails: ["foo@example.com","bar@example.com"] 
+).build(this)
 ```
 
 ## Checkmarx Security Job Builder
 
 ```
 import jenkins.automation.builders.CheckmarxSecurityJobBuilder
+
 def groupId = "your-group-id"  
-def projectName ='foo'
+def projectName ='sample-project'
 new CheckmarxSecurityJobBuilder(
         name: "${projectName}-checkmarx",
         description: "Sample checkmarx security job",
@@ -35,9 +35,7 @@ new CheckmarxSecurityJobBuilder(
         mediumThreshold: "2",
         lowThreshold: "3",
         cleanWorkspace: true // Clean up the workspace before every checkout
-).build(this);
-
-
+).build(this)
 ```
 
 ## BDD Security Job Builder
@@ -45,20 +43,16 @@ new CheckmarxSecurityJobBuilder(
 ```
 import jenkins.automation.builders.BddSecurityJobBuilder
    
-   def projectName ='foo'
-   def bddSecurityRepo ="repo-to-scan'
-   new BddSecurityJobBuilder(
-           name: "${projectName}bdd_security_job",
-           description: "Sample bdd security job",
-           baseUrl: "http://google.com",
-           bddSecurityRepo: "${bddSecurityRepo}",
-           chromedriverPath: "\\/Users\\/sotoo\\/homebrew\\/bin\\/Chromedriver"
-   ).build(this);
-   
-
+def projectName ='sample-project'
+def bddSecurityRepo ="repo-to-scan'
+new BddSecurityJobBuilder(
+       name: "${projectName}-bdd-security-job",
+       description: "Sample bdd security job",
+       baseUrl: "http://google.com",
+       bddSecurityRepo: "${bddSecurityRepo}",
+       chromedriverPath: "\\/Users\\/sotoo\\/homebrew\\/bin\\/Chromedriver"
+).build(this)
 ```
-
-
 
 ## Flow Job Builder
 
@@ -66,95 +60,78 @@ import jenkins.automation.builders.BddSecurityJobBuilder
 ```
 import jenkins.automation.builders.FlowJobBuilder
 
-    def flowJob= new FlowJobBuilder(
-            name: 'GeneratedFlowJob',
-            description: 'this our first stab at it',
-            jobs:['job1', 'job2']
-    ).build(this);
-    
-    flowJob.with{
-      logRotator{
-          numToKeep(365)
-      }
-    
-    }
-    def customFlowJob= new FlowJobBuilder(
-            name: 'GeneratedCustomFlowJob',
-            description: 'this a custom flow job',
-            jobFlow: """
-                build('job1')
-                build('job2')
-                parallel(
-                 { build('job3') },
-                 { build('job4') },
-                )
-            """
-    ).build(this);
+FlowJobBuilder(
+        name: 'sample-flow-job',
+        description: 'A sample build flow job that builds a list of jobs in order',
+        jobs:['job1', 'job2']
+).build(this).with {
+  logRotator{
+      numToKeep(365)
+  }
+}
 
-    customFlowJob.with{
-      logRotator{
-          numToKeep(365)
-      }
-
-    }
-
+new FlowJobBuilder(
+        name: 'sample-flow-job-with-build-flow',
+        description: 'A sample build flow job that takes a jobFlow string, for full control',
+        jobFlow: """
+            build('job1')
+            build('job2')
+            parallel(
+             { build('job3') },
+             { build('job4') },
+            )
+        """
+).build(this).with {
+  logRotator{
+      numToKeep(365)
+  }
+}
 ```
 
 ## JS Build Job
 
-
 ```
-
 import jenkins.automation.builders.JsJobBuilder
-
 
 String basePath = 'JsJobSamples'
 List developers = ['irina.muchnik@cfpb.gov', 'daniel.davis@cfpb.gov']
 
 def repos = [
         [name: 'jenkins-automation', url: "https://github.com/cfpb/jenkins-automation@2.0"],
-        [name: 'collab', url: "https://github.com/cfpb/jenkins-automation", shallow: true]
+        [name: 'collab', url: "https://github.com/cfpb/collab", shallow: true]
         [name: 'other', url: "https://github.com/cfpb/jenkins-automation", disable_submodule: true]
 ]
 folder(basePath) {
     description 'This example shows how to create jobs using Job builders.'
 }
 
-
 new JsJobBuilder(
         name: "$basePath/BuilderVsBuilders",
-        description: 'An example using a job builder for a Javascript build jobs project.',
+        description: 'An example using a job builder for a Javascript build jobs project',
         repos: repos,
         emails: developers,
         use_versions: true
 ).build(this)
-
 ```
+
 ## Using MultiScm Utility 
 
 ```
-
-import javaposse.jobdsl.dsl.DslFactory
-import javaposse.jobdsl.dsl.Job
 import jenkins.automation.builders.BaseJobBuilder
 import jenkins.automation.utils.ScmUtils
 
- def baseJob = new BaseJobBuilder(
-                name: this.name,
-                description: this.description,
-                emails: this.emails
-        ).build(factory)
-
-
- baseJob.with {
+def repos = [
+        [name: 'jenkins-automation', url: "https://github.com/cfpb/jenkins-automation@2.0"],
+        [name: 'collab', url: "https://github.com/cfpb/collab", shallow: true]
+]
+new BaseJobBuilder(
+        name: "sample-job-with-multiscm",
+        description: "A sample with multiple source control repositories",
+).build(factory).with {
     multiscm {
-        ScmUtils.project_repos(delegate, this.repos, use_versions)
-        }
+        ScmUtils.project_repos(delegate, repos, true)
     }
-
-  baseJob
- }
-
+}
 ```
 
 ## Determining the environment
