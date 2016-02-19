@@ -106,6 +106,39 @@ class CommonUtils {
     }
 
     /**
+     * Utility to add a performance publisher block, for use in performance tests
+     *
+     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
+     */
+
+    static void addPerformancePublisher(context, String reportPattern="**/results/*.jtl", String unstableResponseTimeThreshold="", int failedThresholdPositive, int failedThresholdNegative, int unstableThresholdPositive, int unstableThresholdNegative) {
+        context.with {
+            configure {
+                it / publishers << 'hudson.plugins.performance.PerformancePublisher' {
+                    errorFailedThreshold 2
+                    errorUnstableThreshold 1
+                    errorUnstableResponseTimeThreshold unstableResponseTimeThreshold
+                    relativeFailedThresholdPositive failedThresholdPositive
+                    relativeFailedThresholdNegative failedThresholdNegative
+                    relativeUnstableThresholdPositive unstableThresholdPositive
+                    relativeUnstableThresholdNegative unstableThresholdNegative
+                    modeRelativeThresholds false
+                    configType 'ART'
+                    modeOfThreshold true
+                    compareBuildPrevious true
+                    modePerformancePerTestCase true
+                    modeThroughput true
+                    parsers {
+                        'hudson.plugins.performance.JMeterParser' {
+                            glob reportPattern
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Common string for creating and activating a python 2.7 virtualenv in a shell block
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>

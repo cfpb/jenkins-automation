@@ -233,3 +233,20 @@ new BaseJobBuilder(
     }
 }
 ```
+
+### Add a performance publisher block
+
+```
+import jenkins.automation.builders.BaseJobBuilder
+import jenkins.automation.utils.CommonUtils
+
+new BaseJobBuilder(
+        name: "sample-base-job-with-performance-publisher",
+        description: "A job with a performance publisher. It does not include the actual bits that run the load tests"
+).build(this).with {
+    steps {
+        shell("echo 'Run jmeter tests here'")
+    }
+    CommonUtils.addPerformancePublisher(delegate,failedThresholdPositive=10, failedThresholdNegative=10, unstableThresholdPositive=5, unstableThresholdNegative=5)
+}
+```
