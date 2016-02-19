@@ -24,10 +24,24 @@ new BaseJobBuilder(
     CommonUtils.addLogParserPublisher(delegate, "/var/lib/jenkins/some_rules_file.txt")
 }
 
+new BaseJobBuilder(
+        name: "sample-base-job-with-virtualenv",
+        description: "A job that creates and activates a python 2.7 virtualenv"
+).build(this).with {
+    steps {
+        shell( CommonUtils.python27Virtualenv + """
+                # pip install ansible
+                ls -la
+                env
+                echo "Hello world"
+            """.stripIndent()
+        )
+    }
+}
 
 def repos = [
-        [name: 'jenkins-automation', url: "https://github.com/cfpb/jenkins-automation@2.0"],
-        [name: 'collab', url: "https://github.com/cfpb/collab", shallow: true]
+        [url: "https://github.com/cfpb/jenkins-automation@2.0"],
+        [url: "https://github.com/cfpb/collab"]
 ]
 new BaseJobBuilder(
         name: "sample-base-job-with-multiscm",

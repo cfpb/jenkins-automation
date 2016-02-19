@@ -211,3 +211,25 @@ new BaseJobBuilder(
     CommonUtils.addLogParserPublisher(delegate, "/var/lib/jenkins/some_rules_file.txt")
 }
 ```
+
+### Add virtualenv to a shell step
+
+```
+import jenkins.automation.builders.BaseJobBuilder
+import jenkins.automation.utils.CommonUtils
+
+new BaseJobBuilder(
+        name: "sample-base-job-with-virtualenv",
+        description: "A job that creates and activates a python 2.7 virtualenv"
+).build(this).with {
+    steps {
+        shell( CommonUtils.python27Virtualenv + """
+                # pip install ansible
+                ls -la
+                env
+                echo "Hello world"
+            """.stripIndent()
+        )
+    }
+}
+```

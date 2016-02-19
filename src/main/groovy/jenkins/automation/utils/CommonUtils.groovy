@@ -98,4 +98,24 @@ class CommonUtils {
             }
         }
     }
+
+    /**
+     * Common string for creating and activating a python 2.7 virtualenv in a shell block
+     *
+     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
+     */
+    static String python27Virtualenv = """
+        if [ -d ".env" ]; then
+          echo "**> virtualenv exists"
+        else
+          echo "**> creating virtualenv"
+          virtualenv -p /usr/local/bin/python2.7 .env
+        fi
+
+        . .env/bin/activate
+
+        if [ -f "requirements.txt" ]; then
+            pip install -r requirements.txt
+        fi
+        """.stripIndent()
 }
