@@ -1,5 +1,19 @@
 #Examples
 
+## Base Job Builder
+
+
+```
+import jenkins.automation.builders.BaseJobBuilder
+   
+   def baseJob = new BaseJobBuilder(
+                   name: "JobName",
+                   description: "Description of your job",
+                   emails: ["foo@example.com","bar@example.com"] 
+   ).build(this)
+
+```
+
 ## Checkmarx Security Job Builder
 
 ```
@@ -44,19 +58,7 @@ import jenkins.automation.builders.BddSecurityJobBuilder
 
 ```
 
-## Base Job Builder
 
-
-```
-import jenkins.automation.builders.BaseJobBuilder
-   
-   def baseJob = new BaseJobBuilder(
-                   name: this.name,
-                   description: this.description,
-                   emails: this.emails 
-   ).build(this)
-
-```
 
 ## Flow Job Builder
 
@@ -207,4 +209,10 @@ job('example'){
   CommonUtils.addExtendedEmail(delegate, 
   emails = ['someperson@email.com', 'someotherperson@email.com']) 
 }
+```
+
+### Inject Globals
+
+```
+
 ```
