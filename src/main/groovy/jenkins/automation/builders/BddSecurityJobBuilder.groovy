@@ -86,7 +86,7 @@ class BddSecurityJobBuilder {
              */
             configure { project ->
                 project / publishers / 'xunit' / 'thresholds' / 'org.jenkinsci.plugins.xunit.threshold.FailedThreshold' {
-                    'failureThreshold'('1')
+                    'failureThreshold'('0')
                 }
             }
         }
