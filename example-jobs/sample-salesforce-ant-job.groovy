@@ -9,7 +9,7 @@ new SalesforceAntJobBuilder(
         description: 'An example using a job builder for a Salesforce Ant JobBuilder build jobs project.',
         repoUrl: repo,
         emails: developers,
-        antTaskName: "retrieveUnpackaged",
+        antTaskName: ["retrieveUnpackaged"],
         antInstallerName:"ant-latest"
 ).build(this)
 

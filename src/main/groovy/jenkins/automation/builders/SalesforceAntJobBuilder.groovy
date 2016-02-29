@@ -10,7 +10,7 @@ import jenkins.automation.builders.BaseJobBuilder
  * @param name Job Name
  * @param description Job description
  * @param emails List of emails for build notifications
- * @param antTaskName and target to execute
+ * @param antTasks List of ant target to execute
  * @param repoUrl Git repository to clone
  * @param antInstallerName Name of ant installer on the Jenkins server
  *
@@ -29,7 +29,7 @@ class SalesforceAntJobBuilder {
         String name
         String description
         List emails
-        String antTaskName
+        def antTasks =[]
         String repoUrl
         String antInstallerName
 
@@ -41,9 +41,7 @@ class SalesforceAntJobBuilder {
         ).build(factory);
 
         job.with {
-            logRotator {
-                numToKeep(365)
-            }
+
             scm {
                 git {
                     remote {
@@ -53,7 +51,7 @@ class SalesforceAntJobBuilder {
             }
             steps {
                 ant {
-                    target(antTaskName)
+                    targets(antTasks)
                     antInstallation(antInstallerName)
                 }
             }

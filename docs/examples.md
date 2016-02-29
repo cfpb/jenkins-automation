@@ -118,7 +118,7 @@ new JsJobBuilder(
 
 import jenkins.automation.builders.SalesforceAntJobBuilder
 
-List developers = ['irina.muchnik@cfpb.gov', 'daniel.davis@cfpb.gov']
+List developers = ['irina@mailinator.gov', 'yolo@examle.io']
 
 def repo = "https://github.com/cfpb/saleforce-automation"
 
@@ -127,7 +127,7 @@ new SalesforceAntJobBuilder(
         description: 'An example using a job builder for a Salesforce Ant JobBuilder build jobs project.',
         repoUrl: repo,
         emails: developers,
-        antTaskName: "retrieveUnpackaged",
+        antTasks: ["retrieveUnpackaged"],
         antInstallerName:"ant-latest"
 ).build(this)
 
