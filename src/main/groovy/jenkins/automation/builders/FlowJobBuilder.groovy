@@ -31,6 +31,7 @@ class FlowJobBuilder {
     Job build(DslFactory factory) {
         factory.buildFlowJob(name) {
             it.description this.description
+            buildNeedsWorkspace()
             CommonUtils.addDefaults(delegate)
             publishers {
                 if (emails) {
@@ -45,7 +46,6 @@ class FlowJobBuilder {
                     scm pollScmSchedule
                 }
             }
-            buildNeedsWorkspace(true)
 
             String jobsToBuild = ""
 
