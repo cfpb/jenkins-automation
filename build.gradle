@@ -33,7 +33,19 @@ dependencies {
     groovyDoc 'org.codehaus.groovy:groovy-groovydoc:2.4.4'
     groovyDoc 'org.codehaus.groovy:groovy-ant:2.3.3'
 
+    // for the RestApiScriptRunner
+    compile('ant:ant:1.7.0')
+    compile('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2') {
+        exclude(module: 'groovy')
+    }
 
+}
+
+
+task rest(dependsOn: 'classes', type: JavaExec) {
+    main = 'jenkins.automation.rest.RestApiScriptRunner'
+    classpath = sourceSets.main.runtimeClasspath
+    systemProperties System.getProperties()
 }
 
 sourceSets {
