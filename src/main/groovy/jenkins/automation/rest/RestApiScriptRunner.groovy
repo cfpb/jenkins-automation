@@ -16,6 +16,7 @@ if (!pattern || !baseUrl) {
 
 RestApiJobManagement jm = new RestApiJobManagement(baseUrl)
 if (username && password) {
+    println "Setting credentials to ${username}:${password}"
     jm.setCredentials username, password
 }
 
