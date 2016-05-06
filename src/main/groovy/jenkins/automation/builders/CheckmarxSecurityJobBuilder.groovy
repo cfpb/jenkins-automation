@@ -31,6 +31,7 @@ class CheckmarxSecurityJobBuilder {
 
     String name
     String description
+    List<String> emails
     def scanRepo = []
     Boolean cleanWorkspace = false
     String checkmarxComment
@@ -62,6 +63,7 @@ class CheckmarxSecurityJobBuilder {
         def baseJob = new BaseJobBuilder(
                 name: this.name,
                 description: this.description,
+                emails: this.emails
         ).build(factory)
 
         baseJob.with {
