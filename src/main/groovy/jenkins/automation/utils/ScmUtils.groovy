@@ -44,7 +44,9 @@ class ScmUtils {
                         }
                     }
                     extensions {
-                        relativeTargetDirectory(repo.sub_directory)
+                        if (repo.sub_directory) {
+                            relativeTargetDirectory(repo.sub_directory)
+                        }
                         if (repo.shallow && repo.shallow != null) {
                             cloneOptions {
                                 shallow()
