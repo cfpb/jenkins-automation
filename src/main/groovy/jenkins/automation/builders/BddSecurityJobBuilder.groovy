@@ -42,11 +42,14 @@ class BddSecurityJobBuilder {
             scm {
                 git {
                     remote {
-                        name('BDD Repo')
                         url(bddSecurityRepo)
                     }
                     branch('*/master')
-                    clean()
+                    extensions {
+                        cloneOptions {
+                            shallow()
+                        }
+                    }
                 }
             }
         }

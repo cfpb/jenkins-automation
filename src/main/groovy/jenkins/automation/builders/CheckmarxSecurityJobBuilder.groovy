@@ -9,8 +9,8 @@ import jenkins.automation.utils.ScmUtils
  *
  * @param name job name
  * @param description job description
+ * @emails list of recipients to get notifications
  * @param scanRepo a collection of Github repos to scan with Checkmarx
- * @param cleanWorkspace Clean up the workspace before every checkout by deleting all untracked files and directories, including those which are specified in .gitignore. Defaults to false.
  * @param checkmarxComment Additional comment(s) to include in the scan results
  * @param useOwnServerCredentials If set to false then credentials from the Manage Jenkins page are used; serverUrl, username and password parameters are ignored.
  * If set to true then credentials must be specified in serverUrl, username and password parameters
@@ -18,6 +18,9 @@ import jenkins.automation.utils.ScmUtils
  * @param username Checkmarx user name
  * @param password Checkmarx password
  * @param groupId Checkmarx group ID passed from environmental variable
+ * @param filterPattern files to exclude
+ * @param excludeFolders folders to exclude
+ * @param preset the Checkmarx preset configuration to use
  * @param vulnerabilityThresholdEnabled Mark the build as unstable if the number of high severity vulnerabilities is above the specified threshold
  * @param highThreshold High severity vulnerabilities threshold
  * @param mediumThreshold Medium severity vulnerabilities threshold
@@ -31,18 +34,23 @@ class CheckmarxSecurityJobBuilder {
 
     String name
     String description
-    def scanRepo
-    Boolean cleanWorkspace
+    List<String> emails
+    def scanRepo = []
     String checkmarxComment
-    Boolean useOwnServerCredentials
+    Boolean useOwnServerCredentials = false
     String serverUrl
     String username
     String password
     String groupId
-    Boolean vulnerabilityThresholdEnabled
-    String highThreshold
-    String mediumThreshold
-    String lowThreshold
+    String filterPattern = "!**/_cvs/**/*, !**/.svn/**/*"
+    String excludeFolders = "resources, .git"
+    String preset = "17"// Default 2014
+    Boolean presetSpecified = false
+    String fullScanCycle = "10"
+    Boolean vulnerabilityThresholdEnabled = true
+    String highThreshold = 1
+    String mediumThreshold = 2
+    String lowThreshold = 3
 
     /**
      * The main job-dsl script that build job configuration xml
@@ -57,6 +65,7 @@ class CheckmarxSecurityJobBuilder {
         def baseJob = new BaseJobBuilder(
                 name: this.name,
                 description: this.description,
+                emails: this.emails
         ).build(factory)
 
         baseJob.with {
@@ -74,13 +83,13 @@ class CheckmarxSecurityJobBuilder {
                     'password'(password)
                     'projectName'(name) // Checkmarx Project Name
                     'groupId'(groupId)  // Team
-                    'preset'('17') // Default 2014
-                    'presetSpecified'('false')
-                    'excludeFolders'('resources')
-                    'filterPattern'('!**/_cvs/**/*, !**/.svn/**/*')
+                    'preset'(preset)
+                    'presetSpecified'(presetSpecified)
+                    'excludeFolders'(excludeFolders)
+                    'filterPattern'(filterPattern)
                     'incremental'(true)
                     'fullScansScheduled'(false)
-                    'fullScanCycle'('10')
+                    'fullScanCycle'(fullScanCycle)
                     'isThisBuildIncremental'(false)
                     'sourceEncoding'('1') // Default Configuration
                     'comment'(checkmarxComment)
