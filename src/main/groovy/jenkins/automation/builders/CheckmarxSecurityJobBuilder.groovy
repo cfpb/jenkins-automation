@@ -9,8 +9,8 @@ import jenkins.automation.utils.ScmUtils
  *
  * @param name job name
  * @param description job description
+ * @emails list of recipients to get notifications
  * @param scanRepo a collection of Github repos to scan with Checkmarx
- * @param cleanWorkspace Clean up the workspace before every checkout by deleting all untracked files and directories, including those which are specified in .gitignore. Defaults to false.
  * @param checkmarxComment Additional comment(s) to include in the scan results
  * @param useOwnServerCredentials If set to false then credentials from the Manage Jenkins page are used; serverUrl, username and password parameters are ignored.
  * If set to true then credentials must be specified in serverUrl, username and password parameters
@@ -18,6 +18,9 @@ import jenkins.automation.utils.ScmUtils
  * @param username Checkmarx user name
  * @param password Checkmarx password
  * @param groupId Checkmarx group ID passed from environmental variable
+ * @param filterPattern files to exclude
+ * @param excludeFolders folders to exclude
+ * @param preset the Checkmarx preset configuration to use
  * @param vulnerabilityThresholdEnabled Mark the build as unstable if the number of high severity vulnerabilities is above the specified threshold
  * @param highThreshold High severity vulnerabilities threshold
  * @param mediumThreshold Medium severity vulnerabilities threshold
@@ -33,7 +36,6 @@ class CheckmarxSecurityJobBuilder {
     String description
     List<String> emails
     def scanRepo = []
-    Boolean cleanWorkspace = false
     String checkmarxComment
     Boolean useOwnServerCredentials = false
     String serverUrl
