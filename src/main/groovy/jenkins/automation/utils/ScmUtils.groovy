@@ -36,12 +36,18 @@ class ScmUtils {
                     } else {
                         branch "master"
                     }
-                    relativeTargetDir(repo.sub_directory)
-                    shallowClone(repo.shallow && repo.shallow != null ? repo.shallow : true)
                     if (disable_submodule) {
                         configure { node ->
                             node / 'extensions' / 'hudson.plugins.git.extensions.impl.SubmoduleOption' {
                                 disableSubmodules disable_submodule
+                            }
+                        }
+                    }
+                    extensions {
+                        relativeTargetDirectory(repo.sub_directory)
+                        if (repo.shallow && repo.shallow != null) {
+                            cloneOptions {
+                                shallow()
                             }
                         }
                     }
