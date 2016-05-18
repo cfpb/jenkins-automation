@@ -78,15 +78,15 @@ class BddSecurityJobBuilder {
 
         baseJob.with {
             /**
-             *  file path pattern of the JBehave reports
+             *  cucumber report plugin
              */
             configure { project ->
-                project / publishers / 'xunit' / 'types' / 'JBehavePluginType' {
-                    'pattern'('reports/latest/*.xml')
+                project / publishers / 'com.github.bogdanlivadariu.jenkins.reporting.cucumber.CucumberTestReportPublisher' {
+                    'fileIncludePattern'('build/reports/cucumber/*.json')
                 }
             }
             /**
-             *  If the Total number of failed tests exceeds this threshold then fail the build
+             *  Another cucumber plugin to test
              */
             configure { project ->
                 project / publishers / 'net.masterthought.jenkins.CucumberReportPublisher’ {
