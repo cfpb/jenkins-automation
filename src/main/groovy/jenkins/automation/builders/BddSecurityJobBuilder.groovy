@@ -69,9 +69,10 @@ class BddSecurityJobBuilder {
 
                         sed -i 's/<defaultDriver path.*/<defaultDriver path="${chromedriverPath}">Chrome<\\/defaultDriver>/g' config.xml
 
-                        ant resolve
-
-                        ant jbehave.run""")
+                        export JAVA_HOME=/opt/jdk1.8.0_91
+                        export PATH=\$JAVA_HOME/bin:\$PATH
+                        
+                        ./gradlew test
             }
         }
 
@@ -88,8 +89,8 @@ class BddSecurityJobBuilder {
              *  If the Total number of failed tests exceeds this threshold then fail the build
              */
             configure { project ->
-                project / publishers / 'xunit' / 'thresholds' / 'org.jenkinsci.plugins.xunit.threshold.FailedThreshold' {
-                    'failureThreshold'('0')
+                project / publishers / 'net.masterthought.jenkins.CucumberReportPublisher’ {
+                    'fileIncludePattern'('build/reports/cucumber/*.json')
                 }
             }
         }
