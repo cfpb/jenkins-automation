@@ -204,11 +204,16 @@ job('example') {
 ### Including variables in a shell step
 
 ```groovy
-var foo = 'bar';
+var variable_from_this_script = 'foo';
 
 job('example') {
     steps {
-       shell("my_command --my-arg ${foo}")
+       shell("""
+          my_command \
+             --my-arg ${variable_from_this_script} \
+             --other-arg \${JENKINS_VARIABLE}
+         """.stripIndent()
+      )
     }
 }
 ```
