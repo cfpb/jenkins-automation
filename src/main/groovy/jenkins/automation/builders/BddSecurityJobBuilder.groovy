@@ -72,7 +72,7 @@ class BddSecurityJobBuilder {
                         export JAVA_HOME=/opt/jdk1.8.0_91
                         export PATH=\$JAVA_HOME/bin:\$PATH
                         
-                        ./gradlew test
+                        ./gradlew cleanTest test
             }
         }
 
