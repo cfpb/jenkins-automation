@@ -85,7 +85,7 @@ class BddSecurityJobBuilder {
             }
         
             configure { project ->
-                project / publishers / 'net.masterthought.jenkins.CucumberReportPublisher’ {
+                project / publishers / 'net.masterthought.jenkins.CucumberReportPublisher' {
                     'fileIncludePattern'('build/reports/cucumber/*.json')
                 }
             }
