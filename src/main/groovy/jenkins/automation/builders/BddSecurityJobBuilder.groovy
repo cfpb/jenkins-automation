@@ -77,13 +77,13 @@ class BddSecurityJobBuilder {
         
             configure { project ->
                 project / publishers / 'com.github.bogdanlivadariu.jenkins.reporting.cucumber.CucumberTestReportPublisher' {
-                    'fileIncludePattern'('build/reports/cucumber/*.json')
+                    'fileIncludePattern'('build/reports/cucumber/all_tests.json')
                 }
             }
         
             configure { project ->
                 project / publishers / 'net.masterthought.jenkins.CucumberReportPublisher' {
-                    'fileIncludePattern'('build/reports/cucumber/*.json')
+                    'fileIncludePattern'('build/reports/cucumber/all_tests.json')
                 }
             }
             
