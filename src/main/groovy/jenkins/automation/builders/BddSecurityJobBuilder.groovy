@@ -68,9 +68,6 @@ class BddSecurityJobBuilder {
                         sed -i 's/<baseUrl><\\/baseUrl>/<baseUrl>${baseUrl}<\\/baseUrl>/g' config.xml
 
                         sed -i 's/<defaultDriver path.*/<defaultDriver path="${chromedriverPath}">Chrome<\\/defaultDriver>/g' config.xml
-
-                        export JAVA_HOME=/opt/jdk1.8.0_91
-                        export PATH=\$JAVA_HOME/bin:\$PATH
                         
                         ./gradlew test""")
             }
