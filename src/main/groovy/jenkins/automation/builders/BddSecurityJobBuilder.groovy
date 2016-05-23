@@ -86,6 +86,13 @@ class BddSecurityJobBuilder {
                     'fileIncludePattern'('build/reports/cucumber/*.json')
                 }
             }
+            
+            configure { project ->
+                project / publishers / 'hudson.tasks.junit.JUnitResultArchiver' {
+                    'testResults'('build/reports/junit/all_tests.xml')
+                    'healthScaleFactor'('1.0')
+                }
+            }
         }
 
         return baseJob
