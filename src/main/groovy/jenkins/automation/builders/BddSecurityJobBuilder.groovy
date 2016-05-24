@@ -57,9 +57,9 @@ class BddSecurityJobBuilder {
         baseJob.with {
             steps {
                 shell("""umask 002
-                        /usr/bin/Xvfb :$BUILD_NUMBER -ac -screen 0 1024x768x24 &
+                        /usr/bin/Xvfb :\$BUILD_NUMBER -ac -screen 0 1024x768x24 &
                         sleep 10
-                        export DISPLAY=:$BUILD_NUMBER
+                        export DISPLAY=:\$BUILD_NUMBER
 
                         echo \${WORKSPACE}
 
