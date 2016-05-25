@@ -57,9 +57,9 @@ class BddSecurityJobBuilder {
         baseJob.with {
             steps {
                 shell("""umask 002
-                        /usr/bin/Xvfb :1 -ac -screen 0 1024x768x24 &
+                        /usr/bin/Xvfb :\$BUILD_NUMBER -ac -screen 0 1024x768x24 &
                         sleep 10
-                        export DISPLAY=:1
+                        export DISPLAY=:\$BUILD_NUMBER
 
                         echo \${WORKSPACE}
 
@@ -68,28 +68,29 @@ class BddSecurityJobBuilder {
                         sed -i 's/<baseUrl><\\/baseUrl>/<baseUrl>${baseUrl}<\\/baseUrl>/g' config.xml
 
                         sed -i 's/<defaultDriver path.*/<defaultDriver path="${chromedriverPath}">Chrome<\\/defaultDriver>/g' config.xml
-
-                        ant resolve
-
-                        ant jbehave.run""")
+                        
+                        ./gradlew cleanTest test""")
             }
         }
 
         baseJob.with {
-            /**
-             *  file path pattern of the JBehave reports
-             */
+        
             configure { project ->
-                project / publishers / 'xunit' / 'types' / 'JBehavePluginType' {
-                    'pattern'('reports/latest/*.xml')
+                project / publishers / 'com.github.bogdanlivadariu.jenkins.reporting.cucumber.CucumberTestReportPublisher' {
+                    'fileIncludePattern'('build/reports/cucumber/all_tests.json')
                 }
             }
-            /**
-             *  If the Total number of failed tests exceeds this threshold then fail the build
-             */
+        
             configure { project ->
-                project / publishers / 'xunit' / 'thresholds' / 'org.jenkinsci.plugins.xunit.threshold.FailedThreshold' {
-                    'failureThreshold'('0')
+                project / publishers / 'net.masterthought.jenkins.CucumberReportPublisher' {
+                    'fileIncludePattern'('build/reports/cucumber/all_tests.json')
+                }
+            }
+            
+            configure { project ->
+                project / publishers / 'hudson.tasks.junit.JUnitResultArchiver' {
+                    'testResults'('build/reports/junit/all_tests.xml')
+                    'healthScaleFactor'('1.0')
                 }
             }
         }
