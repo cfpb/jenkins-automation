@@ -4,7 +4,7 @@ def flowJob = new FlowJobBuilder(
         name: 'GeneratedFlowJob',
         description: 'this is a simple build flow job',
         jobs:['job1', 'job2'],
-        emails:['joe@example.com', 'jane@example.com']
+        emails:['jane@example.com', 'joe@example.com']
 ).build(this);
 
 flowJob.with{

@@ -23,36 +23,39 @@ import jenkins.automation.builders.BaseJobBuilder
  */
 class SalesforceAntJobBuilder {
 
+    String name
+    String description
+    List emails
+    def antTasks =[]
+    String repoUrl
+    String antInstallerName
 
     Job build(DslFactory factory) {
 
-        String name
-        String description
-        List emails
-        def antTasks =[]
-        String repoUrl
-        String antInstallerName
-
-
         def job = new BaseJobBuilder(
-                name: name,
-                description: description,
-                emails: emails
+                name: this.name,
+                description: this.description,
+                emails: this.emails
         ).build(factory);
 
         job.with {
 
-            scm {
-                git {
-                    remote {
-                        url(repoUrl)
+            if(this.repoUrl){
+                scm {
+                    git {
+                        remote {
+                            url(this.repoUrl)
+                        }
                     }
                 }
             }
+
             steps {
                 ant {
-                    targets(antTasks)
-                    antInstallation(antInstallerName)
+                    targets(this.antTasks)
+                    if(this.antInstallerName){
+                        antInstallation(this.antInstallerName)
+                    }
                 }
             }
         }

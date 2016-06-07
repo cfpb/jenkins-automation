@@ -2,7 +2,7 @@ import jenkins.automation.builders.FrontEndTestJobBuilder
 
 
 String basePath = 'JsJobSamples'
-List developers = ['irina.muchnik@cfpb.gov', 'daniel.davis@cfpb.gov']
+List developers = ['jane@example.com', 'joe@example.com']
 
 def repos = [
         [name: 'jenkins-automation', url: "https://github.com/cfpb/jenkins-automation@2.0"],
