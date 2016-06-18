@@ -1,7 +1,5 @@
 import javaposse.jobdsl.dsl.*
 import spock.lang.*
-import jenkins.automation.utils.XmlParserHelper
-
 
 
 class my_job_test extends Specification {
@@ -11,11 +9,10 @@ class my_job_test extends Specification {
         given:
         JobManagement jm = new MemoryJobManagement()
 
-        def testjob = new File('example-jobs/SampleJsBuildJob-example.groovy').text
+        def testjob = new File('example-jobs/new_relic_notifier_job.groovy').text
 
 
         when:
-
         ScriptRequest scriptRequest = new ScriptRequest(null, testjob, new File('.').toURI().toURL())
         DslScriptLoader.runDslEngine(scriptRequest, jm)
 
