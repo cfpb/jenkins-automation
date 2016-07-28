@@ -2,7 +2,7 @@
 
 ## Base Job Builder
 
-```
+```groovy
 import jenkins.automation.builders.BaseJobBuilder
    
 new BaseJobBuilder(
@@ -14,7 +14,7 @@ new BaseJobBuilder(
 
 ## Checkmarx Security Job Builder
 
-```
+```groovy
 import jenkins.automation.builders.CheckmarxSecurityJobBuilder
 
 def groupId = "your-group-id"  
@@ -39,7 +39,7 @@ new CheckmarxSecurityJobBuilder(
 
 ## BDD Security Job Builder
 
-```
+```groovy
 import jenkins.automation.builders.BddSecurityJobBuilder
    
 def projectName ='sample-project'
@@ -55,7 +55,7 @@ new BddSecurityJobBuilder(
 
 ## Flow Job Builder
 
-```
+```groovy
 import jenkins.automation.builders.FlowJobBuilder
 
 new FlowJobBuilder(
@@ -88,7 +88,7 @@ new FlowJobBuilder(
 
 ## JS Build Job
 
-```
+```groovy
 import jenkins.automation.builders.JsJobBuilder
 
 String basePath = 'JsJobSamples'
@@ -114,7 +114,7 @@ new JsJobBuilder(
 
 # Salesforce Build Job
 
-```
+```groovy
 
 import jenkins.automation.builders.SalesforceAntJobBuilder
 
@@ -137,7 +137,7 @@ new SalesforceAntJobBuilder(
 =======
 
 
-```
+```groovy
 import jenkins.automation.builders.BaseJobBuilder
 import jenkins.automation.utils.ScmUtils
 
@@ -155,9 +155,11 @@ new BaseJobBuilder(
 }
 ```
 
-## Determining the environment
+## Customizing your job
 
-```
+### Determining the environment
+
+```groovy
 import jenkins.automation.utils.EnvironmentUtils
 
 // In our Jenkinses, we name this variable "JAC_ENVIRONMENT" with values of "DEV", "STAGE", or "PROD"
@@ -179,21 +181,75 @@ job('test') {
 
 ```
 
+### Running a job on a schedule
+
+```groovy
+job('example') {
+    triggers {
+       cron("H/15 * * * *")
+    }
+}
+```
+
+### Including a [Jenkins Custom Tool](https://wiki.jenkins-ci.org/display/JENKINS/Custom+Tools+Plugin)
+
+```groovy
+job('example') {
+    wrappers {
+       customTools(['jq'])
+    }
+}
+```
+
+### Including variables in a shell step
+
+```groovy
+var variable_from_this_script = 'foo';
+
+job('example') {
+    steps {
+       shell("""
+          my_command \
+             --my-arg ${variable_from_this_script} \
+             --other-arg \${JENKINS_VARIABLE}
+         """.stripIndent()
+      )
+    }
+}
+```
+
 ## Common Utils
 
 ### Defaults
 
-```
+```groovy
 import jenkins.automation.utils.CommonUtils
 
 job('example'){
     CommonUtils.addDefaults(delegate)
 }
 ```
+## Plugin Utils
+
+### New Relic
+
+```
+import jenkins.automation.builders.BaseJobBuilder
+
+import jenkins.automation.utils.PluginUtils
+
+def job=new BaseJobBuilder(
+        name: "sample-base-job-with-new-relic",
+        description: "A job with some additional plugin added"
+).build(this).with {
+        PluginUtils.addNewRelicSupport(delegate, "nr-api-key", "new", "foo", "some_log", "deploy", '1') //context, apiKey, applicationId, jobName, changeLog, user, revision
+
+}
+```
 
 ### Extended Email
 
-```
+```groovy
 import jenkins.automation.utils.CommonUtils
 
 job("example"){
@@ -204,11 +260,16 @@ job("example"){
 job('example'){
     CommonUtils.addExtendedEmail(delegate, emails = ['foo@example.com', 'bar@example.com']) 
 }
+
+// Override default email triggers.
+job('example'){
+    CommonUtils.addExtendedEmail(delegate, emails, triggers=['statusChanged'])
+}
 ```
 
 ### Inject global passwords
 
-```
+```groovy
 import jenkins.automation.builders.BaseJobBuilder
 import jenkins.automation.utils.CommonUtils
 
@@ -222,7 +283,7 @@ new BaseJobBuilder(
 
 ### Add shell parsing rules
 
-```
+```groovy
 import jenkins.automation.builders.BaseJobBuilder
 import jenkins.automation.utils.CommonUtils
 
@@ -237,7 +298,7 @@ new BaseJobBuilder(
 
 ### Add virtualenv to a shell step
 
-```
+```groovy
 import jenkins.automation.builders.BaseJobBuilder
 import jenkins.automation.utils.CommonUtils
 
@@ -259,7 +320,7 @@ new BaseJobBuilder(
 
 ### Add a performance publisher block
 
-```
+```groovy
 import jenkins.automation.builders.BaseJobBuilder
 import jenkins.automation.utils.CommonUtils
 
