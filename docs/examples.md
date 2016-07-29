@@ -92,7 +92,7 @@ new FlowJobBuilder(
 import jenkins.automation.builders.JsJobBuilder
 
 String basePath = 'JsJobSamples'
-List developers = ['irina.muchnik@cfpb.gov', 'daniel.davis@cfpb.gov']
+List developers = ['jane@example.com', 'joe@example.com']
 
 def repos = [
         [name: 'jenkins-automation', url: "https://github.com/cfpb/jenkins-automation@2.0"],
@@ -118,12 +118,12 @@ new JsJobBuilder(
 
 import jenkins.automation.builders.SalesforceAntJobBuilder
 
-List developers = ['irina@mailinator.gov', 'yolo@examle.io']
+List developers = ['jane@example.com', 'joe@example.com']
 
-def repo = "https://github.com/cfpb/saleforce-automation"
+def repo = "https://github.com/cfpb/salesforce-automation"
 
 new SalesforceAntJobBuilder(
-        name: "Deploy SF ",
+        name: "example-salesforce-ant-job",
         description: 'An example using a job builder for a Salesforce Ant JobBuilder build jobs project.',
         repoUrl: repo,
         emails: developers,

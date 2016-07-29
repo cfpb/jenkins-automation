@@ -16,5 +16,4 @@ new CheckmarxSecurityJobBuilder(
         highThreshold: "1",
         mediumThreshold: "2",
         lowThreshold: "3",
-        cleanWorkspace: true // Clean up the workspace before every checkout
 ).build(this);
