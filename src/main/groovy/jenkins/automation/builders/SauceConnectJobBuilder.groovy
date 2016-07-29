@@ -19,9 +19,15 @@ class SauceConnectJobBuilder {
     String name
     String description
     List<String> emails
-    Boolean use_versions
+    Boolean use_versions = false
     String webDriverBrowser = 'Linuxchrome44'
     String sauceCredentialId
+
+    def artifacts = {
+        pattern("dist/")
+        fingerprint()
+        defaultExcludes()
+    }
 
     /**
      * The main job-dsl script that build job configuration xml
@@ -33,7 +39,8 @@ class SauceConnectJobBuilder {
                 name: this.name,
                 description: this.description,
                 emails: this.emails,
-                use_versions: use_versions
+                use_versions: use_versions,
+                artifacts: artifacts
         ).build(factory)
 
         baseJob.with {
