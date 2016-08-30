@@ -22,7 +22,7 @@ class PluginUtils {
     static void addNewRelicSupport(context, api_key, application_Id, jobName, changeLog, userId, rev) {
 
         context.configure { Node project ->
-            project / publishers << 'jenkinsci.plugins.newrelicnotifier.NewRelicDeploymentNotifier'(plugin: "newrelic-deployment-notifier") {
+            project / publishers << 'org.jenkinsci.plugins.newrelicnotifier.NewRelicDeploymentNotifier'(plugin: "newrelic-deployment-notifier") {
                 client(class: "org.jenkinsci.plugins.newrelicnotifier.api.NewRelicClientImpl")
                 notifications {
                     'org.jenkinsci.plugins.newrelicnotifier.DeploymentNotificationBean' {
