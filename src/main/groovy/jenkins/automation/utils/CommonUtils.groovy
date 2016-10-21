@@ -42,8 +42,8 @@ class CommonUtils {
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addExtendedEmail(context, List<String> emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false,  sendToRequester = true, includeCulprits = false, sendToRecipientList = true) {
-        addExtendedEmail(context, emails.join(","), triggerList, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList)
+    static void addExtendedEmail(context, List<String> emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false,  sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "$DEFAULT_PRESEND_SCRIPT", postSendScript = "$DEFAULT_POSTSEND_SCRIPT") {
+        addExtendedEmail(context, emails.join(","), triggerList, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList, preSendScript, postSendScript)
     }
 
     /**
@@ -58,10 +58,11 @@ class CommonUtils {
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true) {
+    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "$DEFAULT_PRESEND_SCRIPT", postSendScript = "$DEFAULT_POSTSEND_SCRIPT") {
         context.with {
             extendedEmail {
                 recipientList(emails)
+                preSendScript(preSendScript)
                 triggers {
                     triggerList.each {
                         "${it}" {
