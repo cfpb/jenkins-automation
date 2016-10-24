@@ -38,12 +38,13 @@ class CommonUtils {
      * @param sendToRequester Default true,
      * @param includeCulprits Default false,
      * @param sendToRecipientList Default true
+     * @param preSendScript Default $DEFAULT_PRESEND_SCRIPT
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addExtendedEmail(context, List<String> emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false,  sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "$DEFAULT_PRESEND_SCRIPT", postSendScript = "$DEFAULT_POSTSEND_SCRIPT") {
-        addExtendedEmail(context, emails.join(","), triggerList, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList, preSendScript, postSendScript)
+    static void addExtendedEmail(context, List<String> emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false,  sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT") {
+        addExtendedEmail(context, emails.join(","), triggerList, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList, preSendScript)
     }
 
     /**
@@ -54,11 +55,12 @@ class CommonUtils {
      * @param sendToRequester Default true,
      * @param includeCulprits Default false,
      * @param sendToRecipientList Default true
+     * @param preSendScript Default $DEFAULT_PRESEND_SCRIPT
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "$DEFAULT_PRESEND_SCRIPT", postSendScript = "$DEFAULT_POSTSEND_SCRIPT") {
+    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT") {
         context.with {
             extendedEmail {
                 recipientList(emails)
