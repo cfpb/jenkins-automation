@@ -265,6 +265,16 @@ job('example'){
 job('example'){
     CommonUtils.addExtendedEmail(delegate, emails, triggers=['statusChanged'])
 }
+
+// Override default email pre-send script, by providing a groovy code
+job('example'){
+    CommonUtils.addExtendedEmail(delegate, emails, triggers, sendToDevs, senToReq, incCulprits, sendToRecipient, "cancel = true")
+}
+
+// Override default email pre-send script by providing path to the script file
+job('example'){
+    CommonUtils.addExtendedEmail(delegate, emails, triggers, sendToDevs, sendToReq, incCulprits, sendToRecipient, "\${SCRIPT, template='path/to/script.groovy'}"
+}
 ```
 
 ### Inject global passwords
