@@ -15,7 +15,6 @@ import jenkins.automation.utils.CommonUtils
  * @param name used to name the job
  * @param description job description
  * @param emails list of developer to get notifications
- * @param preSendScript a groovy script to modify default email before sending it
  * <p>
  *
  * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#base-job-job-builder"
@@ -27,7 +26,6 @@ class BaseJobBuilder {
     String name
     String description
     List<String> emails
-    String preSendScript
 
     Job build(DslFactory factory) {
         factory.job(name) {
@@ -35,14 +33,8 @@ class BaseJobBuilder {
             CommonUtils.addDefaults(delegate)
             publishers {
                 if (emails) {
-                    if (preSendScript) {
-                        publishers {
-                            CommonUtils.addExtendedEmail(delegate, emails, false, true, false, true, preSendScript)
-                        }
-                    } else {
-                        publishers {
-                            CommonUtils.addExtendedEmail(delegate, emails)
-                        }
+                    publishers {
+                        CommonUtils.addExtendedEmail(delegate, emails)
                     }
                 }
             }
