@@ -64,7 +64,7 @@ class CommonUtils {
         context.with {
             extendedEmail {
                 recipientList(emails)
-                preSendScript(preSendScript)
+                delegate.preSendScript(preSendScript)
                 triggers {
                     triggerList.each {
                         "${it}" {
