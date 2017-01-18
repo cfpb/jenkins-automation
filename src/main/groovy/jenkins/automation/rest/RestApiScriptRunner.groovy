@@ -3,6 +3,7 @@
 package jenkins.automation.rest
 
 import javaposse.jobdsl.dsl.DslScriptLoader
+import javaposse.jobdsl.dsl.ScriptRequest
 
 String pattern = System.getProperty('pattern')
 String baseUrl = System.getProperty('baseUrl')
@@ -28,5 +29,5 @@ params['JAC_HOST'] = System.getProperty('JAC_HOST') ?: 'aws'
 new FileNameFinder().getFileNames('.', pattern).each { String fileName ->
     println "\nprocessing file: $fileName"
     File file = new File(fileName)
-    DslScriptLoader.runDslEngine(file.text, jm)
+    new DslScriptLoader(jm).runScript(file.text)
 }
