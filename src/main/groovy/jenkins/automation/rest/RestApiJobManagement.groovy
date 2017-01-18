@@ -115,7 +115,7 @@ class RestApiJobManagement extends MockJobManagement {
     private String fetchExistingXml(String name, boolean isView) {
         setCrumbHeader()
         HttpResponseDecorator resp = restClient.get(
-            contentType: ContentType.TEXT,
+            contentType: ContentType.DEFAULT_TEXT,
             path: getPath(name, isView) + '/config.xml',
             headers: [Accept: 'application/xml'],
         )
