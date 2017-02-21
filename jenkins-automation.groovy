@@ -221,7 +221,9 @@ job('dsl-project-builder') {
           url(repo)
         }
         branch('*/master')
-        relativeTargetDir(repo.split('/')[4])
+        extensions {
+          relativeTargetDir(repo.split('/')[4])
+        }
       }
     }
   }
