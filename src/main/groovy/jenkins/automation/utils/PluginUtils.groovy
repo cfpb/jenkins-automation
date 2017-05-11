@@ -12,6 +12,8 @@ class PluginUtils {
      * @param SqsEndpoint AWS SQS queue url
      * @param buildServerUrlValue jenkins url
      * @param roomId optional (will read from global config if blank) used by tools like https://github.com/catops/hubot-sqs
+     * @param customSQSMessageValue Custom message to be posted to AWS SQS queue.
+     * @param includeCustomSQSMessageFlag Option to include  custom message. Default value: false
      * @param startNotificationFlag Option to be notified when job starts. Default value: false
      * @param notifySuccessFlag Option to be notified when job succeeds. Default value: false
      * @param notifyAbortedFlag Option to be notified when job is aborted. Default value: false
@@ -21,11 +23,8 @@ class PluginUtils {
      * @param notifyBackToNormalFlag Option to be notified when job returns to SUCCESS state. Default value: false
      * @param notifyRepeatedFailureFlag Option to be notified when job fails repeatedly. Default value: false
      * @param sqsIncludeTestSummaryFlag Option to include test summary. Default value: false
-     * @param includeCustomSQSMessageFlag Option to include  custom message. Default value: false
-     * @param customSQSMessageValue Custom message to be posted to AWS SQS queue.
-     *
-     *
-     *  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#sqs" target="_blank">SQS Support</a>
+
+     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#sqs" target="_blank">SQS Support</a>
 
      */
     static void addSQSNotification(context,
