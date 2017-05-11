@@ -1,6 +1,4 @@
- Welcome to jenkins-automation  
- 
- [](https://travis-ci.org/imuchnik/jenkins-automation.svg?branch=master)
+ Welcome to jenkins-automation  ![](https://travis-ci.org/imuchnik/jenkins-automation.svg?branch=master)
 ==================
 
 Repos automated by Jenkins DSL 
