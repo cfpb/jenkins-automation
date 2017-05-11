@@ -9,7 +9,7 @@ class my_job_test extends Specification {
         given:
         JobManagement jm = new MemoryJobManagement()
 
-        def testjob = new File('example-jobs/new_relic_notifier_job.groovy').text
+        def testjob = new File('example-jobs/sqs_notifier_job.groovy').text
 
 
         when:
