@@ -5,21 +5,80 @@ package jenkins.automation.utils
 
  */
 class PluginUtils {
-/**
- *  Utility function for adding newrelic notifier plugin
- * @param context Publishers in this case, passed as a delegate
- * @param api_key newRelic api key
- * @param applicationId Application Id
- * @param jobName job Name
- * @param changeLog Changelog messages
- * @param user Jenkins user
- * @param revision revision number
- *
- *
- * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#plugin-utils" target="_blank">Plugin utils</a>
- */
 
-    static void addNewRelicSupport(context, api_key, application_Id, jobName, changeLog, userId, rev) {
+    /**
+     *
+     * @param context delegate
+     * @param SqsEndpoint AWS SQS queue url
+     * @param buildServerUrlValue jenkins url
+     * @param roomId optional (will read from global config if blank) used by tools like https://github.com/catops/hubot-sqs
+     * @param startNotificationFlag Option to be notified when job starts. Default value: false
+     * @param notifySuccessFlag Option to be notified when job succeeds. Default value: false
+     * @param notifyAbortedFlag Option to be notified when job is aborted. Default value: false
+     * @param notifyNotBuiltFlag Option to be notified when job is not built. Default value: false
+     * @param notifyUnstableFlag Option to be notified when job is unstable. Default value: false
+     * @param notifyFailureFlag Option to be notified when job fails. Default value: true
+     * @param notifyBackToNormalFlag Option to be notified when job returns to SUCCESS state. Default value: false
+     * @param notifyRepeatedFailureFlag Option to be notified when job fails repeatedly. Default value: false
+     * @param sqsIncludeTestSummaryFlag Option to include test summary. Default value: false
+     * @param includeCustomSQSMessageFlag Option to include  custom message. Default value: false
+     * @param customSQSMessageValue Custom message to be posted to AWS SQS queue.
+     *
+     *
+     *  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#sqs" target="_blank">SQS Support</a>
+
+     */
+    static void addSQSNotification(context,
+                                   SqsEndpoint,
+                                   buildServerUrlValue,
+                                   roomId,
+                                   customSQSMessageValue = "",
+                                   includeCustomSQSMessageFlag = false,
+                                   startNotificationFlag = false,
+                                   notifySuccessFlag = false,
+                                   notifyAbortedFlag = false,
+                                   notifyNotBuiltFlag = false,
+                                   notifyUnstableFlag = false,
+                                   notifyFailureFlag = true,
+                                   notifyBackToNormalFlag = false,
+                                   notifyRepeatedFailureFlag = false,
+                                   sqsIncludeTestSummaryFlag = false) {
+
+        context.configure { Node project ->
+            project / publishers << 'jenkins.plugins.sqs.SQSNotifier'(plugin: "sqs-notification") {
+                endpoint(SqsEndpoint)
+                buildServerUrl buildServerUrlValue
+                room(roomId)
+                startNotification startNotificationFlag
+                notifySuccess notifySuccessFlag
+                notifyAborted notifyAbortedFlag
+                notifyNotBuilt notifyNotBuiltFlag
+                notifyUnstable notifyUnstableFlag
+                notifyFailure notifyFailureFlag
+                notifyBackToNormal notifyBackToNormalFlag
+                notifyRepeatedFailure notifyRepeatedFailureFlag
+                sqsIncludeTestSummary sqsIncludeTestSummaryFlag
+                includeCustomSQSMessage includeCustomSQSMessageFlag
+                customSQSMessage customSQSMessageValue
+
+            }
+        }
+    }
+
+    static /**
+     *  Utility function for adding newrelic notifier plugin
+     * @param context Publishers in this case, passed as a delegate
+     * @param api_key newRelic api key
+     * @param applicationId Application Id
+     * @param jobName job Name
+     * @param changeLog Changelog messages
+     * @param user Jenkins user
+     * @param revision revision number
+     *
+     *
+     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#new-relics" target="_blank">New Relic</a>
+     */
+    void addNewRelicSupport(context, api_key, application_Id, jobName, changeLog, userId, rev) {
 
         context.configure { Node project ->
             project / publishers << 'org.jenkinsci.plugins.newrelicnotifier.NewRelicDeploymentNotifier'(plugin: "newrelic-deployment-notifier") {
@@ -39,3 +98,4 @@ class PluginUtils {
         }
     }
 }
+
