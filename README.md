@@ -1,4 +1,4 @@
- Welcome to jenkins-automation
+ Welcome to jenkins-automation  ![](https://travis-ci.org/cfpb/jenkins-automation.svg?branch=master)
 ==================
 
 Repos automated by Jenkins DSL 
