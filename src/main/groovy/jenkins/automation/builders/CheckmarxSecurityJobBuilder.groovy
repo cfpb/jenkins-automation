@@ -42,6 +42,7 @@ class CheckmarxSecurityJobBuilder {
     String username
     String password
     String groupId
+    Boolean incremental = true
     String filterPattern = "!**/_cvs/**/*, !**/.svn/**/*"
     String excludeFolders = "resources, .git"
     String preset = "17"// Default 2014
@@ -87,7 +88,7 @@ class CheckmarxSecurityJobBuilder {
                     'presetSpecified'(presetSpecified)
                     'excludeFolders'(excludeFolders)
                     'filterPattern'(filterPattern)
-                    'incremental'(true)
+                    'incremental' (incremental)
                     'fullScansScheduled'(false)
                     'fullScanCycle'(fullScanCycle)
                     'isThisBuildIncremental'(false)
