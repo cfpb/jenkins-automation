@@ -10,10 +10,13 @@ class ScmUtils {
 
 /***
  *
- * Utility method to create a multiScm block from a List of repos
- * @param repos List of repo maps
- * @param use_versions flag to check out the repo at a specific tag. The tag is parsed out from url property appended after @ sign.
- * each repo object must include url property and optionally sub_directory(checkout subdirectory, shallow(shallow clone) and disable_submodule properties.
+ * Utility method to create a multiscm block from a list of repos.
+ * @param context A reference to the job object being modified
+ * @param repos List of repo maps. Each repo object must include url property and
+ * optionally sub_directory(checkout subdirectory), shallow(shallow clone) and
+ * disable_submodule properties.
+ * @param use_versions Flag to check out the repo at a specific tag.
+ * The tag is parsed out from url property appended after {@literal @} sign.
  */
     static void project_repos(context, repos, use_versions = true) {
         Boolean disable_submodule = false
