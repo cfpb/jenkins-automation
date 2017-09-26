@@ -1,4 +1,4 @@
-#Examples
+# Examples
 
 ## Base Job Builder
 
@@ -112,7 +112,7 @@ new JsJobBuilder(
 ).build(this)
 ```
 
-# Salesforce Build Job
+## Salesforce Build Job
 
 ```groovy
 
@@ -134,7 +134,6 @@ new SalesforceAntJobBuilder(
 ```
 
 ## Using MultiScm Utility
-=======
 
 
 ```groovy
