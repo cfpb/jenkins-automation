@@ -154,6 +154,24 @@ new BaseJobBuilder(
 }
 ```
 
+## Using the Git shallow clone utility
+
+
+```groovy
+import jenkins.automation.builders.BaseJobBuilder
+import jenkins.automation.utils.ScmUtils
+
+new BaseJobBuilder(
+    name: "sample-job-with-git-shallow-clone",
+    description: "A sample demonstrating a repo being git shallow-cloned",
+).build(this).with {
+    scm {
+        ScmUtils.shallowGit(delegate, "https://github.com/cfpb/jenkins-automation", "feature-branch")
+    }
+}
+```
+
+
 ## Customizing your job
 
 ### Determining the environment
