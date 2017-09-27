@@ -5,34 +5,37 @@ import javaposse.jobdsl.dsl.Job
 import jenkins.automation.utils.CommonUtils
 
 /**
- * The basic Flow Job builder
+ * Created by muchniki on 9/27/17.
+ */
+/**
+ * The basic PipelineJob builder
  *
  * @param name job name
  * @param description job description
- * @param jobs optional comma separated list of jobs to include in the build flow
- * @param jobFlow optional string that can contain arbitrary text for the Flow field
+ * @param stage optional comma separated list of stages to include in the pipeline
+ * @param script optional string that can contain arbitrary text for the pipeline script definition
  * @param pollScmSchedule optional string in cron format to trigger builds on a scheduled interval
  * @param config optional string with other configurations
  * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#flow-job-job-builder" target="_blank">Flow job builder example</a>
  *
  */
 
-class FlowJobBuilder {
-    List<String> jobs
+class PipelineJobBuilder {
+    List stages
     String name
     String description
-    String jobFlow = ""
+    String pipelineScript = ""
     String pollScmSchedule
     List<String> emails
 
     /**
      * @param DSL factory class,  provided by Jenkins when executed from build context
-     * @return flow job
+     * @return pipeline job
      */
+
     Job build(DslFactory factory) {
-        factory.buildFlowJob(name) {
+        factory.pipelineJob(name) {
             it.description this.description
-            buildNeedsWorkspace()
             CommonUtils.addDefaults(delegate)
             publishers {
                 if (emails) {
@@ -47,21 +50,29 @@ class FlowJobBuilder {
                     scm pollScmSchedule
                 }
             }
+            if (stages){
+                def constructedScript =""
+                stages.each{stage->
+                   def stageString=""" node {
+                        stage ${stage.stageName}
+                        build job: ${stage.jobName}{
+                            parameters: ${stage.parameters}
+                    }
+                """
+                    constructedScript+=stageString+'\n'
 
-            String jobsToBuild = ""
-
-            jobs.each { jobName ->
-                jobsToBuild += "build('${jobName}') \r\n"
+                }
+                pipelineScript=constructedScript
             }
-            jobsToBuild += jobFlow
-
-            buildFlow(jobsToBuild)
-
-            configure {
-                it / publishers << 'org.zeroturnaround.jenkins.flowbuildtestaggregator.FlowTestAggregator' {
-                    showTestResultTrend true
+            definition {
+                cps {
+                    sandbox(false)
+                    script(pipelineScript)
                 }
             }
         }
     }
 }
+
+//n
+
