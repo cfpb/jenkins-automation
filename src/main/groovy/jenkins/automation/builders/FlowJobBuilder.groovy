@@ -26,7 +26,9 @@ class FlowJobBuilder {
     List<String> emails
 
     /**
+
      * @param DSL factory class,  provided by Jenkins when executed from build context
+
      * @return flow job
      */
     Job build(DslFactory factory) {
