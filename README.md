@@ -32,6 +32,17 @@ and always [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it),
             [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
           and [KISS](https://en.wikipedia.org/wiki/KISS_principle)
 
+### Configuration added to all jobs
+
+Any jobs created by using these `Builders` get the following configuration added automatically:
+
+- Colorized Output (requires AnsiColor plugin)
+- Timestamps in the build log (requires Timestamper plugin)
+- Broken build claiming (requires Claim plugin)
+- Build Failure Analyzer (requires Build Failure Analyzer plugin)
+- Max 30 builds retained
+
+If the `emails` property is set on a job, the job automatically gets configured with an Extended Email block, as well (requires Email Extension plugin)
 
 ### Commonly used Jenkins Plugins that we support
 
