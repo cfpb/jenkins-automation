@@ -1,5 +1,6 @@
- Welcome to jenkins-automation  ![](https://travis-ci.org/cfpb/jenkins-automation.svg?branch=master)
-==================
+# Welcome to jenkins-automation
+
+[![Build Status](https://travis-ci.org/cfpb/jenkins-automation.svg?branch=master)](https://travis-ci.org/cfpb/jenkins-automation)
 
 Repos automated by Jenkins DSL
 
