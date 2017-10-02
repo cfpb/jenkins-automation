@@ -42,9 +42,6 @@ class PipelineJobBuilder {
                     }
                 """
             }
-
-            it.description this.description
-            CommonUtils.addDefaults(delegate)
             publishers {
                 if (emails) {
                     publishers {
