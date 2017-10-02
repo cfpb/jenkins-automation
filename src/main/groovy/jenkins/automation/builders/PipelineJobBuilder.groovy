@@ -5,19 +5,15 @@ import javaposse.jobdsl.dsl.Job
 import jenkins.automation.utils.CommonUtils
 
 /**
- * Created by muchniki on 9/27/17.
- */
-/**
  * The basic PipelineJob builder
  *
+ * @param stages list of maps describing the stages; see example linked below for the shape of the map
  * @param name job name
  * @param description job description
- * @param stage optional comma separated list of stages to include in the pipeline
- * @param script optional string that can contain arbitrary text for the pipeline script definition
+ * @param pipelineScript optional string containing the raw pipeline script (use instead of `stages`)
  * @param pollScmSchedule optional string in cron format to trigger builds on a scheduled interval
- * @param config optional string with other configurations
- * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#flow-job-job-builder" target="_blank">Flow job builder example</a>
- *
+ * @param emails list of email addresses to receive notifications
+ * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#TODOXXXXXXXXXXXX" target="_blank">Pipeline job builder example</a>
  */
 
 class PipelineJobBuilder {
@@ -37,6 +33,18 @@ class PipelineJobBuilder {
         factory.pipelineJob(name) {
             it.description this.description
             CommonUtils.addDefaults(delegate)
+            def warningText = ''
+            if (stages && pipelineScript) {
+                warningText += """
+                    ansiColor('xterm') {
+                        echo '\\033[31m! `pipelineScript` parameter has no effect because ' +
+                        '`stages` was also supplied; choose one or the other\\033[0m'
+                    }
+                """
+            }
+
+            it.description this.description
+            CommonUtils.addDefaults(delegate)
             publishers {
                 if (emails) {
                     publishers {
@@ -50,20 +58,24 @@ class PipelineJobBuilder {
                     scm pollScmSchedule
                 }
             }
-            if (stages){
-                def constructedScript =""
-                stages.each{stage->
-                   def stageString=""" node {
-                        stage ${stage.stageName}
-                        build job: ${stage.jobName}{
-                            parameters: ${stage.parameters}
-                    }
-                """
-                    constructedScript+=stageString+'\n'
 
-                }
-                pipelineScript=constructedScript
+            if (stages) {
+                def stagesStr = stages.collect {
+                    """
+                        stage("${it.stageName}") {
+                            build job: "${it.jobName}"
+                            ${it.parameters ? 'parameters: ' + it.parameters : ''}
+                        }
+                    """
+                }.join("\n")
+                pipelineScript = """
+                    node {
+                        ${warningText}
+                        ${stagesStr}
+                    }
+                """.stripIndent()
             }
+
             definition {
                 cps {
                     sandbox(false)
@@ -73,6 +85,3 @@ class PipelineJobBuilder {
         }
     }
 }
-
-//n
-

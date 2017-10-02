@@ -15,6 +15,7 @@ class CommonUtils {
         context.with {
             wrappers {
                 colorizeOutput()
+                timestamps()
             }
             logRotator {
                 numToKeep(30)
