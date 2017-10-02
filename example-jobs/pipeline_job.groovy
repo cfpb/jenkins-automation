@@ -40,9 +40,9 @@ def pipelineJobStages = new PipelineJobBuilder(
         emails: ['jane@example.com', 'joe@example.com']
 ).build(this);
 
-     pipelineJobStages.with {
-         logRotator {
-             numToKeep(365)
-         }
-     }
+ppipelineJobStages.with {
+    logRotator {
+        numToKeep(365)
+    }
+}
 

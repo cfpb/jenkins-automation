@@ -13,7 +13,7 @@ import jenkins.automation.utils.CommonUtils
  * @param pipelineScript optional string containing the raw pipeline script (use instead of `stages`)
  * @param pollScmSchedule optional string in cron format to trigger builds on a scheduled interval
  * @param emails list of email addresses to receive notifications
- * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#TODOXXXXXXXXXXXX" target="_blank">Pipeline job builder example</a>
+ * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#pipeline-builder" target="_blank">Pipeline job builder example</a>
  */
 
 class PipelineJobBuilder {
