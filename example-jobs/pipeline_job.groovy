@@ -1,46 +1,45 @@
 import jenkins.automation.builders.PipelineJobBuilder
 
+
 def script = """
-             node {
-                stage('First stage') {
-                    build job: 'Job 1',
-                    parameters: [
-                        [\$class: 'StringParameterValue', name: 'foo', value: 'bar'],
-                    ]
+    pipeline {
+        agent { label 'master' }
+        stages {
+            stage('hello') {
+                steps {
+                    sh 'echo "Hello World"'
                 }
             }
+        }
+    }
 """
 
-def pipelineJob = new PipelineJobBuilder(
-    name: 'Pipeline builder',
-    description: 'This is a simple pipeline job',
-    pipelineScript: script,
-    emails: ['jane@example.com', 'joe@example.com']
-
-).build(this);
-
-pipelineJob.with {
+new PipelineJobBuilder(
+        name: 'Hello Pipeline With Script',
+        description: 'This is a simple pipeline job',
+        pipelineScript: script
+).build(this).with {
     logRotator {
         numToKeep(365)
     }
 }
 
-def pipelineJobStages = new PipelineJobBuilder(
-        name: 'Pipeline builder',
+new PipelineJobBuilder(
+        name: 'Pipeline builder with stages',
         description: 'this is a simple pipeline job',
         stages: [[
-                     stageName: 'First stage',
-                     jobName: 'Job 1',
-                     parameters: "[[\$class: 'StringParameterValue', name: 'foo', value: 'bar']]"
+                         stageName : 'First stage',
+                         jobName   : 'Job 1',
+                         parameters: "[[\$class: 'StringParameterValue', name: 'foo', value: 'bar']]"
                  ],
                  [
-                     stageName: 'Second stage',
-                     jobName: 'Job 2',
+                         stageName: 'Second stage',
+                         jobName  : 'Job 2',
                  ]],
         emails: ['jane@example.com', 'joe@example.com']
-).build(this);
 
-pipelineJobStages.with {
+).build(this)
+.with {
     logRotator {
         numToKeep(365)
     }
