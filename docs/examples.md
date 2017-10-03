@@ -1,4 +1,4 @@
-#Examples
+# Examples
 
 ## Base Job Builder
 
@@ -112,7 +112,7 @@ new JsJobBuilder(
 ).build(this)
 ```
 
-# Salesforce Build Job
+## Salesforce Build Job
 
 ```groovy
 
@@ -134,7 +134,6 @@ new SalesforceAntJobBuilder(
 ```
 
 ## Using MultiScm Utility
-=======
 
 
 ```groovy
@@ -154,6 +153,24 @@ new BaseJobBuilder(
     }
 }
 ```
+
+## Using the Git shallow clone utility
+
+
+```groovy
+import jenkins.automation.builders.BaseJobBuilder
+import jenkins.automation.utils.ScmUtils
+
+new BaseJobBuilder(
+    name: "sample-job-with-git-shallow-clone",
+    description: "A sample demonstrating a repo being git shallow-cloned",
+).build(this).with {
+    scm {
+        ScmUtils.shallowGit(delegate, "https://github.com/cfpb/jenkins-automation", "feature-branch")
+    }
+}
+```
+
 
 ## Customizing your job
 
