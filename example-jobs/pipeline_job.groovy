@@ -17,7 +17,8 @@ def script = """
 new PipelineJobBuilder(
         name: 'Hello Pipeline With Script',
         description: 'This is a simple pipeline job',
-        pipelineScript: script
+        pipelineScript: script,
+        sandboxFlag: false
 ).build(this).with {
     logRotator {
         numToKeep(365)
@@ -35,9 +36,7 @@ new PipelineJobBuilder(
                  [
                          stageName: 'Second stage',
                          jobName  : 'Job 2',
-                 ]],
-        emails: ['jane@example.com', 'joe@example.com']
-
+                 ]]
 ).build(this)
 .with {
     logRotator {

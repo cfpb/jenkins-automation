@@ -9,6 +9,7 @@ import jenkins.automation.utils.CommonUtils
  *
  * @param stages list of maps describing the stages; see example linked below for the shape of the map
  * @param name job name
+ * @param sandboxFlag, boolean to enable/disable sandbox, default true.
  * @param description job description
  * @param pipelineScript optional string containing the raw pipeline script (use instead of `stages`)
  * @param pollScmSchedule optional string in cron format to trigger builds on a scheduled interval
@@ -21,6 +22,7 @@ class PipelineJobBuilder {
     String description
     String pipelineScript = ""
     String pollScmSchedule
+    Boolean sandboxFlag = true
 
     /**
      * @param DSL factory class,  provided by Jenkins when executed from build context
@@ -66,7 +68,7 @@ class PipelineJobBuilder {
 
             definition {
                 cps {
-                    sandbox(false)
+                    sandbox(sandboxFlag)
                     script(pipelineScript)
                 }
             }
