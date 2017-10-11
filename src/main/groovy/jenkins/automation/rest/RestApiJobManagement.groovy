@@ -95,7 +95,7 @@ class RestApiJobManagement extends MockJobManagement {
             path: path,
             body: xml,
             query: [name: job],
-            requestContentType: 'application/xml; charset=UTF-8'
+            requestContentType: 'application/xml'
         )
 
         resp.status == 200
@@ -106,7 +106,7 @@ class RestApiJobManagement extends MockJobManagement {
         HttpResponseDecorator resp = restClient.post(
             path: getPath(name, isView) + '/config.xml',
             body: xml,
-            requestContentType: 'application/xml; charset=UTF-8'
+            requestContentType: 'application/xml'
         )
 
         resp.status == 200

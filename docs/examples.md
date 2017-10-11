@@ -1,4 +1,4 @@
-# Examples
+#Examples
 
 ## Base Job Builder
 
@@ -86,56 +86,6 @@ new FlowJobBuilder(
 }
 ```
 
-## Pipeline Builder
-
-```groovy
-import jenkins.automation.builders.PipelineJobBuilder
-
-def script = """
-    pipeline {
-        agent { label 'master' }
-        stages {
-            stage('hello') {
-                steps {
-                    sh 'echo "Hello World"'
-                }
-            }
-        }
-    }
-"""
-
-new PipelineJobBuilder(
-        name: 'Hello Pipeline With Script',
-        description: 'This is a simple pipeline job',
-        pipelineScript: script, 
-        sandboxFlag: false
-).build(this).with {
-    logRotator {
-        numToKeep(365)
-    }
-}
-
-new PipelineJobBuilder(
-        name: 'Pipeline builder with stages',
-        description: 'this is a simple pipeline job',
-        stages: [[
-                         stageName : 'First stage',
-                         jobName   : 'Job 1',
-                         parameters: "[[\$class: 'StringParameterValue', name: 'foo', value: 'bar']]"
-                 ],
-                 [
-                         stageName: 'Second stage',
-                         jobName  : 'Job 2',
-                 ]]
-).build(this)
-.with {
-    logRotator {
-        numToKeep(365)
-    }
-}
-
-```
-
 ## JS Build Job
 
 ```groovy
@@ -162,7 +112,7 @@ new JsJobBuilder(
 ).build(this)
 ```
 
-## Salesforce Build Job
+# Salesforce Build Job
 
 ```groovy
 
@@ -184,6 +134,7 @@ new SalesforceAntJobBuilder(
 ```
 
 ## Using MultiScm Utility
+=======
 
 
 ```groovy
@@ -203,24 +154,6 @@ new BaseJobBuilder(
     }
 }
 ```
-
-## Using the Git shallow clone utility
-
-
-```groovy
-import jenkins.automation.builders.BaseJobBuilder
-import jenkins.automation.utils.ScmUtils
-
-new BaseJobBuilder(
-    name: "sample-job-with-git-shallow-clone",
-    description: "A sample demonstrating a repo being git shallow-cloned",
-).build(this).with {
-    scm {
-        ScmUtils.shallowGit(delegate, "https://github.com/cfpb/jenkins-automation", "feature-branch")
-    }
-}
-```
-
 
 ## Customizing your job
 

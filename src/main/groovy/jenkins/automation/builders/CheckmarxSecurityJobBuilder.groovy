@@ -9,7 +9,7 @@ import jenkins.automation.utils.ScmUtils
  *
  * @param name job name
  * @param description job description
- * @param emails list of recipients to get notifications
+ * @emails list of recipients to get notifications
  * @param scanRepo a collection of Github repos to scan with Checkmarx
  * @param checkmarxComment Additional comment(s) to include in the scan results
  * @param useOwnServerCredentials If set to false then credentials from the Manage Jenkins page are used; serverUrl, username and password parameters are ignored.
@@ -42,7 +42,6 @@ class CheckmarxSecurityJobBuilder {
     String username
     String password
     String groupId
-    Boolean incremental = true
     String filterPattern = "!**/_cvs/**/*, !**/.svn/**/*"
     String excludeFolders = "resources, .git"
     String preset = "17"// Default 2014
@@ -88,7 +87,7 @@ class CheckmarxSecurityJobBuilder {
                     'presetSpecified'(presetSpecified)
                     'excludeFolders'(excludeFolders)
                     'filterPattern'(filterPattern)
-                    'incremental' (incremental)
+                    'incremental'(true)
                     'fullScansScheduled'(false)
                     'fullScanCycle'(fullScanCycle)
                     'isThisBuildIncremental'(false)
