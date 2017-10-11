@@ -2,19 +2,18 @@ package jenkins.automation.utils
 
 /**
  * Utility class to provide nicer, terser DSL for common tasks
+ *
+ * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#using-multiscm-utility" target="_blank">Using Utility Class example</a>
+
  */
 class ScmUtils {
 
 /***
  *
- * Utility method to create a multiscm block from a list of repos.
- * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#using-multiscm-utility" target="_blank">example</a>
- * @param context A reference to the job object being modified
- * @param repos List of repo maps. Each repo object must include url property and
- * optionally sub_directory(checkout subdirectory), shallow(shallow clone) and
- * disable_submodule properties.
- * @param use_versions Flag to check out the repo at a specific tag.
- * The tag is parsed out from url property appended after {@literal @} sign.
+ * Utility method to create a multiScm block from a List of repos
+ * @param repos List of repo maps
+ * @param use_versions flag to check out the repo at a specific tag. The tag is parsed out from url property appended after @ sign.
+ * each repo object must include url property and optionally sub_directory(checkout subdirectory, shallow(shallow clone) and disable_submodule properties.
  */
     static void project_repos(context, repos, use_versions = true) {
         Boolean disable_submodule = false
@@ -58,31 +57,4 @@ class ScmUtils {
             }
         }
     }
-
-/***
- *
- * Utility method to do git shallow-clones easily.
- * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#using-the-git-shallow-clone-utility" target="_blank">example</a>
- * @param context A reference to the job object being modified
- * @param gitUrl A string containing a git repo URL
- * @param gitBranch Optional branch to check-out; defaults to master
- */
-    static void shallowGit(context, gitUrl, gitBranch = "master") {
-        context.with {
-            git {
-                remote {
-                    url gitUrl
-                }
-
-                branch gitBranch
-
-                extensions {
-                    cloneOptions {
-                        shallow()
-                    }
-                }
-            }
-        }
-    }
-
 }
