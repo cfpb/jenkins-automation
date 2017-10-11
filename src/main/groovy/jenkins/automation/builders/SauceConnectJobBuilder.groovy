@@ -11,8 +11,7 @@ import javaposse.jobdsl.dsl.Job
  * @param name job name
  * @param description job description
  * @param webDriverBrowser browser to use with Sauce Connect
- * @param sauceCredentialId SauceCredential to use for the sauce plugin
- * @param additionalOptions (Optional) additional option to use e.g --v
+ * @param sauceCredentialId jenkins id to use for the sauce plugin
  *
  */
 class SauceConnectJobBuilder {
@@ -23,7 +22,6 @@ class SauceConnectJobBuilder {
     Boolean use_versions = false
     String webDriverBrowser = 'Linuxchrome44'
     String sauceCredentialId
-    String additionalOptions
 
     def artifacts = {
         pattern("dist/")
@@ -52,11 +50,16 @@ class SauceConnectJobBuilder {
                     webDriverBrowsers(webDriverBrowser)
                     verboseLogging(true)
                     useGeneratedTunnelIdentifier(true)
-                    credentials(sauceCredentialId)
-                    additionalOptions? options (additionalOptions): null
                 }
             }
         }
+
+        baseJob.with {
+            configure { project ->
+                project / buildWrappers / 'hudson.plugins.sauce__ondemand.SauceOnDemandBuildWrapper' << 'credentialId'(sauceCredentialId)
+            }
+        }
+
         return baseJob
     }
 }
