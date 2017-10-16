@@ -24,6 +24,8 @@ if (username && password) {
 params = jm.getParameters()
 params['JAC_ENVIRONMENT'] = System.getProperty('JAC_ENVIRONMENT') ?: 'dev'
 params['JAC_HOST'] = System.getProperty('JAC_HOST') ?: 'aws'
+params['JENKINS_URL'] = baseUrl
+
 
 new FileNameFinder().getFileNames('.', pattern).each { String fileName ->
     println "\nprocessing file: $fileName"
