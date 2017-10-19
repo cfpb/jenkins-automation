@@ -96,5 +96,26 @@ class PluginUtils {
             }
         }
     }
+
+    /**
+     *
+     * @param context Project passed from root of DSL
+     * @param triggerLabel Restricted node label
+     * @param triggerQuietPeriod Delay before starting job
+
+     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#using-a-startup-trigger" target="_blank">example</a>
+
+     */
+    static void startupTrigger(context,
+                               String triggerLabel = 'master',
+                               int triggerQuietPeriod = 0) {
+        context.configure { Node project ->
+                  project / 'triggers' / 'org.jvnet.hudson.plugins.triggers.startup.HudsonStartupTrigger'(plugin: "startup-trigger-plugin") {
+                      spec()
+                      label(triggerLabel)
+                      quietPeriod(triggerQuietPeriod)
+            }
+        }
+    }
 }
 

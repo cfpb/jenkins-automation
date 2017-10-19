@@ -4,11 +4,11 @@
 
 ```groovy
 import jenkins.automation.builders.BaseJobBuilder
-   
-new BaseJobBuilder(
+
+ BaseJobBuilder(
      name: "sample-job",
      description: "Description of your job",
-     emails: ["foo@example.com","bar@example.com"] 
+     emails: ["foo@example.com","bar@example.com"]
 ).build(this)
 ```
 
@@ -17,7 +17,7 @@ new BaseJobBuilder(
 ```groovy
 import jenkins.automation.builders.CheckmarxSecurityJobBuilder
 
-def groupId = "your-group-id"  
+def groupId = "your-group-id"
 def projectName ='sample-project'
 new CheckmarxSecurityJobBuilder(
         name: "${projectName}-checkmarx",
@@ -41,7 +41,7 @@ new CheckmarxSecurityJobBuilder(
 
 ```groovy
 import jenkins.automation.builders.BddSecurityJobBuilder
-   
+
 def projectName ='sample-project'
 def bddSecurityRepo ="repo-to-scan'
 new BddSecurityJobBuilder(
@@ -107,7 +107,7 @@ def script = """
 new PipelineJobBuilder(
         name: 'Hello Pipeline With Script',
         description: 'This is a simple pipeline job',
-        pipelineScript: script, 
+        pipelineScript: script,
         sandboxFlag: false
 ).build(this).with {
     logRotator {
@@ -230,7 +230,7 @@ new BaseJobBuilder(
 import jenkins.automation.utils.EnvironmentUtils
 
 // In our Jenkinses, we name this variable "JAC_ENVIRONMENT" with values of "DEV", "STAGE", or "PROD"
-// In your Jenkins, you can name the variable whatever you like; replace the variable you pass into 
+// In your Jenkins, you can name the variable whatever you like; replace the variable you pass into
 // EnvironmentUtils.getInstance(...) with your global variable name
 
 def env = EnvironmentUtils.getInstance("${JAC_ENVIRONMENT}")
@@ -335,12 +335,12 @@ def job=new BaseJobBuilder(
 import jenkins.automation.utils.CommonUtils
 
 job("example"){
-    CommonUtils.addExtendedEmail(delegate, emails = 'foo@example.com, bar@example.com') 
+    CommonUtils.addExtendedEmail(delegate, emails = 'foo@example.com, bar@example.com')
 }
-   
+
 // override accepts emails as a list. Compatible with builders
 job('example'){
-    CommonUtils.addExtendedEmail(delegate, emails = ['foo@example.com', 'bar@example.com']) 
+    CommonUtils.addExtendedEmail(delegate, emails = ['foo@example.com', 'bar@example.com'])
 }
 
 // Override default email triggers.
@@ -426,3 +426,18 @@ new BaseJobBuilder(
     CommonUtils.addPerformancePublisher(delegate,failedThresholdPositive=10, failedThresholdNegative=10, unstableThresholdPositive=5, unstableThresholdNegative=5)
 }
 ```
+
+### Using a startup trigger
+
+```groovy
+import jenkins.automation.builders.BaseJobBuilder
+import jenkins.automation.utils.PluginUtils
+
+new BaseJobBuilder(
+        name: "sample-base-job-with-startup-triggers",
+        description: "A job with startup triggers"
+).build(this).with {
+    PluginUtils.startupTrigger(delegate)
+}
+```
+
