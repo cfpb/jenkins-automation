@@ -88,6 +88,7 @@ class CheckmarxSecurityJobBuilder {
                     'presetSpecified'(presetSpecified)
                     'excludeFolders'(excludeFolders)
                     'filterPattern'(filterPattern)
+                    'exclusionsSetting'('job')
                     'incremental' (incremental)
                     'fullScansScheduled'(false)
                     'fullScanCycle'(fullScanCycle)
