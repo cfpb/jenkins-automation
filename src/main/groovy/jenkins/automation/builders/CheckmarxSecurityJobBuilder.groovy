@@ -17,10 +17,10 @@ import jenkins.automation.utils.ScmUtils
  * @param serverUrl URL of the Checkmarx server
  * @param username Checkmarx user name
  * @param password Checkmarx password
- * @param groupId Checkmarx group ID passed from environmental variable
+ * @param groupId Checkmarx group ID, which is actually the team ID, and which can be gotten by browser-inspecting the 'Team' select box for an existing Checkmarx job in the Jenkins UI
  * @param filterPattern files to exclude
  * @param excludeFolders folders to exclude
- * @param preset the Checkmarx preset configuration to use
+ * @param preset the ID of the Checkmarx preset configuration to use; this can be gotten by browser-inspecting the 'Preset' select box for an existing Checkmarx job in the Jenkins UI
  * @param vulnerabilityThresholdEnabled Mark the build as unstable if the number of high severity vulnerabilities is above the specified threshold
  * @param highThreshold High severity vulnerabilities threshold
  * @param mediumThreshold Medium severity vulnerabilities threshold
