@@ -94,7 +94,7 @@ class CheckmarxSecurityJobBuilder {
                     'fullScanCycle'(fullScanCycle)
                     'isThisBuildIncremental'(false)
                     'sourceEncoding'('1') // Default Configuration
-                    'comment'(checkmarxComment)
+                    checkmarxComment ? 'comment'(checkmarxComment) : null
                     'skipSCMTriggers'(false) // Skip scan if triggered by SCM Changes
                     'waitForResultsEnabled'(true) // Enable synchronous mode
                     'vulnerabilityThresholdEnabled'(vulnerabilityThresholdEnabled) // Enable vulnerability threshold
