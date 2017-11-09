@@ -441,3 +441,79 @@ new BaseJobBuilder(
 }
 ```
 
+
+### Using GH PR Watcher
+
+This PR watcher can be used to help configure jobs for either GitHub.com
+or a hosted GitHub Enterprise instance at a different hostname.
+
+Create a job that builds pull requests for a specific repo in a
+GitHub Enterprise instance. The `<unique github credential UUID>` should be
+replaced with a credential ID created by the GitHub Pull Request Builder
+itself. This can be found in the `config.xml` of a job already configured
+to use the builder or from the `org.jenkinsci.plugins.ghprb.GhprbTrigger.xml`
+in a Jenkins installation.
+
+
+#### For GitHub Enterprise
+
+```groovy
+import jenkins.automation.builders.BaseJobBuilder
+import jenkins.automation.utils.GhUtils
+
+new BaseJobBuilder(
+    name: "GHE_PR_builder",
+    description: "Does GHE PR building",
+).build(this).with {
+    GhUtils.ghPrWatcher(delegate,
+                        'orgname/reponame',
+                        'github.organization.tld',
+                        '<unique github credential UUID>',
+                        true
+    )
+
+    steps {
+        shell("""
+        echo 'Hello PRs!'
+        """.stripIndent()
+        )
+    }
+}
+```
+
+#### For GitHub.com
+
+This job builder disables PRs from being built unless the creator is a member
+of an organization in the orgs list, disables hooks since
+public github can't talk back to your internal Jenkins, creates a cron,
+and sets the orgs list so that anyone that belongs can automatically have
+their PR built. Any organization member can also simply comment 'ok to test'
+on a PR from a user outside of the organization to have that PR built
+with Jenkins.
+
+```groovy
+import jenkins.automation.builders.BaseJobBuilder
+import jenkins.automation.utils.GhUtils
+
+new BaseJobBuilder(
+    name: "GH_PR_builder",
+    description: "Builds PRs from public GitHub",
+).build(this).with {
+    GhUtils.ghPrWatcher(delegate,
+                        'cfpb/example_repo',
+                        'github.com',
+                        '<unique github credential UUID>',
+                        false,
+                        false,
+                        '* * * * *',
+                        'cfpb'
+    )
+
+    steps {
+        shell("""
+        echo 'Hello PRs from github.com'
+        """.stripIndent()
+        )
+    }
+}
+```
