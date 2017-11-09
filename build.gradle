@@ -61,3 +61,10 @@ groovydoc {
     source = files('src/main/groovy')
     destinationDir = file('.')
 }
+
+// Create a task to download dependencies locally
+// so they can be shipped for static code analysis
+task copyDependencies(type: Copy) {
+   from configurations.compile   
+   into 'osa_dependencies'
+}
