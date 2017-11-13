@@ -18,6 +18,7 @@ import jenkins.automation.utils.ScmUtils
  * @param username Checkmarx user name
  * @param password Checkmarx password
  * @param groupId Checkmarx group ID, which is actually the team ID, and which can be gotten by browser-inspecting the 'Team' select box for an existing Checkmarx job in the Jenkins UI
+ * @param incremental perform incremental Checkmarx scans (enabled by default)
  * @param filterPattern files to exclude
  * @param excludeFolders folders to exclude
  * @param preset the ID of the Checkmarx preset configuration to use; this can be gotten by browser-inspecting the 'Preset' select box for an existing Checkmarx job in the Jenkins UI
@@ -91,7 +92,7 @@ class CheckmarxSecurityJobBuilder {
                     'incremental' (incremental)
                     'fullScansScheduled'(false)
                     'fullScanCycle'(fullScanCycle)
-                    'isThisBuildIncremental'(false)
+                    'isThisBuildIncremental'(false) // TODO should we really be setting this?
                     'sourceEncoding'('1') // Default Configuration
                     checkmarxComment ? 'comment'(checkmarxComment) : null
                     'skipSCMTriggers'(false) // Skip scan if triggered by SCM Changes
