@@ -75,3 +75,5 @@ node_modules/
 bower_components/
 .grunt/
 src/vendor/
+
+osa_dependencies/

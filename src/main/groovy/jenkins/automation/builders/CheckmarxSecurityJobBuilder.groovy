@@ -25,6 +25,10 @@ import jenkins.automation.utils.ScmUtils
  * @param highThreshold High severity vulnerabilities threshold
  * @param mediumThreshold Medium severity vulnerabilities threshold
  * @param lowThreshold Low severity vulnerabilities threshold
+ * @param osaCheckEnabled Whether or not to scan dependencies with OSA
+ * @param osaPrepScript Required when osaCheckEnabled set to true; script must download dependencies in a format readable by OSA
+ * @param osaIncludePattern The filesystem location where Jenkins will look for files to zip and send to OSA
+ * @param osaExludePattern Set a pattern to exclude from sending to OSA
  *
  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#checkmarx-security-job-builder" target="_blank">Checkmarx job Example</a>
  *
@@ -52,6 +56,10 @@ class CheckmarxSecurityJobBuilder {
     String highThreshold = 1
     String mediumThreshold = 2
     String lowThreshold = 3
+    Boolean osaCheckEnabled = false
+    String osaPrepScript
+    String osaIncludePattern = '**/osa_dependencies/**'
+    String osaExcludePattern = ''
 
     /**
      * The main job-dsl script that build job configuration xml
@@ -72,6 +80,14 @@ class CheckmarxSecurityJobBuilder {
         baseJob.with {
             multiscm {
                 ScmUtils.project_repos(delegate, this.scanRepo, false)
+            }
+        }
+        
+        if (osaCheckEnabled) {
+            baseJob.with {
+                steps {
+                    shell(osaPrepScript)
+                }
             }
         }
 
@@ -102,6 +118,9 @@ class CheckmarxSecurityJobBuilder {
                     'mediumThreshold'(mediumThreshold) // Medium severity vulnerabilities threshold
                     'lowThreshold'(lowThreshold) // Low severity vulnerabilities threshold
                     'generatePdfReport'(true)
+                    'osaEnabled'(osaCheckEnabled)
+                    'includeOpenSourceFolders'(osaIncludePattern)
+                    'excludeOpenSourceFolders'(osaExcludePattern)
                 }
             }
         }
