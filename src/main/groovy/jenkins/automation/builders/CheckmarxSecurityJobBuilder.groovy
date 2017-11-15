@@ -102,6 +102,12 @@ class CheckmarxSecurityJobBuilder {
                     'mediumThreshold'(mediumThreshold) // Medium severity vulnerabilities threshold
                     'lowThreshold'(lowThreshold) // Low severity vulnerabilities threshold
                     'generatePdfReport'(true)
+                    'vulnerabilityThresholdResult' {
+                        'name'('FAILURE')
+                        'ordinal'('2')
+                        'color'('RED')
+                        'completeBuild'('true')
+                    }
                 }
             }
         }
