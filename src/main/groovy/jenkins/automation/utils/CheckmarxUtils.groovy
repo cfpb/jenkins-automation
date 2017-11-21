@@ -101,8 +101,16 @@ class CheckmarxUtils {
                         cxConfig.get("incremental", defaults.incremental)
                     )
 
-                    // TODO is this right?
-                    "fullScansScheduled"(false)
+                    /*
+                    From the Checkmarx docs:
+                        When using incremental scan as part of CI/CD (for example as
+                        part of a build process) you need to make sure that a full
+                        scan is performed every X amount of incremental scans.
+                        Otherwise the changes will aggregate and when more than 7%
+                        of the code has changed CxSAST will either run a full scan
+                        or fail the scan, depending on the configuration.
+                    */
+                    "fullScansScheduled"(true)
                     "fullScanCycle"(
                         cxConfig.get("fullScanCycle", defaults.fullScanCycle)
                     )
