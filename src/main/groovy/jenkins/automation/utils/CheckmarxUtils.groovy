@@ -53,17 +53,36 @@ class CheckmarxUtils {
  * <br/>&#x2014; <code>lowThresholdDefault</code>: optional, defaults to
  *               <code>3</code>, set the threshold for max number of 'low'
  *               vulnerabilities
+ * <br/>&#x2014; <code>osaEnabled</code>: optional, defaults to
+ *               <code>false</code>, define whether or not to run
+ *               OSA dependency scans
+ * <br/>&#x2014; <code>osaIncludePattern</code>: optional, defaults to
+ *               <code>\*\*\/osa_dependencies\/\*\*</code>, set the pattern that OSA
+ *               scanning will search to package and scan libraries
+ * <br/>&#x2014; <code>osaExcludePattern</code>: optional, defaults to
+ *               <code>""</code>, set the pattern OSA will exempt from
+ *               packaging and scanning when running OSA
+ * <br/>&#x2014; <code>osaHighThreshold</code>: optional, defaults to
+ *               <code>1</code>, threshold for 'medium vulnerability'
+ *               OSA results required for FAILURE
+ * <br/>&#x2014; <code>osaMediumThreshold</code>: optional, defaults to
+ *               <code>1</code>, threshold for 'medium vulnerability'
+ *               OSA results required fo build FAILURE
+ * <br/>&#x2014; <code>osaLowThreshold</code>: optional, defaults to
+ *               <code>1</code>, threshold for 'low vulnerability'
+ *               OSA results required for build FAILURE
  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#checkmarx-security-job-builder" target="_blank">Checkmarx job Example</a>
  *
  */
+
 
     static void checkmarxScan(context, Map cxConfig) {
         assert cxConfig.projectName != null
         assert cxConfig.groupId != null
 
         def defaults = checkmarxConfigDefaults
-
         context.with {
+
             configure {
                 it / builders / "com.checkmarx.jenkins.CxScanBuilder" {
 
@@ -152,6 +171,31 @@ class CheckmarxUtils {
                         "color"("RED")
                         "completeBuild"("true")
                     }
+
+                    "osaEnabled"(
+                        cxConfig.get("osaEnabled", defaults.osaEnabled)
+                    )
+                    "osaHighThreshold"(
+                        cxConfig.get("osaHighThreshold", defaults.osaHighThreshold)
+                    )
+                    "osaMediumThreshold"(
+                        cxConfig.get("osaMediumThreshold", defaults.osaMediumThreshold)
+                    )
+                    "osaLowThreshold"(
+                        cxConfig.get("osaLowThreshold", defaults.osaLowThreshold)
+                    )
+                    "includeOpenSourceFolders"(
+                        cxConfig.get(
+                            "osaIncludePattern",
+                            defaults.osaIncludePattern
+                        )
+                    )
+                    "excludeOpenSourceFolders"(
+                        cxConfig.get(
+                            "osaExcludePattern",
+                            defaults.osaExcludePattern
+                        )
+                    )
                 }
             }
         }
@@ -171,6 +215,12 @@ class CheckmarxUtils {
         highThreshold: 1,
         mediumThreshold: 2,
         lowThreshold: 3,
+        osaEnabled: false,
+        osaIncludePattern: "**/osa_dependencies/**",
+        osaExcludePattern: "",
+        osaHighThreshold: 1,
+        osaMediumThreshold: 2,
+        osaLowThreshold: 3,
         filterPattern: """
             !**/_cvs/**/*, !**/.svn/**/*,   !**/.hg/**/*,   !**/.git/**/*,  !**/.bzr/**/*, !**/bin/**/*,
             !**/obj/**/*,  !**/backup/**/*, !**/.idea/**/*, !**/*.DS_Store, !**/*.ipr,     !**/*.iws,
