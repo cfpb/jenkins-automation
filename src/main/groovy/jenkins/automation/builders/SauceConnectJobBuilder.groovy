@@ -31,9 +31,9 @@ class SauceConnectJobBuilder {
      */
     Job build(DslFactory factory) {
         def baseJob = new BaseJobBuilder(
-                name: this.name,
-                description: this.description,
-                emails: this.emails
+            name: this.name,
+            description: this.description,
+            emails: this.emails
         ).build(factory)
 
         baseJob.with {
