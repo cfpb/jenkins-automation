@@ -44,7 +44,7 @@ class CheckmarxSecurityJobBuilder {
     String groupId
     String filterPattern = "!**/_cvs/**/*, !**/.svn/**/*"
     String excludeFolders = "resources, .git"
-    String preset = "17"// Default 2014
+    String preset = "36"// Default Checkmarkx
     Boolean presetSpecified = false
     String fullScanCycle = "10"
     Boolean vulnerabilityThresholdEnabled = true
