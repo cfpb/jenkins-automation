@@ -53,8 +53,9 @@ class PipelineJobBuilder {
                 def stagesStr = stages.collect {
                     """
                         stage("${it.stageName}") {
-                            build job: "${it.jobName}"
-                            ${it.parameters ? 'parameters: ' + it.parameters : ''}
+                            build job: "${it.jobName}"${
+                                it.parameters ? ', parameters: ' + it.parameters : ''
+                            }
                         }
                     """
                 }.join("\n")

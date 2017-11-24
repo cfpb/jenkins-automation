@@ -4,7 +4,8 @@
 
 Repos automated by Jenkins DSL
 
-Jenkins automation is a library of helper functions to make continuous integration and deployment fast, easy and fun.
+Jenkins automation is a library of helper functions to make continuous integration
+and deployment fast, easy and fun.
 
 We use [Job DSL](https://github.com/jenkinsci/job-dsl-plugin/wiki) to automate.
 We have further enhanced the functionality with a set of builders. You can see what they can do and how to use them in our
