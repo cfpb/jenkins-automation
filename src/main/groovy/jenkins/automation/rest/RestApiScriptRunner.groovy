@@ -3,7 +3,6 @@
 package jenkins.automation.rest
 
 import javaposse.jobdsl.dsl.DslScriptLoader
-import javaposse.jobdsl.dsl.ScriptRequest
 
 String pattern = System.getProperty('pattern')
 String baseUrl = System.getProperty('baseUrl')
