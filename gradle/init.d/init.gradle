@@ -1,0 +1,18 @@
+def copyConfigs = {
+      def osa_dir = new File('osa_dependencies')
+      if ( !osa_dir.exists() ) {
+          osa_dir.mkdirs()
+      }
+      from project.configurations.compile
+      into 'jac_dependencies'
+}
+
+allprojects { project ->
+    afterEvaluate {
+        project.tasks.create(
+            name: 'copyDeps',
+            type: Copy,
+            copyConfigs,
+        )
+    }
+}
