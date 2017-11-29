@@ -57,7 +57,7 @@ class CheckmarxUtils {
  *               <code>false</code>, define whether or not to run
  *               OSA dependency scans
  * <br/>&#x2014; <code>osaIncludePattern</code>: optional, defaults to
- *               <code>\*\*\/osa_dependencies\/\*\*</code>, set the pattern that OSA
+ *               <code>**&#47;osa_dependencies&#47;**</code>, set the pattern that OSA
  *               scanning will search to package and scan libraries
  * <br/>&#x2014; <code>osaExcludePattern</code>: optional, defaults to
  *               <code>""</code>, set the pattern OSA will exempt from
