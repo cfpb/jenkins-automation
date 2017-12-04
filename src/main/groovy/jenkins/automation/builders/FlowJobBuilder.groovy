@@ -13,7 +13,7 @@ import jenkins.automation.utils.CommonUtils
  * @param jobFlow optional string that can contain arbitrary text for the Flow field
  * @param pollScmSchedule optional string in cron format to trigger builds on a scheduled interval
  * @param config optional string with other configurations
- * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#flow-job-job-builder" target="_blank">Flow job builder example</a>
+ * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#flow-job-job-builder" target="_blank">Flow job builder example</a>
  *
  */
 
