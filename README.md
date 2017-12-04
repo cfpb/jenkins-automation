@@ -55,3 +55,26 @@ If the `emails` property is set on a job, the job automatically gets configured 
 - http://wiki.jenkins-ci.org/display/JENKINS/Multiple+SCMs+Plugin
 - http://wiki.jenkins-ci.org/display/JENKINS/NodeJS+Plugin
 - http://wiki.jenkins-ci.org/display/JENKINS/Clone+Workspace+SCM+Plugin
+
+
+### Gradle init scripts
+
+Within the path 
+
+```
+gradle/init.d/init.gradle
+```
+
+There is a file that contains tasks that may be imported into other 
+gradle builds by using the additional flag `-I` during normal gradle
+execution. Currently this file contains a task designed to copy the
+jar files of all dependencies of a project into a directory `jac_dependencies`.
+This tool may be useful when integrating with tools like
+[OWASP](https://www.owasp.org/index.php/OWASP_Dependency_Check)
+
+
+Common execution might be
+
+```
+./gradlew -I gradle/init.d/init.gradle copyDeps
+```
