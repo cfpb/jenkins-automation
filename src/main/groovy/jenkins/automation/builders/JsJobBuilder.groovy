@@ -25,7 +25,7 @@ import jenkins.automation.utils.ScmUtils
 
  * <p>
  *
- * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#js-job-builder"
+ * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#js-job-builder"
  *      target="_blank">JS job builder example</a>
 
  * </p>

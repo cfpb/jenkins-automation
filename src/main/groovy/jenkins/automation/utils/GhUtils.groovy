@@ -8,8 +8,8 @@ class GhUtils {
 
 /**
  *
- * Utility method to watch a GitHub Enterprise or GitHub.com project and trigger on PR creation
- * This is a wrapper for the <a href="https://wiki.jenkins.io/display/JENKINS/GitHub+pull+request+builder+pluginGitHub">Pull Request Builder Plugin</a>.
+ * Utility method to watch a GitHub Enterprise or GitHub.com project and trigger on PR creation.<br/>
+ * This is a wrapper for the <a href="https://wiki.jenkins.io/display/JENKINS/GitHub+pull+request+builder+plugin">GitHub Pull Request Builder Plugin</a>.
  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#using-gh-pr-watcher" target="_blank">example</a>
  * @param  context delegate
  * @param  ghProject A reference to the GHE project as 'username/reponame'
