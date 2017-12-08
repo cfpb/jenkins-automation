@@ -3,6 +3,10 @@
 build/
 sandbox/
 *.iml
+gradle/
+build/
+gradlew
+gradlew.bat
 
 # Compiled source #
 ###################
