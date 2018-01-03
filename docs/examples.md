@@ -494,12 +494,15 @@ This PR watcher can be used to help configure jobs for either GitHub.com
 or a hosted GitHub Enterprise instance at a different hostname.
 
 Create a job that builds pull requests for a specific repo in a
-GitHub Enterprise instance. The `<unique github credential UUID>` should be
+GitHub Enterprise instance. The `<unique GH PR builder credential ID>` should be
 replaced with a credential ID created by the GitHub Pull Request Builder
 itself. This can be found in the `config.xml` of a job already configured
 to use the builder or from the `org.jenkinsci.plugins.ghprb.GhprbTrigger.xml`
 in a Jenkins installation.
 
+When running multiple PR Builder jobs on the same repo it's recommended to set
+a unique `ghPrStatusContext` so that all results appear as individual checks
+in the UI for the PR.
 
 #### For GitHub Enterprise
 
@@ -508,20 +511,30 @@ import jenkins.automation.builders.BaseJobBuilder
 import jenkins.automation.utils.GhUtils
 
 new BaseJobBuilder(
-    name: "GHE_PR_builder",
-    description: "Does GHE PR building",
+    name: 'GHE_PR_builder',
+    description: 'Does GHE PR building from internal GHE',
 ).build(this).with {
-    GhUtils.ghPrWatcher(delegate,
-                        'orgname/reponame',
-                        'github.organization.tld',
-                        '<unique github credential UUID>',
-                        true
+    GhUtils.ghPrWatcher(
+        delegate,
+        [
+            ghProject: 'cfpb/reponame',
+            ghHostname: 'github.org.tld',
+            ghAuthId: '<unique GH PR builder credential ID>',
+            ghPrHooks: true,
+            ghPrOrgsList: 'InternalDev',
+            ghPrStatusContext: 'Test your example job',
+            ghPrResultMessage: [
+              'SUCCESS': 'Tests completed normally',
+              'ERROR': 'Tests errored',
+              'FAILURE': 'Tests failed',
+            ]
+        ]
     )
 
     steps {
-        shell("""
-        echo 'Hello PRs!'
-        """.stripIndent()
+        shell('''
+        sh test.sh
+        '''.stripIndent()
         )
     }
 }
@@ -542,23 +555,31 @@ import jenkins.automation.builders.BaseJobBuilder
 import jenkins.automation.utils.GhUtils
 
 new BaseJobBuilder(
-    name: "GH_PR_builder",
-    description: "Builds PRs from public GitHub",
+    name: 'GH_PR_builder',
+    description: 'PR build from GitHub.com',
 ).build(this).with {
-    GhUtils.ghPrWatcher(delegate,
-                        'cfpb/example_repo',
-                        'github.com',
-                        '<unique github credential UUID>',
-                        false,
-                        false,
-                        '* * * * *',
-                        'cfpb'
+    GhUtils.ghPrWatcher(
+        delegate,
+        [
+            ghProject: 'cfpb/reponame',
+            ghHostname: 'github.com',
+            ghAuthId: '<unique GH PR builder credential ID>',
+            ghPrHooks: false,
+            ghPrCron: '*/2 * * * *',
+            ghPrOrgsList: 'CFPB',
+            ghPrStatusContext: 'Test your example job',
+            ghPrResultMessage: [
+              'SUCCESS': 'Tests completed normally',
+              'ERROR': 'Tests errored',
+              'FAILURE': 'Tests failed',
+            ]
+        ]
     )
 
     steps {
-        shell("""
-        echo 'Hello PRs from github.com'
-        """.stripIndent()
+        shell('''
+        sh test.sh
+        '''.stripIndent()
         )
     }
 }
