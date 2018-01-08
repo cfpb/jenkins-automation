@@ -2,31 +2,18 @@ package jenkins.automation.builders
 import jenkins.automation.utils.CommonUtils
 
 import javaposse.jobdsl.dsl.DslFactory
-import javaposse.jobdsl.dsl.Job
+import javaposse.jobdsl.dsl.jobs.MultibranchWorkflowJob
 
 
 /**
- * Sauce Connect Job builder creates a default Sauce Connect OnDemand plugin configuration
-
- *
- * @param name job name
- * @param description job description
- * @param webDriverBrowser browser to use with Sauce Connect
- * @param sauceCredentialId SauceCredential to use for the sauce plugin
- * @param additionalOptions (Optional) additional option to use e.g '-v'
- *
+ * TODO
  */
 class MultibranchPipelineJobBuilder {
     String name
     String description
     List<String> emails
 
-    /**
-     * The main job-dsl script that build job configuration xml
-     * @param DslFactory
-     */
-    Job build(DslFactory factory) {
-        println "building multibranch pipeline"
+    MultibranchWorkflowJob build(DslFactory factory) {
         factory.multibranchPipelineJob(name) {
             branchSources {
                 github {
