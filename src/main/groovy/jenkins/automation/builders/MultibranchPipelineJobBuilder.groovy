@@ -26,7 +26,8 @@ class MultibranchPipelineJobBuilder {
      * @param DslFactory
      */
     Job build(DslFactory factory) {
-        factory.multibranchPipelineJob('example') {
+        println "building multibranch pipeline"
+        factory.multibranchPipelineJob(name) {
             branchSources {
                 github {
                     scanCredentialsId('8fbdbaa0-d5ff-4acb-9e8f-27e49b77048b') // Gitbot GHE credentials
