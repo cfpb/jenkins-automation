@@ -1,7 +1,16 @@
 import jenkins.automation.builders.MultibranchPipelineJobBuilder
-// evaluate(new File("/Users/sotoo/Documents/dev/jenkins-automation/src/main/groovy/jenkins/automation/builders/MultibranchPipelineJobBuilder.groovy"))
+
 new MultibranchPipelineJobBuilder(
         name: "new-mb-pipeline",
-        description: "Sample MultibranchPipelineJobBuilder.groovy job",
-        emails: ['email1@server1.com', 'email2@server2.com']
+        description: "Sample Multibranch Pipeline Job job",
+        branchSourceGithub: true,
+        ghOrganizationName: "testprbuilder",
+        ghRepositoryName: "pr_tester",
+        ghScanCredentialsId: "8fbdbaa0-d5ff-4acb-9e8f-27e49b77048b",
+        ghEndpoint: "https://github.cfpb.gov/api/v3",
+        branchSourceGit: true,
+        ghRemote: "https://github.com/OrlandoSoto/orlando-shared-libraries.git",
+        ghCredentialsId: "009c8c9d-3cf5-4b2a-89f3-286977cabddf",
+        discardOldItems: true,
+        oldNumToKeep: 24
 ).build(this)
