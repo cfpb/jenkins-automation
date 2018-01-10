@@ -29,7 +29,6 @@ class MultibranchPipelineJobBuilder {
     Boolean branchSourceGit
     String ghRemote
     String ghCredentialsId
-    Boolean discardOldItems
     int oldNumToKeep
 
     MultibranchWorkflowJob build(DslFactory factory) {
@@ -51,11 +50,9 @@ class MultibranchPipelineJobBuilder {
                     }
                 }
             }
-            if(discardOldItems){
-                orphanedItemStrategy {
-                    discardOldItems {
-                        numToKeep(oldNumToKeep)
-                    }
+            orphanedItemStrategy {
+                discardOldItems {
+                    numToKeep(oldNumToKeep)
                 }
             }
         }

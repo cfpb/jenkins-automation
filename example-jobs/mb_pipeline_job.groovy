@@ -11,6 +11,5 @@ new MultibranchPipelineJobBuilder(
         branchSourceGit: true,
         ghRemote: "https://github.com/OrlandoSoto/orlando-shared-libraries.git",
         ghCredentialsId: "009c8c9d-3cf5-4b2a-89f3-286977cabddf",
-        discardOldItems: true,
-        oldNumToKeep: 24
+        oldNumToKeep: 365
 ).build(this)
