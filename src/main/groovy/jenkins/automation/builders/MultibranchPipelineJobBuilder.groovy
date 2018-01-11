@@ -17,6 +17,7 @@ import javaposse.jobdsl.dsl.jobs.MultibranchWorkflowJob
  * @param branchSourceGit if true, provide ghRemote and ghCredentialsId
  * @param ghRemote Sets the Git remote repository URL
  * @param ghCredentialsId Sets credentials for authentication with the remote repository 
+ * @param oldNumToKeep Number of builds to keep after a branch has been removed
  */
 class MultibranchPipelineJobBuilder {
     String name
@@ -29,7 +30,7 @@ class MultibranchPipelineJobBuilder {
     Boolean branchSourceGit
     String ghRemote
     String ghCredentialsId
-    int oldNumToKeep
+    int oldNumToKeep = 10
 
     MultibranchWorkflowJob build(DslFactory factory) {
         factory.multibranchPipelineJob(name) {
