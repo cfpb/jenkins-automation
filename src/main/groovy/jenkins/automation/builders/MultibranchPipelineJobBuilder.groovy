@@ -6,48 +6,44 @@ import javaposse.jobdsl.dsl.jobs.MultibranchWorkflowJob
 
 
 /**
- * Multibranch Pipeline Job builder creates a set of Pipeline projects according to detected branches in one SCM repository
- * @param name Sets the job name
- * @param description Sets a description for the folder
- * @param branchSourceGithub if true, provide  ghOrganizationName, ghRepositoryName, ghScanCredentialsId and ghEndpoint
- * @param ghOrganizationName Sets the name of the GitHub Organization or GitHub User Account
- * @param ghRepositoryName Sets the name of the GitHub repository
- * @param ghScanCredentialsId Sets scan credentials for authentication with GitHub
- * @param ghEndpoint Sets the GitHub API URI
- * @param branchSourceGit if true, provide ghRemote and ghCredentialsId
- * @param ghRemote Sets the Git remote repository URL
- * @param ghCredentialsId Sets credentials for authentication with the remote repository 
- * @param oldNumToKeep Number of builds to keep after a branch has been removed
+ * Multibranch Pipeline Job builder creates a set of Pipeline projects according to detected branches in a Git repository
+ * @param name job name
+ * @param description description for the folder
+ * @param branchSource set to "Github" for Github enterprise or "Git" for public Github repos
+ * @param gitCredentials credentials used to scan branches
+ * @param gitOwner name of the GitHub Organization or GitHub User Account when branchSource is "Github"
+ * @param gitRepository name of the GitHub repository when branchSource is "Github"
+ * @param gitEndpoint GitHub API endpoint when branchSource is "Github"
+ * @param gitRemote Git remote project repository URL when branchSource is "Git"
+ * @param oldNumToKeep (optional) Number of builds to keep after a git branch has been removed
  */
 class MultibranchPipelineJobBuilder {
     String name
     String description
-    Boolean branchSourceGithub
-    String ghOrganizationName
-    String ghRepositoryName
-    String ghScanCredentialsId
-    String ghEndpoint
-    Boolean branchSourceGit
-    String ghRemote
-    String ghCredentialsId
+    String branchSource
+    String gitCredentials
+    String gitOwner
+    String gitRepository
+    String gitEndpoint
+    String gitRemote
     int oldNumToKeep = 10
 
     MultibranchWorkflowJob build(DslFactory factory) {
         factory.multibranchPipelineJob(name) {
             it.description this.description
             branchSources {
-                if(branchSourceGithub){
+                if(branchSource == "Github"){
                     github {
-                        scanCredentialsId(ghScanCredentialsId)
-                        repoOwner(ghOrganizationName)
-                        repository(ghRepositoryName)
-                        apiUri(ghEndpoint)
+                        scanCredentialsId(gitCredentials)
+                        repoOwner(gitOwner)
+                        repository(gitRepository)
+                        apiUri(gitEndpoint)
                     }
                 }
-                if (branchSourceGit){
+                else if (branchSource == "Git"){
                     git{
-                        remote(ghRemote)
-                        credentialsId(ghCredentialsId)
+                        remote(gitRemote)
+                        credentialsId(credentialsId)
                     }
                 }
             }
