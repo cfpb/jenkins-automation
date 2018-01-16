@@ -1,9 +1,11 @@
 package jenkins.automation.builders
+
 import jenkins.automation.utils.CommonUtils
+import jenkins.automation.utils.Branch
 
 import javaposse.jobdsl.dsl.DslFactory
 import javaposse.jobdsl.dsl.jobs.MultibranchWorkflowJob
-
+import jenkins.automation.utils.Branch
 
 /**
  * Multibranch Pipeline Job builder creates a set of Pipeline projects according to detected branches in a Git repository
@@ -31,8 +33,9 @@ class MultibranchPipelineJobBuilder {
     MultibranchWorkflowJob build(DslFactory factory) {
         factory.multibranchPipelineJob(name) {
             it.description this.description
+ 
             branchSources {
-                if(branchSource == "Github"){
+                if(Branch."$branchSource" == Branch.github){
                     github {
                         scanCredentialsId(gitCredentials)
                         repoOwner(gitOwner)
@@ -40,7 +43,7 @@ class MultibranchPipelineJobBuilder {
                         apiUri(gitEndpoint)
                     }
                 }
-                else if (branchSource == "Git"){
+                else if (Branch."$branchSource" == Branch.git){
                     git{
                         remote(gitRemote)
                         credentialsId(credentialsId)
