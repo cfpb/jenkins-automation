@@ -69,7 +69,7 @@ class BddSecurityJobBuilder {
 
                         sed -i 's/<defaultDriver path.*/<defaultDriver path="${chromedriverPath}">Chrome<\\/defaultDriver>/g' config.xml
                         
-                        ./gradlew test""")
+                        ./gradlew clean test""")
 }
         }
 
