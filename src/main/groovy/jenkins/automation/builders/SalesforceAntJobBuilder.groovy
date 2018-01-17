@@ -16,7 +16,7 @@ import jenkins.automation.builders.BaseJobBuilder
  *
  * <p>
  *
- * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#salesforce-job-builder"
+ * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#salesforce-job-builder"
  *      target="_blank">Salesforce job builder example</a>
 
  * </p>
