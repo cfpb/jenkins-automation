@@ -182,36 +182,33 @@ new PipelineJobBuilder(
 
 ```
 
-## Multibranch Pipeline Builder for public Github repo
+## Multibranch Pipeline Builder using 'git' as branch source (instead of GitHub API)
 
 ```groovy
 import jenkins.automation.builders.MultibranchPipelineJobBuilder
 
 new MultibranchPipelineJobBuilder(
-        name: "mb-pipeline-gh",
-        description: "Sample Multibranch Pipeline Job using a public Github repository",
-        branchSource: "git",
-        gitRemote: "https://github.com/OrlandoSoto/orlando-shared-libraries.git",
-        oldNumToKeep: 1
+    name: "multi-branch-pipeline-git",
+    description: "Sample Multibranch Pipeline Job using git as the branch source",
+    branchSource: MultibranchPipelineJobBuilder.BranchSourceType.GIT,
+    gitCredentials: "009c8c9d-3cf5-4b2a-89f3-286977cabddf",
+    gitRemote: "https://github.com/OrlandoSoto/orlando-shared-libraries",
 ).build(this)
 ```
 
-## Multibranch Pipeline Builder for Github Enterprise repo
+## Multibranch Pipeline Builder using a GitHub Enterprise API as branch source
 ```groovy
 import jenkins.automation.builders.MultibranchPipelineJobBuilder
-import jenkins.automation.utils.Branch
-
-Branch MyGitBranchSource = jenkins.automation.utils.Branch.github
 
 new MultibranchPipelineJobBuilder(
-        name: "mb-pipeline-ghe",
-        description: "Sample Multibranch Pipeline Job using a Github Enterprise repository",
-        branchSource: "github",
-        gitCredentials: "8fbdbaa0-d5ff-4acb-9e8f-27e49b77048b",
-        gitOwner: "testprbuilder",
-        gitRepository: "pr_tester",
-        gitEndpoint: "https://github.example.com/api/v3/",
-        oldNumToKeep: 1
+    name: "multi-branch-pipeline-github-enterprise",
+    description: "Sample Multibranch Pipeline using the GitHub API as the branch source",
+    branchSource: MultibranchPipelineJobBuilder.BranchSourceType.GITHUB,
+    gitCredentials: "8fbdbaa0-d5ff-4acb-9e8f-27e49b77048a",
+    ghOwner: "org-name",
+    ghRepo: "repo-name",
+    ghApiEndpoint: "https://github.example.com/api/v3",
+    oldNumToKeep: 1
 ).build(this)
 ```
 
