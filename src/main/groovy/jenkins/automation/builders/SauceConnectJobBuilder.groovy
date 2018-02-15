@@ -10,8 +10,9 @@ import javaposse.jobdsl.dsl.Job
  *
  * @param name job name
  * @param description job description
- * @param webDriverBrowser browser to use with Sauce Connect
- * @param sauceCredentialId SauceCredential to use for the sauce plugin
+ * @param webDriverBrowser (Optional) browser to use with Sauce Connect
+ * @param sauceCredentialId SauceCredential to use for the sauce plugin. Note that when using Gradle build this parameter does not get populated.
+ * However, this parameter is correctly populated when built inside a Jenkins environment.
  * @param additionalOptions (Optional) additional option to use e.g '-v'
  *
  */
