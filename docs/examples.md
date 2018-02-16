@@ -259,6 +259,22 @@ new SalesforceAntJobBuilder(
 
 ```
 
+## Sauce On Demand job
+```groovy
+import jenkins.automation.builders.SauceConnectJobBuilder
+
+def projectName ='foo'
+new SauceConnectJobBuilder(
+        name: "example-browser-test",
+        description: "Sample Sauce on Demand job",
+        emails: ['email1@server1.com', 'email2@server2.com'],
+        sauceCredentialId: '1234',
+        // Note that when using Gradle build sauceCredentialId does not get populated.
+        // However, sauceCredentialId is correctly populated when built inside a Jenkins environment
+        additionalOptions: "-v"
+).build(this);
+```
+
 ## Using MultiScm Utility
 
 
