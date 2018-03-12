@@ -19,7 +19,7 @@ class CheckmarxUtils {
  *               actually the team ID, and which can be gotten by
  *               browser-inspecting the 'Team' select box for an existing
  *               Checkmarx job in the Jenkins UI
- * <br/>&#x2014; <code>preset</code>: optional, defaults to "Default 2014" preset,
+ * <br/>&#x2014; <code>preset</code>: optional, defaults to "Checkmarx Default",
  *               the ID of the Checkmarx preset configuration to use; this can be
  *               gotten by browser-inspecting the 'Preset' select box for an existing
  *               Checkmarx job in the Jenkins UI
