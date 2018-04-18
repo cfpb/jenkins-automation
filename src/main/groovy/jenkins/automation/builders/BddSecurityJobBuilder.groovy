@@ -80,12 +80,6 @@ class BddSecurityJobBuilder {
                     'fileIncludePattern'('build/reports/cucumber/all_tests.json')
                 }
             }
-        
-            configure { project ->
-                project / publishers / 'net.masterthought.jenkins.CucumberReportPublisher' {
-                    'fileIncludePattern'('build/reports/cucumber/all_tests.json')
-                }
-            }
             
             configure { project ->
                 project / publishers / 'hudson.tasks.junit.JUnitResultArchiver' {
