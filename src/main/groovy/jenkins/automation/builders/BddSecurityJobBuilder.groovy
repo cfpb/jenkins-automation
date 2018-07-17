@@ -69,7 +69,7 @@ class BddSecurityJobBuilder {
 
                         sed -i 's/<defaultDriver path.*/<defaultDriver path="${chromedriverPath}">Chrome<\\/defaultDriver>/g' config.xml
                         
-                        ./gradlew test""")
+                        ./gradlew clean test""")
 }
         }
 
@@ -77,12 +77,6 @@ class BddSecurityJobBuilder {
         
             configure { project ->
                 project / publishers / 'com.github.bogdanlivadariu.jenkins.reporting.cucumber.CucumberTestReportPublisher' {
-                    'fileIncludePattern'('build/reports/cucumber/all_tests.json')
-                }
-            }
-        
-            configure { project ->
-                project / publishers / 'net.masterthought.jenkins.CucumberReportPublisher' {
                     'fileIncludePattern'('build/reports/cucumber/all_tests.json')
                 }
             }

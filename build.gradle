@@ -61,12 +61,3 @@ groovydoc {
     source = files('src/main/groovy')
     destinationDir = file('.')
 }
-
-task copyDependencies(type: Copy) {
-   def osa_dir = new File('osa_dependencies')
-   if ( !osa_dir.exists() ) {
-      osa_dir.mkdirs()
-   }
-   from configurations.compile
-   into 'osa_dependencies'
-}

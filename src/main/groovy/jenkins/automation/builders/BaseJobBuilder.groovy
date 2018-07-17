@@ -17,7 +17,7 @@ import jenkins.automation.utils.CommonUtils
  * @param emails list of developer to get notifications
  * <p>
  *
- * @see <a href="https://github.com/imuchnik/jenkins-automation/blob/gh-pages/docs/examples.md#base-job-job-builder"
+ * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#base-job-job-builder"
  *      target="_blank">Base job builder example</a>
 
  * </p>
