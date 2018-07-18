@@ -14,7 +14,8 @@ apply plugin: 'maven'
 repositories {
     mavenCentral()
     jcenter()
-    maven { url 'http://repo.jenkins-ci.org/releases/' }}
+    maven { url 'http://repo.jenkins-ci.org/releases/' }
+}
 
 configurations {
     groovyDoc
@@ -51,7 +52,7 @@ task rest(dependsOn: 'classes', type: JavaExec) {
 sourceSets {
     main {
         groovy {
-            srcDirs = ['src/main/groovy', 'example-jobs'  ]
+            srcDirs = ['src/main/groovy', 'example-jobs']
         }
     }
 }
