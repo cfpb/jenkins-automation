@@ -49,7 +49,6 @@ If the `emails` property is set on a job, the job automatically gets configured 
 ### Commonly used Jenkins Plugins that we support
 
 - https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin
-- https://wiki.jenkins-ci.org/display/JENKINS/Build+Flow+Plugin
 - https://wiki.jenkins-ci.org/display/JENKINS/EnvInject+Plugin
 - http://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 - http://wiki.jenkins-ci.org/display/JENKINS/Multiple+SCMs+Plugin

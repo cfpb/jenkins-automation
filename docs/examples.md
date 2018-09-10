@@ -99,39 +99,6 @@ new BddSecurityJobBuilder(
 ).build(this)
 ```
 
-## Flow Job Builder
-
-```groovy
-import jenkins.automation.builders.FlowJobBuilder
-
-new FlowJobBuilder(
-        name: 'sample-flow-job',
-        description: 'A sample build flow job that builds a list of jobs in order',
-        jobs:['job1', 'job2']
-).build(this).with {
-  logRotator{
-      numToKeep(365)
-  }
-}
-
-new FlowJobBuilder(
-        name: 'sample-flow-job-with-build-flow',
-        description: 'A sample build flow job that takes a jobFlow string, for full control',
-        jobFlow: """
-            build('job1')
-            build('job2')
-            parallel(
-             { build('job3') },
-             { build('job4') },
-            )
-        """
-).build(this).with {
-  logRotator{
-      numToKeep(365)
-  }
-}
-```
-
 ## Pipeline Builder
 
 ```groovy
