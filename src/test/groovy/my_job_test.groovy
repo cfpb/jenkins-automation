@@ -4,7 +4,7 @@ import spock.lang.*
 
 class my_job_test extends Specification {
 
-    void 'test my flow build job'() {
+    void 'test my pipeline job'() {
 
         given:
         JobManagement jm = new MemoryJobManagement()
