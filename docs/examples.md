@@ -416,6 +416,11 @@ job('example'){
 job('example'){
     CommonUtils.addExtendedEmail(delegate, emails, triggers, sendToDevs, sendToReq, includeCulprits, sendToRecipient, "\${SCRIPT, template='path/to/script.groovy'}"
 }
+// Override using configuration map, a little nicer way to invoke the function with named arguments
+job('example'){
+    CommonUtils.addExtendedEmail(delegate, emails:emails, triggers:['statusChanged'], attachmentPattern:".csv")
+}
+
 ```
 
 ### Inject global passwords

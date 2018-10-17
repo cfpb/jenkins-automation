@@ -44,7 +44,7 @@ class CommonUtils {
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addExtendedEmail(context, List<String> emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false,  sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern="") {
+    static void addExtendedEmail(context, List<String> emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "") {
         addExtendedEmail(context, emails.join(","), triggerList, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList, preSendScript, attachmentPattern)
     }
 
@@ -62,12 +62,12 @@ class CommonUtils {
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern="") {
+    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "") {
         context.with {
             extendedEmail {
-                recipientList(emails)
-                delegate.preSendScript preSendScript
-                attachmentPatterns(attachmentPattern)
+                delegate.recipientList(emails)
+                delegate.preSendScript(preSendScript)
+                delegate.attachmentPatterns(attachmentPattern)
 
                 triggers {
                     triggerList.each {
@@ -77,6 +77,46 @@ class CommonUtils {
                                 if (sendToRequester) requester()
                                 if (includeCulprits) culprits()
                                 if (sendToRecipientList) recipientList()
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    /**
+     *
+     * @param context Closure context, i.e delegate
+     * @param params Maps of params
+     *  @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
+     */
+    static void addExtendedEmail(Map params, context) {
+
+        params.triggerList ?: ["failure", "unstable", "fixed"]
+        params.sendToDevelopers ?: false
+        params.sendToRequester ?: true
+        params.includeCulprits ?: false
+        params.sendToRecipientList ?: true
+        params.preSendScript ?: "\$DEFAULT_PRESEND_SCRIPT"
+        params.attachmentPattern ?: ""
+        def  emails = params.emails
+        print emails
+        context.with {
+            extendedEmail {
+                recipientList(emails)
+                preSendScript(params.preSendScript)
+                attachmentPatterns(params.attachmentPattern)
+
+                triggers {
+                    params.triggerList.each {
+                        "${it}" {
+                            sendTo {
+                                if (params.sendToDevelopers) developers()
+                                if (params.sendToRequester) requester()
+                                if (params.includeCulprits) culprits()
+                                if (params.sendToRecipientList) recipientList()
                             }
                         }
                     }
@@ -109,10 +149,10 @@ class CommonUtils {
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addLogParserPublisher(context, rulesPath="/var/lib/jenkins/shell_parse_rules.txt") {
+    static void addLogParserPublisher(context, rulesPath = "/var/lib/jenkins/shell_parse_rules.txt") {
         context.with {
             configure {
-                it / publishers  << 'hudson.plugins.logparser.LogParserPublisher' {
+                it / publishers << 'hudson.plugins.logparser.LogParserPublisher' {
                     unstableOnWarning true
                     failBuildOnError true
                     parsingRulesPath rulesPath
@@ -127,7 +167,7 @@ class CommonUtils {
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addPerformancePublisher(context, String reportPattern="**/results/*.jtl", String unstableResponseTimeThreshold="", int failedThresholdPositive, int failedThresholdNegative, int unstableThresholdPositive, int unstableThresholdNegative) {
+    static void addPerformancePublisher(context, String reportPattern = "**/results/*.jtl", String unstableResponseTimeThreshold = "", int failedThresholdPositive, int failedThresholdNegative, int unstableThresholdPositive, int unstableThresholdNegative) {
         context.with {
             configure {
                 it / publishers << 'hudson.plugins.performance.PerformancePublisher' {
