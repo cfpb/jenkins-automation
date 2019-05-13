@@ -32,7 +32,9 @@ class PipelineJobBuilder {
     Job build(DslFactory factory) {
         factory.pipelineJob(name) {
             it.description this.description
-            CommonUtils.addDefaults(delegate)
+            logRotator {
+                numToKeep(30)
+            }
             def warningText = ''
             if (stages && pipelineScript) {
                 warningText += """
