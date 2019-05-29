@@ -38,6 +38,7 @@ class SiteMonitorJobBuilder {
                         urls.each { url ->
                             'hudson.plugins.sitemonitor.model.Site' {
                                 mUrl url
+                                admitInsecureSslCerts false
                             }
                         }
                     }
