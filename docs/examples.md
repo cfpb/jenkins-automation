@@ -424,16 +424,28 @@ new BaseJobBuilder(
 ### Disable Concurrent Builds
 
 ```groovy
-pipelineJob('sample-pipeline-with-no-concurrent-build') {
-    
-    description('Pipeline that disables concurrent builds')
-    CommonUtils.disableConcurrentBuilds(delegate)
-    definition {
-        cps {
-            sandbox()
-            script("...")
+import jenkins.automation.builders.PipelineJobBuilder
+import jenkins.automation.utils.CommonUtils
+
+def script = """
+    pipeline {
+        agent { label 'master' }
+        stages {
+            stage('hello') {
+                steps {
+                    sh 'echo "Hello World"'
+                }
+            }
         }
     }
+"""
+new PipelineJobBuilder(
+        name: 'pipeline-job-disables-concurrent-build',
+        description: 'This is a simple pipeline job that disables concurrent builds',
+        pipelineScript: script,
+        sandboxFlag: false
+).build(this).with {
+    CommonUtils.disableConcurrentBuilds(delegate)
 }
 ```
 
