@@ -63,12 +63,14 @@ class MultibranchPipelineJobBuilder {
                 switch (branchSource) {
                     case BranchSourceType.GIT:
                         git {
+                            id(name)
                             remote(gitRemote)
                             credentialsId(gitCredentials)
                         }
                         break
                     case BranchSourceType.GITHUB:
                         github {
+                            id(name)
                             scanCredentialsId(gitCredentials)
                             repoOwner(ghOwner)
                             repository(ghRepo)
