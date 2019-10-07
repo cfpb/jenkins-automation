@@ -205,6 +205,27 @@ class CommonUtils {
     }
 
     /**
+    * Utility to disable concurrent builds in Pipeline jobs
+    *
+    * As of job-dsl plugin version 1.76, the old `concurrentBuilds(false)` syntax is deprecated and replaced with `disableConcurrentBuilds()`
+    * The problem is that disableConcurrentBuilds() is a dynamic method, and thus it will not run via gradle and will only work in seed jobs.
+    * This breaks any local usage of `gradlew rest` for running jobs against a local or remote Jenkins server, which currently is a key part of our 
+    * development workflow.
+    *
+    * This static disableCurrentBuilds() method retains the local development workflow while preventing developers from needing to litter
+    * their job-dsl scripts with `configure` blocks
+    * 
+    * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
+    */
+    static void disableConcurrentBuilds(context) {
+        context.with {
+            configure {
+                it / 'properties' / 'org.jenkinsci.plugins.workflow.job.properties.DisableConcurrentBuildsJobProperty' {}
+            }
+        }
+    }
+
+    /**
      * Common string for creating and activating a python 2.7 virtualenv in a shell block
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>

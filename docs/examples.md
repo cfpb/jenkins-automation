@@ -355,38 +355,7 @@ job('example'){
     CommonUtils.addDefaults(delegate)
 }
 ```
-## Plugin Utils
 
-### New Relic
-
-```
-import jenkins.automation.builders.BaseJobBuilder
-
-import jenkins.automation.utils.PluginUtils
-
-def job=new BaseJobBuilder(
-        name: "sample-base-job-with-new-relic",
-        description: "A job with some additional plugin added"
-).build(this).with {
-        PluginUtils.addNewRelicSupport(delegate, "nr-api-key", "new", "foo", "some_log", "deploy", '1') //context, apiKey, applicationId, jobName, changeLog, user, revision
-
-}
-```
-
-### SQS
-
-```
-import jenkins.automation.builders.BaseJobBuilder
-
-import jenkins.automation.utils.PluginUtils
-
-def job=new BaseJobBuilder(
-        name: "sample-base-job-with-sqs-support",
-        description: "A job with some additional plugin added"
-).build(this).with {
-    PluginUtils.addSQSNotification(delegate, "" ,"https://localhost/jenkins","foobar",customSQSMessageValue="Say something sharp" )
-}
-```
 
 ### Extended Email
 
@@ -452,6 +421,22 @@ new BaseJobBuilder(
 }
 ```
 
+### Disable Concurrent Builds
+
+```groovy
+pipelineJob('sample-pipeline-with-no-concurrent-build') {
+    
+    description('Pipeline that disables concurrent builds')
+    CommonUtils.disableConcurrentBuilds(delegate)
+    definition {
+        cps {
+            sandbox()
+            script("...")
+        }
+    }
+}
+```
+
 ### Add virtualenv to a shell step
 
 ```groovy
@@ -488,6 +473,39 @@ new BaseJobBuilder(
         shell("echo 'Run jmeter tests here'")
     }
     CommonUtils.addPerformancePublisher(delegate,failedThresholdPositive=10, failedThresholdNegative=10, unstableThresholdPositive=5, unstableThresholdNegative=5)
+}
+```
+
+## Plugin Utils
+
+### New Relic
+
+```
+import jenkins.automation.builders.BaseJobBuilder
+
+import jenkins.automation.utils.PluginUtils
+
+def job=new BaseJobBuilder(
+        name: "sample-base-job-with-new-relic",
+        description: "A job with some additional plugin added"
+).build(this).with {
+        PluginUtils.addNewRelicSupport(delegate, "nr-api-key", "new", "foo", "some_log", "deploy", '1') //context, apiKey, applicationId, jobName, changeLog, user, revision
+
+}
+```
+
+### SQS
+
+```
+import jenkins.automation.builders.BaseJobBuilder
+
+import jenkins.automation.utils.PluginUtils
+
+def job=new BaseJobBuilder(
+        name: "sample-base-job-with-sqs-support",
+        description: "A job with some additional plugin added"
+).build(this).with {
+    PluginUtils.addSQSNotification(delegate, "" ,"https://localhost/jenkins","foobar",customSQSMessageValue="Say something sharp" )
 }
 ```
 
