@@ -2,9 +2,7 @@ import groovy.io.FileType
 import javaposse.jobdsl.dsl.*
 import spock.lang.*
 
-
 class my_job_test extends Specification {
-
     void 'test dev and prod jobs do not fail'() {
 
         given:
@@ -37,10 +35,5 @@ class my_job_test extends Specification {
 
         assert true
         noExceptionThrown()
-
     }
-
-
 }
-
-
