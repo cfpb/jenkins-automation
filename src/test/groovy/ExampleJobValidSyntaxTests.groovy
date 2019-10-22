@@ -2,9 +2,8 @@ import groovy.io.FileType
 import javaposse.jobdsl.dsl.*
 import spock.lang.*
 
-
 class ExampleJobValidSyntaxTests extends Specification {
-
+  
     void 'test dev and prod jobs do not fail'() {
 
         given:
@@ -39,8 +38,4 @@ class ExampleJobValidSyntaxTests extends Specification {
         noExceptionThrown()
 
     }
-
-
 }
-
-
