@@ -3,7 +3,7 @@ import javaposse.jobdsl.dsl.*
 import spock.lang.*
 
 
-class my_job_test extends Specification {
+class ExampleJobValidSyntaxTests extends Specification {
 
     void 'test dev and prod jobs do not fail'() {
 

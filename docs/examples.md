@@ -449,6 +449,22 @@ new PipelineJobBuilder(
 }
 ```
 
+### Credentials Binding
+
+```groovy
+import jenkins.automation.builders.BaseJobBuilder
+import jenkins.automation.utils.CommonUtils
+
+new BaseJobBuilder(
+    name: "sample-job-with-credentials-variable-bindings",
+    description: "This is a job that uses our credentialsBinding helpers"
+).build(this).with {
+    //you can use one or the other or together if you need to
+    CommonUtils.addUsernamePasswordCredentials(delegate, "some-credentials-id", "SOME-USERNAME-VAR", "SOME-PASSWORD-VAR")
+    CommonUtils.addAmazonWebServicesCredentials(delegate, "some-aws-credentials-id", "SOME-ACCESS-KEY-VAR", "SOME-SECRET-KEY-VAR")
+}
+```
+
 ### Add virtualenv to a shell step
 
 ```groovy
