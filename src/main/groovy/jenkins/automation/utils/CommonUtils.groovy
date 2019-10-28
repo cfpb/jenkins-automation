@@ -226,6 +226,54 @@ class CommonUtils {
     }
 
     /**
+    * Utility to add usernamePassword credentials binding
+    *
+    * the usernameVariable... style of usernamePassword{} credentials binding is "dynamic", and thus it will not run via gradle and will only work in seed jobs.
+    * This breaks any local usage of `gradlew rest` for running jobs against a local or remote Jenkins server, which currently is a key part of our 
+    * development workflow.    
+    *
+    * This addUsernamePasswordCredentials() method retains the local development workflow while preventing developers from needing to litter
+    * their job-dsl scripts with `configure` blocks.
+    *
+    * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#credentials-binding" target="_blank">Common utils Credentials Binding</a>
+    */
+    static void addUsernamePasswordCredentials(context, String credentialsId, String usernameVariable, String passwordVariable) {
+        context.with {
+            configure { Node project ->
+                project / 'buildWrappers' / 'org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper' / 'bindings' << 'org.jenkinsci.plugins.credentialsbinding.impl.UsernamePasswordMultiBinding' {
+                    delegate.credentialsId credentialsId
+                    delegate.usernameVariable usernameVariable
+                    delegate.passwordVariable passwordVariable
+                }
+            }
+        }
+    }
+
+    /**
+    * Utility to add AWS credentials binding
+    *
+    * amazonWebServicesCredentialsBinding is a "dynamic" method, and thus it will not run via gradle and will only work in seed jobs.
+    * This breaks any local usage of `gradlew rest` for running jobs against a local or remote Jenkins server, which currently is a key part of our 
+    * development workflow.    
+    *
+    * This addAmazonWebServicesCredentials() method retains the local development workflow while preventing developers from needing to litter
+    * their job-dsl scripts with `configure` blocks.
+    *
+    * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#credentials-binding" target="_blank">Common utils Credentials Binding</a>
+    */
+    static void addAmazonWebServicesCredentials(context, String credentialsId, String accessKeyVariable, String secretKeyVariable) {
+        context.with {
+            configure { Node project ->
+                project / 'buildWrappers' / 'org.jenkinsci.plugins.credentialsbinding.impl.SecretBuildWrapper' / 'bindings' << 'com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding' {
+                    delegate.credentialsId credentialsId
+                    delegate.accessKeyVariable accessKeyVariable
+                    delegate.secretKeyVariable secretKeyVariable
+                }
+            }
+        }
+    }
+
+    /**
      * Common string for creating and activating a python 2.7 virtualenv in a shell block
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
