@@ -251,7 +251,8 @@ import jenkins.automation.utils.ScmUtils
 
 def repos = [
         [name: 'jenkins-automation', url: "https://github.com/cfpb/jenkins-automation@2.0"],
-        [name: 'collab', url: "https://github.com/cfpb/collab"]
+        [name: 'collab', url: "https://github.com/cfpb/collab"],
+        [name: 'hubot-aws-cfpb', url: "https://github.com/cfpb/hubot-aws-cfpb", branch: "main"]
 ]
 new BaseJobBuilder(
         name: "sample-job-with-multiscm",
