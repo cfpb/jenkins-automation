@@ -60,7 +60,8 @@ new BaseJobBuilder(
 
 def repos = [
     [url: "https://github.com/cfpb/jenkins-automation@2.0"],
-    [url: "https://github.com/cfpb/collab"]
+    [url: "https://github.com/cfpb/collab"],
+    [url: "https://github.com/cfpb/hubot-aws-cfpb", branch: "main"]
 ]
 new BaseJobBuilder(
     name: "sample-base-job-with-multiscm",
