@@ -282,7 +282,7 @@ class CommonUtils {
         if [ -d ".env" ]; then
           echo "**> virtualenv exists"
         else
-          echo "**> creating virtualenv"
+          echo "**> creating python 2.7 virtualenv"
           virtualenv -p /usr/local/bin/python2.7 .env
         fi
 
