@@ -46,8 +46,12 @@ class PipelineJobBuilder {
             }
 
             if (pollScmSchedule) {
-                triggers {
-                    scm pollScmSchedule
+                properties {
+                    pipelineTriggers {
+                        triggers {
+                            scm pollScmSchedule
+                        }
+                    }
                 }
             }
 
