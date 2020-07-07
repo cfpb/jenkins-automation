@@ -18,7 +18,6 @@ def pipelineScript = """
 new PipelineJobBuilder(
         name: 'Hello Pipeline With Script',
         description: 'This is a simple pipeline job',
-        pollScmSchedule: '@weekly',
         pipelineScript: pipelineScript,
         sandboxFlag: false
 ).build(this).with {

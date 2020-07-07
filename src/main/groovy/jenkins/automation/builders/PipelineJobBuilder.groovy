@@ -12,7 +12,6 @@ import jenkins.automation.utils.CommonUtils
  * @param sandboxFlag, boolean to enable/disable sandbox, default true.
  * @param description job description
  * @param pipelineScript optional string containing the raw pipeline script (use instead of `stages`)
- * @param pollScmSchedule optional string in cron format to trigger builds on a scheduled interval
  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#pipeline-builder" target="_blank">Pipeline job builder example</a>
  */
 
@@ -21,7 +20,6 @@ class PipelineJobBuilder {
     String name
     String description
     String pipelineScript = ""
-    String pollScmSchedule
     Boolean sandboxFlag = true
 
     /**
@@ -43,16 +41,6 @@ class PipelineJobBuilder {
                         '`stages` was also supplied; choose one or the other\\033[0m'
                     }
                 """
-            }
-
-            if (pollScmSchedule) {
-                properties {
-                    pipelineTriggers {
-                        triggers {
-                            scm pollScmSchedule
-                        }
-                    }
-                }
             }
 
             if (stages) {
