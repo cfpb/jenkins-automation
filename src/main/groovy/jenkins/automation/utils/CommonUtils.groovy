@@ -40,12 +40,13 @@ class CommonUtils {
      * @param includeCulprits Default false,
      * @param sendToRecipientList Default true
      * @param preSendScript Default $DEFAULT_PRESEND_SCRIPT
+     * @param content Default is $DEFAULT_CONTENT
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addExtendedEmail(context, List<String> emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "") {
-        addExtendedEmail(context, emails.join(","), triggerList, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList, preSendScript, attachmentPattern)
+    static void addExtendedEmail(context, List<String> emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "", content="\$DEFAULT_CONTENT") {
+        addExtendedEmail(context, emails.join(","), triggerList, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList, preSendScript, attachmentPattern, content)
     }
 
     /**
@@ -58,16 +59,18 @@ class CommonUtils {
      * @param sendToRecipientList Default true
      * @param preSendScript Default $DEFAULT_PRESEND_SCRIPT
      * @param attachmentPattern Ant style pattern matching for attachments
+     * @param content Default is $DEFAULT_CONTENT
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "") {
+    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "", content = "\$DEFAULT_CONTENT") {
         context.with {
             extendedEmail {
                 delegate.recipientList(emails)
                 delegate.preSendScript(preSendScript)
                 delegate.attachmentPatterns(attachmentPattern)
+                delegate.defaultContent(content)
 
                 triggers {
                     triggerList.each {
@@ -98,6 +101,7 @@ class CommonUtils {
      * endToRecipient:<Boolean>,
      * preSendScript = <String>,
      * attachmentPattern = <String>
+     * content = <String>
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
 
@@ -111,6 +115,7 @@ class CommonUtils {
         params.sendToRecipientList = params.sendToRecipientList ?: true
         params.preSendScript = params.preSendScript ?: "\$DEFAULT_PRESEND_SCRIPT"
         params.attachmentPattern = params.attachmentPattern ?: ""
+        params.content = params.content ?: "\$DEFAULT_CONTENT"
         def emails = params.emails
 
         context.with {
@@ -118,6 +123,7 @@ class CommonUtils {
                 recipientList(emails)
                 preSendScript(params.preSendScript)
                 attachmentPatterns(params.attachmentPattern)
+                defaultContent(params.content)
 
                 triggers {
                     params.triggerList.each {
