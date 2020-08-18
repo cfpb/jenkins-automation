@@ -46,7 +46,7 @@ class CommonUtils {
      */
 
     static void addExtendedEmail(context, List<String> emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "", content="\$DEFAULT_CONTENT") {
-        addExtendedEmail(context, emails.join(","), triggerList, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList, preSendScript, attachmentPattern, content)
+        addExtendedEmail(context, emails.join(","), triggerList, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList, preSendScript, attachmentPattern, content, subject)
     }
 
     /**
@@ -60,17 +60,19 @@ class CommonUtils {
      * @param preSendScript Default $DEFAULT_PRESEND_SCRIPT
      * @param attachmentPattern Ant style pattern matching for attachments
      * @param content Default is $DEFAULT_CONTENT
+     * @param subject Default is $DEFAULT_SUBJECT
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "", content = "\$DEFAULT_CONTENT") {
+    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "", content = "\$DEFAULT_CONTENT", subject = "\$DEFAULT_SUBJECT") {
         context.with {
             extendedEmail {
                 delegate.recipientList(emails)
                 delegate.preSendScript(preSendScript)
                 delegate.attachmentPatterns(attachmentPattern)
                 delegate.defaultContent(content)
+                delegate.defaultSubject(subject)
 
                 triggers {
                     triggerList.each {
@@ -100,8 +102,9 @@ class CommonUtils {
      * includeCulprits:<Boolean>,
      * endToRecipient:<Boolean>,
      * preSendScript = <String>,
-     * attachmentPattern = <String>
-     * content = <String>
+     * attachmentPattern = <String>,
+     * content = <String>,
+     * subject = <String>
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
 
@@ -116,6 +119,8 @@ class CommonUtils {
         params.preSendScript = params.preSendScript ?: "\$DEFAULT_PRESEND_SCRIPT"
         params.attachmentPattern = params.attachmentPattern ?: ""
         params.content = params.content ?: "\$DEFAULT_CONTENT"
+        params.subject = params.subject ?: "\$DEFAULT_SUBJECT"
+
         def emails = params.emails
 
         context.with {
@@ -124,6 +129,7 @@ class CommonUtils {
                 preSendScript(params.preSendScript)
                 attachmentPatterns(params.attachmentPattern)
                 defaultContent(params.content)
+                defaultSubject(params.subject)
 
                 triggers {
                     params.triggerList.each {
