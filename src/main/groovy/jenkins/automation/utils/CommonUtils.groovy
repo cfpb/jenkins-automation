@@ -66,6 +66,7 @@ class CommonUtils {
      */
 
     static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "", content = "\$DEFAULT_CONTENT", subject = "\$DEFAULT_SUBJECT") {
+
         context.with {
             extendedEmail {
                 delegate.recipientList(emails)
