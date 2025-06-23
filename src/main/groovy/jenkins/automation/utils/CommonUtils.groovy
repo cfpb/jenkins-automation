@@ -34,19 +34,22 @@ class CommonUtils {
     /** Utility function to add extended email
      *
      * @param List emails List of email string to make it seamlessly compatible with builders
-     * @param triggersList List<String> triggers E.g failure, fixed etc...
-     * @param sendToDevelopers Default false,
-     * @param sendToRequester Default true,
-     * @param includeCulprits Default false,
+     * @param triggerList List<String> triggers E.g failure, fixed etc...
+     * @param sendToDevelopers Default false
+     * @param sendToRequester Default true
+     * @param includeCulprits Default false
      * @param sendToRecipientList Default true
      * @param preSendScript Default $DEFAULT_PRESEND_SCRIPT
+     * @param attachmentPattern Ant style pattern matching, default empty string
      * @param content Default is $DEFAULT_CONTENT
+     * @param subject Default is $DEFAULT_SUBJECT
+     * @param attachBuildLog Default false
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addExtendedEmail(context, List<String> emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "", content="\$DEFAULT_CONTENT", subject = "\$DEFAULT_SUBJECT") {
-        addExtendedEmail(context, emails.join(","), triggerList, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList, preSendScript, attachmentPattern, content, subject )
+    static void addExtendedEmail(context, List<String> emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "", content="\$DEFAULT_CONTENT", subject = "\$DEFAULT_SUBJECT", attachBuildLog = false) {
+        addExtendedEmail(context, emails.join(","), triggerList, sendToDevelopers, sendToRequester, includeCulprits, sendToRecipientList, preSendScript, attachmentPattern, content, subject, attachBuildLog)
     }
 
     /**
@@ -58,14 +61,15 @@ class CommonUtils {
      * @param includeCulprits Default false,
      * @param sendToRecipientList Default true
      * @param preSendScript Default $DEFAULT_PRESEND_SCRIPT
-     * @param attachmentPattern Ant style pattern matching for attachments
+     * @param attachmentPattern Ant style pattern matching, default empty string
      * @param content Default is $DEFAULT_CONTENT
      * @param subject Default is $DEFAULT_SUBJECT
+     * @param attachBuildLog Default false
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
      */
 
-    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "", content = "\$DEFAULT_CONTENT", subject = "\$DEFAULT_SUBJECT") {
+    static void addExtendedEmail(context, String emails, List<String> triggerList = ["failure", "unstable", "fixed"], sendToDevelopers = false, sendToRequester = true, includeCulprits = false, sendToRecipientList = true, preSendScript = "\$DEFAULT_PRESEND_SCRIPT", attachmentPattern = "", content = "\$DEFAULT_CONTENT", subject = "\$DEFAULT_SUBJECT", attachBuildLog = false) {
 
         context.with {
             extendedEmail {
@@ -74,6 +78,7 @@ class CommonUtils {
                 delegate.attachmentPatterns(attachmentPattern)
                 delegate.defaultContent(content)
                 delegate.defaultSubject(subject)
+                delegate.attachBuildLog(attachBuildLog)
 
                 triggers {
                     triggerList.each {
@@ -105,7 +110,8 @@ class CommonUtils {
      * preSendScript = <String>,
      * attachmentPattern = <String>,
      * content = <String>,
-     * subject = <String>
+     * subject = <String>,
+     * attachBuildLog:<Boolean>
      *
      * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
 
@@ -121,6 +127,7 @@ class CommonUtils {
         params.attachmentPattern = params.attachmentPattern ?: ""
         params.content = params.content ?: "\$DEFAULT_CONTENT"
         params.subject = params.subject ?: "\$DEFAULT_SUBJECT"
+        params.attachBuildLog = params.attachBuildLog ?: false
 
         def emails = params.emails
 
@@ -131,6 +138,7 @@ class CommonUtils {
                 attachmentPatterns(params.attachmentPattern)
                 defaultContent(params.content)
                 defaultSubject(params.subject)
+                attachBuildLog(params.attachBuildLog)
 
                 triggers {
                     params.triggerList.each {
@@ -222,12 +230,12 @@ class CommonUtils {
     *
     * As of job-dsl plugin version 1.76, the old `concurrentBuilds(false)` syntax is deprecated and replaced with `disableConcurrentBuilds()`
     * The problem is that disableConcurrentBuilds() is a dynamic method, and thus it will not run via gradle and will only work in seed jobs.
-    * This breaks any local usage of `gradlew rest` for running jobs against a local or remote Jenkins server, which currently is a key part of our 
+    * This breaks any local usage of `gradlew rest` for running jobs against a local or remote Jenkins server, which currently is a key part of our
     * development workflow.
     *
     * This static disableCurrentBuilds() method retains the local development workflow while preventing developers from needing to litter
     * their job-dsl scripts with `configure` blocks
-    * 
+    *
     * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#common-utils" target="_blank">Common utils</a>
     */
     static void disableConcurrentBuilds(context) {
@@ -242,8 +250,8 @@ class CommonUtils {
     * Utility to add usernamePassword credentials binding
     *
     * the usernameVariable... style of usernamePassword{} credentials binding is "dynamic", and thus it will not run via gradle and will only work in seed jobs.
-    * This breaks any local usage of `gradlew rest` for running jobs against a local or remote Jenkins server, which currently is a key part of our 
-    * development workflow.    
+    * This breaks any local usage of `gradlew rest` for running jobs against a local or remote Jenkins server, which currently is a key part of our
+    * development workflow.
     *
     * This addUsernamePasswordCredentials() method retains the local development workflow while preventing developers from needing to litter
     * their job-dsl scripts with `configure` blocks.
@@ -266,8 +274,8 @@ class CommonUtils {
     * Utility to add AWS credentials binding
     *
     * amazonWebServicesCredentialsBinding is a "dynamic" method, and thus it will not run via gradle and will only work in seed jobs.
-    * This breaks any local usage of `gradlew rest` for running jobs against a local or remote Jenkins server, which currently is a key part of our 
-    * development workflow.    
+    * This breaks any local usage of `gradlew rest` for running jobs against a local or remote Jenkins server, which currently is a key part of our
+    * development workflow.
     *
     * This addAmazonWebServicesCredentials() method retains the local development workflow while preventing developers from needing to litter
     * their job-dsl scripts with `configure` blocks.
