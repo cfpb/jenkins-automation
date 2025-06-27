@@ -29,6 +29,18 @@ class BaseJobBuilder {
     List<String> emails
     Boolean attachBuildLog
 
+    void setEmails(Object value) {
+        if (value == null) {
+            this.emails = []
+        } else if (value instanceOf List) {
+            this.emails = value
+        } else if (value instanceOf String[]) {
+            this.emails = value.toList()
+        } else {
+            throw new IllegalArgumentException("Invalid type for emails: ${value.getClass().name}")
+        }
+    }
+
     Job build(DslFactory factory) {
         factory.job(name) {
             it.description this.description
