@@ -38,7 +38,7 @@ class BaseJobBuilder {
                     publishers {
                         CommonUtils.addExtendedEmail(
                             delegate,
-                            emails: emails
+                            emails: emails,
                             attachBuildLog: attachBuildLog
                         )
                     }
