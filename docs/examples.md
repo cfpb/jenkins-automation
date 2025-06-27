@@ -374,6 +374,13 @@ job('example'){
     }
 }
 
+// Include job build log as an attachment.
+job('example'){
+     publishers {
+        CommonUtils.addExtendedEmail(delegate, emails = 'foo@example.com', attachBuildLog = true)
+    }
+}
+
 // Override default email triggers.
 job('example'){
   publishers {
@@ -383,10 +390,10 @@ job('example'){
 
 // Override default email pre-send script, by providing a groovy code
 job('example'){
-     publishers {    
+     publishers {
         CommonUtils.addExtendedEmail(delegate, emails, triggers, sendToDevs, senToReq, includeCulprits, sendToRecipient, "cancel = true")
      }
-}   
+}
 
 // Override default email pre-send script by providing path to the script file
 job('example'){

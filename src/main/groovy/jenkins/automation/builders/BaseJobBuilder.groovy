@@ -15,6 +15,7 @@ import jenkins.automation.utils.CommonUtils
  * @param name used to name the job
  * @param description job description
  * @param emails list of developer to get notifications
+ * @param attachBuildLog whether to attach build log to notifications
  * <p>
  *
  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#base-job-job-builder"
@@ -26,6 +27,7 @@ class BaseJobBuilder {
     String name
     String description
     List<String> emails
+    Boolean attachBuildLog
 
     Job build(DslFactory factory) {
         factory.job(name) {
@@ -34,7 +36,11 @@ class BaseJobBuilder {
             publishers {
                 if (emails) {
                     publishers {
-                        CommonUtils.addExtendedEmail(delegate, emails)
+                        CommonUtils.addExtendedEmail(
+                            delegate,
+                            emails: emails
+                            attachBuildLog: attachBuildLog
+                        )
                     }
                 }
             }
