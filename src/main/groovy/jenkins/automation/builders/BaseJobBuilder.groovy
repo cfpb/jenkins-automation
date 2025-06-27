@@ -15,7 +15,6 @@ import jenkins.automation.utils.CommonUtils
  * @param name used to name the job
  * @param description job description
  * @param emails list of developer to get notifications
- * @param attachBuildLog whether to attach build log to notifications
  * <p>
  *
  * @see <a href="https://github.com/cfpb/jenkins-automation/blob/gh-pages/docs/examples.md#base-job-job-builder"
@@ -27,19 +26,6 @@ class BaseJobBuilder {
     String name
     String description
     List<String> emails
-    Boolean attachBuildLog
-
-    void setEmails(Object value) {
-        if (value == null) {
-            this.emails = []
-        } else if (value instanceOf List) {
-            this.emails = value
-        } else if (value instanceOf String[]) {
-            this.emails = value.toList()
-        } else {
-            throw new IllegalArgumentException("Invalid type for emails: ${value.getClass().name}")
-        }
-    }
 
     Job build(DslFactory factory) {
         factory.job(name) {
@@ -48,11 +34,7 @@ class BaseJobBuilder {
             publishers {
                 if (emails) {
                     publishers {
-                        CommonUtils.addExtendedEmail(
-                            delegate,
-                            emails: emails,
-                            attachBuildLog: attachBuildLog
-                        )
+                        CommonUtils.addExtendedEmail(delegate, emails)
                     }
                 }
             }
